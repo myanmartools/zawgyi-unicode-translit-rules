@@ -1,0 +1,25 @@
+{
+  "name": "@myanmartools/zawgyi-unicode-translit-rules",
+  "version": "1.0.0-beta.0",
+  "description": "Zawgyi Unicode convert/translit rules in JSON format.",
+  "author": "DagonMetric",
+  "license": "MIT",
+  "main": "_core.scss",
+  "style": "_core.scss",
+  "keywords": [
+    "zawgyi unicode translit rules",
+    "zawgyi unicode convert rules",
+    "zawgyi to unicode rules",
+    "unicode to zawgyi rules",
+    "transliteration",
+    "myanmar tools"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myanmartools/zawgyi-unicode-translit-rules.git"
+  },
+  "bugs": {
+    "url": "https://github.com/myanmartools/zawgyi-unicode-translit-rules/issues"
+  },
+  "homepage": "https://github.com/myanmartools/zawgyi-unicode-translit-rules"
+}

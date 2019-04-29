@@ -1,0 +1,24 @@
+branches:
+  only:
+    - master
+skip_non_tags: true
+clone_depth: 1
+environment:
+  nodejs_version: "10"
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - ps: |
+      if ($env:npm_auth_token)
+      {
+        iex '"//registry.npmjs.org/:_authToken=$env:npm_auth_token`n" | out-file "$env:userprofile\.npmrc" -Encoding ASCII'
+        iex "npm whoami"
+      }
+build_script:
+  - npm run build
+test: "off"
+deploy_script:
+  - ps: |
+      if ($env:npm_auth_token)
+      {
+        iex "npm publish ./dist --access=public"
+      }
