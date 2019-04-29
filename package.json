@@ -21,5 +21,41 @@
   "bugs": {
     "url": "https://github.com/myanmartools/zawgyi-unicode-translit-rules/issues"
   },
-  "homepage": "https://github.com/myanmartools/zawgyi-unicode-translit-rules"
+  "homepage": "https://github.com/myanmartools/zawgyi-unicode-translit-rules",
+  "scripts": {
+    "ng": "ng",
+    "test": "ng test"
+  },
+  "devDependencies": {
+    "@angular/common": "^8.0.0-rc.1",
+    "@angular/compiler": "^8.0.0-rc.1",
+    "@angular/core": "^8.0.0-rc.1",
+    "@angular/platform-browser": "^8.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "^8.0.0-rc.1",
+    "@angular/platform-server": "^8.0.0-rc.1",
+    "core-js": "~2.5.4",
+    "rxjs": "^6.5.1",
+    "zone.js": "^0.9.0",
+    "@angular-devkit/build-angular": "^0.800.0-rc.1",
+    "@angular/cli": "^8.0.0-rc.1",
+    "@angular/compiler-cli": "^8.0.0-rc.1",
+    "@angular/language-service": "^8.0.0-rc.1",
+    "@types/jasmine": "^3.3.12",
+    "@types/jasminewd2": "^2.0.6",
+    "@types/node": "^11.13.8",
+    "codelyzer": "^5.0.1",
+    "jasmine-core": "^3.4.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.1.0",
+    "karma-coverage-istanbul-reporter": "~2.0.5",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2",
+    "karma-mocha-reporter": "^2.2.5",
+    "protractor": "~5.4.2",
+    "ts-node": "^8.1.0",
+    "tsickle": "^0.35.0",
+    "tslint": "^5.16.0",
+    "tslint-microsoft-contrib": "^6.1.1",
+    "typescript": "~3.3.4000"
+  }
 }
