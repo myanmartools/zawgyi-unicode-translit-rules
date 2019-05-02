@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "modules",
   "projects": {
-    "rules-test": {
+    "zawgyi-unicode-translit-rules-test": {
       "root": "test",
       "projectType": "library",
       "architect": {
@@ -18,5 +18,5 @@
       }
     }
   },
-  "defaultProject": "rules-test"
+  "defaultProject": "zawgyi-unicode-translit-rules-test"
 }
