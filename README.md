@@ -1,6 +1,6 @@
 # Zawgyi Unicode Convert/Translit Rules
 
-Contains Zawgyi Myanmar Unicode convert/translit rules in JSON formats.
+Contains Zawgyi Myanmar Unicode convert/transliterate  rules in JSON formats.
 
 [WIP]
 
