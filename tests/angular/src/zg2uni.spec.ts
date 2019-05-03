@@ -10,7 +10,8 @@ import { NoopTranslitRuleLoaderModule, TranslitModule, TranslitRule, TranslitSer
 
 const zg2uniRules: TranslitRule[] = require('../../../rules/zawgyi-to-unicode-rules/zg2uni.json');
 
-const zg2uniTestData: { input: string[]; expected: string[] } = require('../../test-data/zg2uni.json');
+const zg2uniInputs: [] = require('../../test-data/zg2uni-inputs.json');
+const zg2uniExpects: [] = require('../../test-data/zg2uni-expects.json');
 
 export function formatCodePoints(word: string): string {
     const cpArray: string[] = [];
@@ -44,28 +45,18 @@ describe('TranslitService', () => {
     it('Converting Zawgyi to Unicode, should be Unicode expected text', (done: DoneFn) => {
         translitService.useRule('zg', 'uni', zg2uniRules);
 
-        const inputText = zg2uniTestData.input.join('\n');
+        const inputText = zg2uniInputs.join('\n');
 
         translitService.translit(inputText, 'zg', 'uni')
             .subscribe(result => {
                 const outputText = result.outputText;
                 const actualWords = outputText.split('\n');
 
-                const isSameLength = actualWords.length === zg2uniTestData.expected.length;
-
-                expect(isSameLength).toBeTruthy('Output words length must be the same as input length.');
-
-                if (!isSameLength) {
-                    done();
-
-                    return;
-                }
-
                 let wrongCount = 0;
 
                 for (let i = 0; i < actualWords.length; i++) {
                     const actualWord = actualWords[i];
-                    const expectedWord = zg2uniTestData.expected[i];
+                    const expectedWord = zg2uniExpects[i];
 
                     const isEquals = actualWord === expectedWord;
 
@@ -76,7 +67,7 @@ describe('TranslitService', () => {
                             const cpActual = formatCodePoints(actualWord);
                             const cpExpected = formatCodePoints(expectedWord);
 
-                            expect(isEquals).toBeTruthy(`Not equal, line: ${i + 3}, actual: ${cpActual}, expected: ${cpExpected}`);
+                            expect(isEquals).toBeTruthy(`Not equal, line: ${i}, actual: ${cpActual}, expected: ${cpExpected}`);
                         }
                     }
                 }
