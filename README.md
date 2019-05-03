@@ -1,4 +1,4 @@
-# Zawgyi Unicode Convert/Translit Rules
+# Zawgyi Unicode Convert/Transliterate Rules
 
 Contains Zawgyi Myanmar Unicode convert/transliterate  rules in JSON formats.
 
