@@ -6,12 +6,11 @@
 
 import { TestBed } from '@angular/core/testing';
 
-import { NoopTranslitRuleLoaderModule, TranslitModule, TranslitRule, TranslitService } from '../src';
+import { NoopTranslitRuleLoaderModule, TranslitModule, TranslitRule, TranslitService } from '@myanmartools/ng-translit';
 
-// const uni2zgRules: TranslitRule = require('../rules/uni2zg.json');
-const uni2zgRules: TranslitRule[] = require('../rules/uni2zg.json');
+const uni2zgRules: TranslitRule[] = require('../../../rules/unicode-to-zawgyi-rules/uni2zg.json');
 
-const uni2zgTestData: { input: string[]; expected: string[] } = require('./test-data/uni2zg.json');
+const uni2zgTestData: { input: string[]; expected: string[] } = require('../../test-data/uni2zg.json');
 
 export function formatCodePoints(word: string): string {
     const cpArray: string[] = [];
@@ -51,30 +50,38 @@ describe('TranslitService', () => {
             .subscribe(result => {
                 const outputText = result.outputText;
                 const actualWords = outputText.split('\n');
-                expect(actualWords.length).toEqual(uni2zgTestData.expected.length);
 
-                let errorCount = 0;
+                const isSameLength = actualWords.length === uni2zgTestData.expected.length;
+
+                expect(isSameLength).toBeTruthy('Output words length must be the same as input length.');
+
+                if (!isSameLength) {
+                    done();
+
+                    return;
+                }
+
+                let wrongCount = 0;
 
                 for (let i = 0; i < actualWords.length; i++) {
                     const actualWord = actualWords[i];
                     const expectedWord = uni2zgTestData.expected[i];
 
                     const isEquals = actualWord === expectedWord;
+
                     if (!isEquals) {
-                        const cpActual = formatCodePoints(actualWord);
-                        const cpExpected = formatCodePoints(expectedWord);
-                        // tslint:disable-next-line: no-console
-                        console.log(`Not equal, line: ${i}, actual: ${cpActual}, expected: ${cpExpected}`);
-                        errorCount++;
-                    }
+                        wrongCount++;
 
-                    expect(actualWord).toEqual(expectedWord);
+                        if (wrongCount < 4) {
+                            const cpActual = formatCodePoints(actualWord);
+                            const cpExpected = formatCodePoints(expectedWord);
 
-                    if (errorCount > 3) {
-                        break;
+                            expect(isEquals).toBeTruthy(`Not equal, line: ${i + 3}, actual: ${cpActual}, expected: ${cpExpected}`);
+                        }
                     }
                 }
 
+                expect(wrongCount).toEqual(0, 'Should wrongCount 0');
                 done();
             });
     });

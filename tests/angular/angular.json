@@ -1,0 +1,34 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "modules",
+  "projects": {
+    "zawgyi-unicode-translit-rules-test": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "library",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js"
+          },
+          "configurations": {
+            "zg2uni": {
+              "main": "src/zg2uni.test.ts",
+              "tsConfig": "tsconfig-zg2uni.spec.json"
+            },
+            "uni2zg": {
+              "main": "src/uni2zg.test.ts",
+              "tsConfig": "tsconfig-uni2zg.spec.json"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "zawgyi-unicode-translit-rules-test"
+}

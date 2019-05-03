@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec/zg2uni",
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "files": [
+    "src/uni2zg.test.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/uni2zg.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}
