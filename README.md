@@ -1,6 +1,6 @@
 # Zawgyi Unicode Transliterate Rules
 
-Contains Zawgyi Myanmar Unicode convert/transliterate rules in JSON files.
+Contains Zawgyi Unicode convert/transliterate regular expression rules in JSON.
 
 [WIP]
 
