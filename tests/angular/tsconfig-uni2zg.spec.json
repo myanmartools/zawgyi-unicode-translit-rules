@@ -8,8 +8,8 @@
     ]
   },
   "files": [
-    "src/uni2zg.test.ts",
-    "src/polyfills.ts"
+    "src/polyfills.ts",
+    "src/uni2zg.test.ts"
   ],
   "include": [
     "src/uni2zg.spec.ts",
