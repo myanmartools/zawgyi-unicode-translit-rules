@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "test": "ng test",
+    "test:ci": "ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "test:zg2uni": "ng test --configuration=zg2uni",
     "test:uni2zg": "ng test --configuration=uni2zg"
   },
