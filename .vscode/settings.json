@@ -1,0 +1,10 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "/rules/**/*.json"
+      ],
+      "url": "http://schemas.dagonmetric.com/translit-rule/schema.json"
+    }
+  ]
+}

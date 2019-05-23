@@ -272,10 +272,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@dagonmetric/ng-transliterate@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@dagonmetric/ng-transliterate/-/ng-transliterate-2.0.1.tgz#bcd34d599a41eda8f605c9cac1d5f6dcfcd7de68"
-  integrity sha512-qaQXlcBDy5HQDZcVznu5hjAogVg9t3xlHRipI5Vt+U41nRD+ajDmhCPro/GeT6Pgtlq3NFajwWgeD0bMIgRjxg==
+"@dagonmetric/ng-transliterate@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@dagonmetric/ng-transliterate/-/ng-transliterate-3.1.0.tgz#ef03aa2632fedfe8cd097a5ecbdaa22527f0ca4f"
+  integrity sha512-TXQK8v2NR99GB7qS5VyCojvELOSXdknoW2UV7uZJr5NAHgzrPaWTPhJJ8oYRvJAUj1i1+1KazNU+rSM8A8ZZhQ==
   dependencies:
     tslib "^1.9.0"
 
