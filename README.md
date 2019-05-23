@@ -6,8 +6,8 @@ Contains Zawgyi Unicode convert/transliterate regular expression rules in JSON.
 
 ## Rules
 
-* [Zawgyi to Unicode Rules](https://github.com/myanmartools/rules/zawgyi-to-unicode-rules)
-* [Unicode to Zawgyi Rules](https://github.com/myanmartools/rules/unicode-to-zawgyi-rules)
+* [Zawgyi to Unicode Rules](https://github.com/myanmartools/zawgyi-unicode-translit-rules/tree/master/rules/zawgyi-to-unicode-rules)
+* [Unicode to Zawgyi Rules](https://github.com/myanmartools/zawgyi-unicode-translit-rules/tree/master/rules/unicode-to-zawgyi-rules)
 
 ## Feedback and Contributing
 
