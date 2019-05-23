@@ -4,11 +4,6 @@ Contains Zawgyi Unicode convert/transliterate regular expression rules in JSON.
 
 [WIP]
 
-## Rules
-
-* [Zawgyi to Unicode Rules](rules/zawgyi-to-unicode-rules)
-* [Unicode to Zawgyi Rules](rules/unicode-to-zawgyi-rules)
-
 ## Feedback and Contributing
 
 Check out the [Contributing](https://github.com/myanmartools/zawgyi-unicode-translit-rules/blob/master/CONTRIBUTING.md) page to see the best places to log issues and start discussions.
