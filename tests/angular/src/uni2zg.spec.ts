@@ -1,31 +1,57 @@
-// tslint:disable: mocha-no-side-effect-code
-// tslint:disable: no-var-requires
-// tslint:disable: no-require-imports
 // tslint:disable: no-floating-promises
-// tslint:disable: no-unsafe-any
 
 import { TestBed } from '@angular/core/testing';
 
-import { NoopTranslitRuleLoaderModule, TranslitModule, TranslitRule, TranslitService } from '@myanmartools/ng-translit';
+import { TranslitModule, TranslitResult, TranslitRule, TranslitService } from '@dagonmetric/ng-transliterate';
 
-const uni2zgRules: TranslitRule[] = require('../../../rules/unicode-to-zawgyi-rules/uni2zg.json');
+// tslint:disable-next-line: mocha-no-side-effect-code no-var-requires no-require-imports
+const rules = require('./../../../docs/rules/uni2zg.json') as TranslitRule;
 
-const uni2zgInputs: [] = require('../../test-data/uni2zg-inputs.json');
-const uni2zgExpects: [] = require('../../test-data/uni2zg-expects.json');
+export function formatCodePoints(str?: string): string {
+    if (str == null) {
+        return '';
+    }
 
-export function formatCodePoints(word: string): string {
     const cpArray: string[] = [];
-
-    for (const c of word) {
+    for (const c of str) {
         const cp = c.codePointAt(0);
-        if (!cp) {
-            continue;
+        if (cp != null && /[\u1000-\u109F\uAA60-\uAA7F\uA9E0-\uA9FF]/.test(c)) {
+            cpArray.push(`\\u${cp.toString(16)}`);
+        } else if (/[\b\f\n\r\t\v]/.test(c)) {
+            if (c === '\n') {
+                cpArray.push('\\n');
+            } else if (c === '\r') {
+                cpArray.push('\\r');
+            } else if (c === '\t') {
+                cpArray.push('\\t');
+            } else if (c === '\f') {
+                cpArray.push('\\f');
+            } else if (c === '\v') {
+                cpArray.push('\\v');
+            } else if (c === '\b') {
+                cpArray.push('\\b');
+            }
+        } else {
+            cpArray.push(`${c}`);
         }
-
-        cpArray.push(`\\u${cp.toString(16)}`);
     }
 
     return cpArray.join('');
+}
+
+export function toFailOutput(result: TranslitResult): TranslitResult {
+    result.outputText = formatCodePoints(result.outputText);
+    if (result.traces) {
+        for (const trace of result.traces) {
+            trace.from = formatCodePoints(trace.from);
+            trace.to = formatCodePoints(trace.to);
+            trace.previousText = formatCodePoints(trace.previousText);
+            trace.matchedText = formatCodePoints(trace.matchedText);
+            trace.replacedText = formatCodePoints(trace.replacedText);
+        }
+    }
+
+    return result;
 }
 
 describe('TranslitService', () => {
@@ -34,45 +60,116 @@ describe('TranslitService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                TranslitModule,
-                NoopTranslitRuleLoaderModule
+                TranslitModule.forRootWithOptions({
+                    trace: true,
+                    provideRuleStore: false
+                })
             ]
         });
 
-        translitService = TestBed.get(TranslitService);
+        translitService = TestBed.get<TranslitService>(TranslitService) as TranslitService;
     });
 
-    it('Converting Unicode to Zawgyi, should be Zawgyi expected text', (done: DoneFn) => {
-        translitService.useRule('uni', 'zg', uni2zgRules);
+    it('TranslitService to be defined', () => {
+        expect(translitService).toBeDefined();
+        expect(translitService instanceof TranslitService).toBeTruthy();
+    });
 
-        const inputText = uni2zgInputs.join('\n');
+    it("should work 'ဿ'", (done: DoneFn) => {
+        const input = 'ဿ';
+        const expected = '\u1086';
 
-        translitService.translit(inputText, 'uni', 'zg')
+        translitService.translit(input, 'uni2zg', rules)
             .subscribe(result => {
-                const outputText = result.outputText;
-                const actualWords = outputText.split('\n');
+                expect(result.outputText).toBe(expected, result);
+                done();
+            });
+    });
 
-                let wrongCount = 0;
+    it("should work [ကဃ... double width consonants] + U+1039 + '#psws'", (done: DoneFn) => {
+        const input = 'တ္တ';
+        const expected = '\u1010\u1071';
 
-                for (let i = 0; i < actualWords.length; i++) {
-                    const actualWord = actualWords[i];
-                    const expectedWord = uni2zgExpects[i];
+        translitService.translit(input, 'uni2zg', rules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, result);
+                done();
+            });
+    });
 
-                    const isEquals = actualWord === expectedWord;
+    it("should work [က-ဪဿ၀-၉...] + U+1039 + '#pss'", (done: DoneFn) => {
+        const input = 'မ္မ';
+        const expected = '\u1019\u107C';
 
-                    if (!isEquals) {
-                        wrongCount++;
+        translitService.translit(input, 'uni2zg', rules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
 
-                        if (wrongCount < 4) {
-                            const cpActual = formatCodePoints(actualWord);
-                            const cpExpected = formatCodePoints(expectedWord);
+    it("should work 'ဍ္ဍ', 'ဍ္ဎ', 'ဏ္ဍ', 'ဋ္ဌ', 'ဋ္ဋ'", (done: DoneFn) => {
+        const input = 'ဍ္ဍဍ္ဎဏ္ဍဋ္ဌဋ္ဋ';
+        const expected = '\u106E\u106F\u1091\u1092\u1097';
 
-                            expect(isEquals).toBeTruthy(`Not equal, line: ${i}, actual: ${cpActual}, expected: ${cpExpected}`);
-                        }
-                    }
-                }
+        translitService.translit(input, 'uni2zg', rules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
 
-                expect(wrongCount).toEqual(0, 'Should wrongCount 0');
+    it("should work U+1039 + '#pss'", (done: DoneFn) => {
+        const input = '္မ';
+        const expected = '\u107C';
+
+        translitService.translit(input, 'uni2zg', rules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work '၎င်း'", (done: DoneFn) => {
+        const input = '၎င်း';
+        const expected = '\u104E';
+
+        translitService.translit(input, 'uni2zg', rules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work 'ါ်'", (done: DoneFn) => {
+        const input = 'ခါ်';
+        const expected = '\u1001\u105A';
+
+        translitService.translit(input, 'uni2zg', rules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work 'ွှ'", (done: DoneFn) => {
+        const input = 'မွှ';
+        const expected = '\u1019\u108A';
+
+        translitService.translit(input, 'uni2zg', rules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work 'ျ', 'ြ', ''ွ', 'ှ', '်'", (done: DoneFn) => {
+        const input = 'ကျကြကွကှက်';
+        const expected = '\u1000\u103A\u1000\u103B\u1000\u103C\u1000\u103D\u1000\u1039';
+
+        translitService.translit(input, 'uni2zg', rules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
                 done();
             });
     });

@@ -4,9 +4,8 @@
   "newProjectRoot": "modules",
   "projects": {
     "zawgyi-unicode-translit-rules-test": {
-      "root": "",
-      "sourceRoot": "src",
-      "projectType": "library",
+      "root": ".",
+      "projectType": "application",
       "architect": {
         "test": {
           "builder": "@angular-devkit/build-angular:karma",

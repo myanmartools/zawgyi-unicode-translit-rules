@@ -2,105 +2,22 @@
   "$schema": "http://schemas.dagonmetric.com/translit-rule/schema.json#",
   "phases": [
     {
-      "description": "Phase 1",
       "tplVar": {
         "#wc": "\u1000\u1003\u1006\u100A\u100F\u1010\u1011\u1018\u101A\u101C\u101E\u101F\u1021",
-        "#c": "\u1000-\u102A\u103F\u1040-\u1049"
+        "#c": "\u1000-\u102A\u1086\u1040-\u1049"
       },
       "tplSeq": {
-        "#psws": [
-          [
-            "\u1006",
-            "\u1066",
-            1
-          ],
-          [
-            "\u1010",
-            "\u1071",
-            1
-          ],
-          [
-            "\u1011",
-            "\u1073",
-            1
-          ],
-          [
-            "\u1018",
-            "\u107B",
-            1
-          ]
-        ],
-        "#pss": [
-          [
-            "\u1000",
-            "\u1060",
-            4
-          ],
-          [
-            "\u1005",
-            "\u1065",
-            1
-          ],
-          [
-            "\u1006",
-            "\u1067",
-            3
-          ],
-          [
-            "\u100B",
-            "\u106C",
-            2
-          ],
-          [
-            "\u100F",
-            "\u1070",
-            1
-          ],
-          [
-            "\u1010",
-            "\u1072",
-            1
-          ],
-          [
-            "\u1011",
-            "\u1074",
-            7
-          ],
-          [
-            "\u1018",
-            "\u1093",
-            1
-          ],
-          [
-            "\u1019",
-            "\u107C",
-            1
-          ],
-          [
-            "\u101C",
-            "\u1085",
-            1
-          ]
-        ],
-        "#ksxs": [
-          [
-            "\u102D",
-            "\u108B",
-            1
-          ],
-          [
-            "\u102E",
-            "\u108C",
-            1
-          ],
-          [
-            "\u1036",
-            "\u108D",
-            1
-          ]
-        ]
+        "#psws": [["\u1006", "\u1066", 1], ["\u1010", "\u1071", 1], ["\u1011", "\u1073", 1], ["\u1018", "\u107B", 1]],
+        "#pss": [["\u1000", "\u1060", 4], ["\u1005", "\u1065", 1], ["\u1006", "\u1067", 3], ["\u100B", "\u106C", 2], ["\u100F", "\u1070", 1], ["\u1010", "\u1072", 1], ["\u1011", "\u1074", 7], ["\u1018", "\u1093", 1], ["\u1019", "\u107C", 1], ["\u101C", "\u1085", 1]],
+        "#ksxs": [["\u102D", "\u108B", 1], ["\u102E", "\u108C", 1], ["\u1036", "\u108D", 1]]
       },
       "rules": [
+        {
+          "description": "ဿ",
+          "from": "\u103F",
+          "to": "\u1086",
+          "revisit": true
+        },
         {
           "description": "[ကဃ... double width consonants] + U+1039 + '#psws'",
           "from": "([#wc])\u1039#psws",
@@ -108,16 +25,7 @@
           "tpl": true,
           "tplSeqName": "#psws",
           "minLength": 3,
-          "quickTests": [
-            [
-              "\u1039",
-              1
-            ],
-            [
-              "#psws",
-              2
-            ]
-          ]
+          "quickTests": [["\u1039", 1], ["#psws", 2]]
         },
         {
           "description": "[က-ဪဿ၀-၉...] + U+1039 + '#pss'",
@@ -126,185 +34,72 @@
           "tpl": true,
           "tplSeqName": "#pss",
           "minLength": 3,
-          "quickTests": [
-            [
-              "\u1039",
-              1
-            ],
-            [
-              "#pss",
-              2
-            ]
-          ]
+          "quickTests": [["\u1039", 1], ["#pss", 2]]
         },
         {
           "description": "'ဍ' + U+1039 + 'ဍ'",
           "from": "\u100D\u1039\u100D",
           "to": "\u106E",
           "minLength": 3,
-          "quickTests": [
-            [
-              "\u100D",
-              0
-            ],
-            [
-              "\u1039",
-              1
-            ],
-            [
-              "\u100D",
-              2
-            ]
-          ]
+          "quickTests": [["\u100D", 0], ["\u1039", 1], ["\u100D", 2]]
         },
         {
           "description": "'ဍ' + U+1039 + 'ဎ'",
           "from": "\u100D\u1039\u100E",
           "to": "\u106F",
           "minLength": 3,
-          "quickTests": [
-            [
-              "\u100D",
-              0
-            ],
-            [
-              "\u1039",
-              1
-            ],
-            [
-              "\u100E",
-              2
-            ]
-          ]
+          "quickTests": [["\u100D", 0], ["\u1039", 1], ["\u100E", 2]]
         },
         {
           "description": "'ဏ' + U+1039 + 'ဍ'",
           "from": "\u100F\u1039\u100D",
           "to": "\u1091",
           "minLength": 3,
-          "quickTests": [
-            [
-              "\u100F",
-              0
-            ],
-            [
-              "\u1039",
-              1
-            ],
-            [
-              "\u100D",
-              2
-            ]
-          ]
+          "quickTests": [["\u100F", 0], ["\u1039", 1], ["\u100D", 2]]
         },
         {
           "description": "'ဋ' + U+1039 + 'ဌ'",
           "from": "\u100B\u1039\u100C",
           "to": "\u1092",
           "minLength": 3,
-          "quickTests": [
-            [
-              "\u100B",
-              0
-            ],
-            [
-              "\u1039",
-              1
-            ],
-            [
-              "\u100C",
-              2
-            ]
-          ]
+          "quickTests": [["\u100B", 0], ["\u1039", 1], ["\u100C", 2]]
         },
         {
           "description": "'ဋ' + U+1039 + 'ဋ'",
           "from": "\u100B\u1039\u100B",
           "to": "\u1097",
           "minLength": 3,
-          "quickTests": [
-            [
-              "\u100B",
-              0
-            ],
-            [
-              "\u1039",
-              1
-            ],
-            [
-              "\u100B",
-              2
-            ]
-          ]
+          "quickTests": [["\u100B", 0], ["\u1039", 1], ["\u100B", 2]]
+        },
+        {
+          "description": "U+1039 + '#pss'",
+          "from": "\u1039#pss",
+          "to": "#pss",
+          "tpl": true,
+          "tplSeqName": "#pss",
+          "minLength": 2,
+          "quickTests": [["\u1039", 0], ["#pss", 1]]
         },
         {
           "description": "၎င်း",
           "from": "\u104E\u1004\u103A\u1038",
           "to": "\u104E",
           "minLength": 4,
-          "quickTests": [
-            [
-              "\u104E",
-              0
-            ],
-            [
-              "\u1004",
-              1
-            ],
-            [
-              "\u103A",
-              2
-            ]
-          ]
-        },
-        {
-          "from": "\u1039#pss",
-          "to": "#pss",
-          "tpl": true,
-          "tplSeqName": "#pss",
-          "minLength": 2,
-          "quickTests": [
-            [
-              "\u1039",
-              0
-            ],
-            [
-              "#pss",
-              1
-            ]
-          ]
+          "quickTests": [["\u104E", 0], ["\u1004", 1], ["\u103A", 2]]
         },
         {
           "description": "ါ်",
           "from": "\u102B\u103A",
           "to": "\u105A",
           "minLength": 2,
-          "quickTests": [
-            [
-              "\u102B",
-              0
-            ],
-            [
-              "\u103A",
-              1
-            ]
-          ]
+          "quickTests": [["\u102B", 0], ["\u103A", 1]]
         },
         {
           "description": "ွှ",
           "from": "\u103D\u103E",
           "to": "\u108A",
           "minLength": 2,
-          "quickTests": [
-            [
-              "\u103D",
-              0
-            ],
-            [
-              "\u103E",
-              1
-            ]
-          ]
+          "quickTests": [["\u103D", 0], ["\u103E", 1]]
         },
         {
           "description": "ျ",
