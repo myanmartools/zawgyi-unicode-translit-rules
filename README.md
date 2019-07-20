@@ -4,7 +4,7 @@ Zawgyi Unicode convert/transliterate regular expression rules in JSON and JavaSc
 
 ## Transliteration Library
 
-We use [@dagonmetric/ng-translit](https://github.com/DagonMetric/ng-translit) package for transliteration service.
+We use [@dagonmetric/ng-translit](https://www.npmjs.com/package/@dagonmetric/ng-translit) package for transliteration service.
 
 ## Documentation
 
