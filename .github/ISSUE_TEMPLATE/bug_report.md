@@ -22,10 +22,6 @@ Please fill in the *entire* template below.
 
 <!-- A link to a Playground "Share" link which demonstrates this behavior -->
 
-## Environment
-
-<!-- - @myanmartools/zawgyi-unicode-translit-rules version: -->
-
 ## Additional context
 
 <!-- Anything else relevant? -->
