@@ -1,6 +1,6 @@
 # Zawgyi Unicode Transliterate Rules
 
-Zawgyi Unicode convert/transliterate regular expression rules in JSON and JavaScript formats.
+Zawgyi Unicode transliterate/convert regular expression rules in JSON and JavaScript formats.
 
 ## Transliteration Library
 
