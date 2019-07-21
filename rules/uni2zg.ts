@@ -829,7 +829,7 @@ export const rules: TranslitRule = {
           }
         ],
         // 'ေ' + $1 + [ု  ူ  ှ] ...
-        p31u2eOr30Or3d: [
+        p31u2fOr30Or3d: [
           {
             // description: "'န' အတို သို့",
             from: '\u1014',
@@ -987,7 +987,7 @@ export const rules: TranslitRule = {
           }
         ],
         // $1 + 'ှ' ...
-        pu3d: [
+        pu2fOr30Or3d: [
           {
             // description: "'န' အတို သို့",
             from: '\u1014',
@@ -1214,7 +1214,7 @@ export const rules: TranslitRule = {
           to: '\u1031$1\u103D#kx',
           minLength: 7,
           quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u103E', 4], ['\u1031', 5], ['#kx', 6]],
-          postRulesRef: 'p31u2eOr30Or3d'
+          postRulesRef: 'p31u2fOr30Or3d'
         },
         {
           // description: "''င်' + U+1039 + '#uc' + 'ေ' + 'kss'",
@@ -1280,7 +1280,7 @@ export const rules: TranslitRule = {
           to: '$1\u103D#kx',
           minLength: 6,
           quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u103E', 4], ['#kx', 5]],
-          postRulesRef: 'pu3d'
+          postRulesRef: 'pu2fOr30Or3d'
         },
         {
           // description: "''င်' + U+1039 + '#uc' + '#kx'",
@@ -1466,7 +1466,7 @@ export const rules: TranslitRule = {
           to: '\u1031$1\u103D\u1064',
           minLength: 6,
           quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u103E', 4], ['\u1031', 5]],
-          postRulesRef: 'p31u2eOr30Or3d'
+          postRulesRef: 'p31u2fOr30Or3d'
         },
         {
           // description: "''င်' + U+1039 + '#uc' + 'ေ'",
@@ -1532,7 +1532,7 @@ export const rules: TranslitRule = {
           to: '$1\u103D\u1064',
           minLength: 5,
           quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u103E', 4]],
-          postRulesRef: 'pu3d'
+          postRulesRef: 'pu2fOr30Or3d'
         },
         {
           // description: "''င်' + U+1039 + '#uc'",
@@ -1732,7 +1732,7 @@ export const rules: TranslitRule = {
           to: '\u1031$1\u103D\u108E',
           minLength: 5,
           quickTests: [['\u103E', 1], ['\u1031', 2], ['\u102D', 3], ['\u1036', 4]],
-          postRulesRef: 'p31u2eOr30Or3d'
+          postRulesRef: 'p31u2fOr30Or3d'
         },
         {
           // description: "''#uc' + 'ေ' + 'kss'",
@@ -1797,7 +1797,7 @@ export const rules: TranslitRule = {
           to: '$1\u103D\u108E',
           minLength: 4,
           quickTests: [['\u103E', 1], ['\u102D', 2], ['\u1036', 3]],
-          postRulesRef: 'pu3d'
+          postRulesRef: 'pu2fOr30Or3d'
         },
         {
           // description: "''#uc' +  'ိံ'",
@@ -2173,7 +2173,7 @@ export const rules: TranslitRule = {
           to: '\u1031$1\u103D',
           minLength: 3,
           quickTests: [['\u103E', 1], ['\u1031', 2]],
-          postRulesRef: 'p31u2eOr30Or3d'
+          postRulesRef: 'p31u2fOr30Or3d'
         },
         {
           // description: "[#uc] + 'ေ'",
@@ -2343,12 +2343,37 @@ export const rules: TranslitRule = {
         // ------------------------------------------------------------------------------------------
         // \u1094
         {
-          // description: "[#u2e3094] + 'ေ' + [ိ  ီ  ဲ  ံ] + [ု  ူ] + '့'",
-          from: '([#u2e3094])\u1031([\u102D\u102E\u1032\u1036])([\u102F\u1030])\u1037',
-          to: '\u1031$1$2$3\u1094',
+          // description: "[#u2e3094] + 'ေ' + [ိ  ီ  ဲ  ံ] + 'ု' + '့'",
+          from: '([#u2e3094])\u1031([\u102D\u102E\u1032\u1036])\u102F\u1037',
+          to: '\u1031$1$2\u102F\u1094',
           minLength: 5,
-          quickTests: [['\u1031', 1], ['\u1037', 4]],
-          postRulesRef: 'p31u2eOr30Or3d'
+          quickTests: [['\u1031', 1], ['\u102F', 3], ['\u1037', 4]],
+          postRulesRef: 'p31u2fOr30Or3d'
+        },
+        {
+          // description: "[#u2e3094] + 'ှ' + 'ေ' + [ိ  ီ  ဲ  ံ] +  '့'",
+          from: '([#u2e3094])\u103E\u1031([\u102D\u102E\u1032\u1036])\u1037',
+          to: '\u1031$1\u103D$2\u1094',
+          minLength: 5,
+          quickTests: [['\u103E', 1], ['\u1031', 2], ['\u1037', 4]],
+          postRulesRef: 'p31u2fOr30Or3d'
+        },
+
+        {
+          // description: "[#u2e3094] + 'ေ' + 'ု' + '့'",
+          from: '([#u2e3094])\u1031\u102F\u1037',
+          to: '\u1031$1\u102F\u1094',
+          minLength: 4,
+          quickTests: [['\u1031', 1], ['\u102F', 2], ['\u1037', 3]],
+          postRulesRef: 'p31u2fOr30Or3d'
+        },
+        {
+          // description: "[#u2e3094] + 'ှ' + 'ေ' + '့'",
+          from: '([#u2e3094])\u103E\u1031\u1037',
+          to: '\u1031$1\u103D\u1094',
+          minLength: 4,
+          quickTests: [['\u103E', 1], ['\u1031', 2], ['\u1037', 3]],
+          postRulesRef: 'p31u2fOr30Or3d'
         },
 
         {
@@ -2358,13 +2383,46 @@ export const rules: TranslitRule = {
           minLength: 4,
           quickTests: [['\u1014', 0], ['\u1031', 1], ['\u1037', 3]]
         },
-
         {
           // description: "'န' + 'ေ' + '့'",
           from: '\u1014\u1031\u1037',
           to: '\u1031\u1014\u1094',
           minLength: 3,
           quickTests: [['\u1014', 0], ['\u1031', 1], ['\u1037', 2]]
+        },
+
+        {
+          // description: "[#u2e3094] + [ိ  ီ  ဲ  ံ] + 'ု' + '့'",
+          from: '([#u2e3094])([\u102D\u102E\u1032\u1036])\u102F\u1037',
+          to: '$1$2\u102F\u1094',
+          minLength: 4,
+          quickTests: [['\u102F', 2], ['\u1037', 3]],
+          postRulesRef: 'pu2fOr30Or3d'
+        },
+        {
+          // description: "[#u2e3094] + 'ှ' + [ိ  ီ  ဲ  ံ] +  '့'",
+          from: '([#u2e3094])\u103E([\u102D\u102E\u1032\u1036])\u1037',
+          to: '$1\u103D$2\u1094',
+          minLength: 4,
+          quickTests: [['\u103E', 1], ['\u1037', 3]],
+          postRulesRef: 'pu2fOr30Or3d'
+        },
+
+        {
+          // description: "[#u2e3094] + 'ု' + '့'",
+          from: '([#u2e3094])\u102F\u1037',
+          to: '$1\u102F\u1094',
+          minLength: 3,
+          quickTests: [['\u102F', 1], ['\u1037', 2]],
+          postRulesRef: 'pu2fOr30Or3d'
+        },
+        {
+          // description: "[#u2e3094] + 'ှ' + '့'",
+          from: '([#u2e3094])\u103E\u1037',
+          to: '$1\u103D\u1094',
+          minLength: 3,
+          quickTests: [['\u103E', 1], ['\u1037', 2]],
+          postRulesRef: 'pu2fOr30Or3d'
         },
 
         {
@@ -2470,7 +2528,8 @@ export const rules: TranslitRule = {
           postRulesRef: 'pu'
         },
 
-        // \u1095
+        // \u1095 - Others ...
+
         {
           // description: "'န' + 'ျ' + 'ွှ' + 'ေ' + [ိီ] + 'ု' + '့'",
           from: '\u1014\u103B\u103D\u103E\u1031([\u102D\u102E])\u102F\u1037',
@@ -2619,9 +2678,6 @@ export const rules: TranslitRule = {
           to: '\u108F\u103C\u1034\u1095'
         },
 
-
-
-
         // န
         // ------------------------------------------------------------------------------------------
         {
@@ -2670,8 +2726,6 @@ export const rules: TranslitRule = {
 
         // ------------------------------------------------------------------------------------------
         // TODO: Long 'ု' and 'ူ'
-
-
 
         // Others
         // ------------------------------------------------------------------------------------------
