@@ -1,14 +1,38 @@
 # Zawgyi Unicode Transliterate Rules
 
+[![Gitter](https://badges.gitter.im/myanmartools/community.svg)](https://gitter.im/myanmartools/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 Zawgyi Unicode transliterate/convert regular expression rules in JSON and JavaScript formats.
+
+[WIP]
 
 ## Transliteration Library
 
 We use [@dagonmetric/ng-translit](https://www.npmjs.com/package/@dagonmetric/ng-translit) package for transliteration service.
 
-## Documentation
+## Getting Started
+
+### Installation
+
+npm
+
+```bash
+npm install @myanmartools/zawgyi-unicode-translit-rules
+```
+
+or yarn
+
+```bash
+yarn add @myanmartools/zawgyi-unicode-translit-rules
+```
+
+### Usage
 
 [WIP]
+
+## Live Application
+
+* [Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org) - Angular Progress Web Application designed to detect & convert Myanmar font encodings between Zawgyi-One and Standard Myanmar Unicode
 
 ## Feedback and Contributing
 
