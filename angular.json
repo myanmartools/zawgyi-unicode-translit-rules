@@ -3,20 +3,57 @@
   "version": 1,
   "newProjectRoot": "modules",
   "projects": {
-    "zawgyi-unicode-translit-rules-test": {
+    "zawgyi-unicode-translit-rules": {
       "root": ".",
       "projectType": "application",
       "architect": {
+        "build": {
+          "builder": "@dagonmetric/angular-build:lib",
+          "options": {
+            "extends": "file:angular-build.json:lib:zawgyi-unicode-translit-rules",
+            "outputPath": "dist/packages/zawgyi-unicode-translit-rules"
+          },
+          "configurations": {
+            "production": {
+              "environment": "prod"
+            }
+          }
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "test/test.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js"
+            "main": "modules/zawgyi-unicode-translit-rules/test.ts",
+            "tsConfig": "modules/zawgyi-unicode-translit-rules/tsconfig-test.json",
+            "karmaConfig": "modules/zawgyi-unicode-translit-rules/karma.conf.js",
+            "codeCoverageExclude": [
+              "**/test.ts",
+              "**/index.ts",
+              "**/public_api.ts"
+            ]
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeHeadless",
+              "reporters": ["progress", "junit"],
+              "codeCoverage": true,
+              "watch": false,
+              "progress": false
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "zawgyi-unicode-translit-rules-test"
+  "defaultProject": "zawgyi-unicode-translit-rules"
 }

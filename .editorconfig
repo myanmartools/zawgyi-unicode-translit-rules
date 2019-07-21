@@ -2,7 +2,6 @@
 
 root = true
 
-# Don't use tabs for indentation.
 [*]
 charset = utf-8
 indent_style = space
@@ -11,26 +10,12 @@ trim_trailing_whitespace = true
 
 # Typescript, javascript and client-side files
 [*.{ts,tsx,js,jsx,html,css,scss,less}]
-indent_size = 2
+indent_size = 4
 
-# JSON, XML and YML files
-[*.{json,xml,yml}]
-indent_size = 2
-
-# Markdown file
 [*.md]
 insert_final_newline = false
 trim_trailing_whitespace = false
 
-# Powershell files
-[*.{ps1,psm1}]
-indent_size = 4
-
-# Windows command script files
-[*.{cmd,bat}]
-end_of_line = crlf
-
-# Shell script file
-[*.sh]
-indent_size = 4
-end_of_line = lf
+# Configuration Files
+[*.{json,xml,yml}]
+indent_size = 2

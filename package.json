@@ -1,44 +1,29 @@
 {
-  "name": "@myanmartools/zawgyi-unicode-translit-rules",
+  "name": "zawgyi-unicode-translit-rules",
   "version": "0.0.0",
-  "description": "Zawgyi Unicode convert/transliterate regular expression rules in JSON and JavaScript format.",
+  "private": true,
   "author": "DagonMetric",
   "license": "MIT",
-  "keywords": [
-    "zawgyi-unicode-translit-rules",
-    "zawgyi-unicode-convert-rules",
-    "zawgyi-unicode-converter",
-    "zawgyi-to-unicode",
-    "unicode-to-zawgyi",
-    "transliterate-rules",
-    "transliterate-regular-expressions",
-    "transliterate-myanmar",
-    "transliteration",
-    "transliterate",
-    "transliterator",
-    "translit-rules",
-    "unicode-tools",
-    "script-tools",
-    "language-tools",
-    "myanmar-tools",
-    "zawgyi-tools",
-    "zawgyi",
-    "myanmar"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/myanmartools/zawgyi-unicode-translit-rules.git"
   },
-  "bugs": {
-    "url": "https://github.com/myanmartools/zawgyi-unicode-translit-rules/issues"
+  "scripts": {
+    "ng": "ng",
+    "ngb": "ngb",
+    "rimraf": "rimraf",
+    "lint": "ng lint",
+    "build": "ngb build --env.prod",
+    "test": "ng test"
   },
-  "homepage": "https://github.com/myanmartools/zawgyi-unicode-translit-rules",
   "dependencies": {
     "@angular/common": "^8.1.2",
     "@angular/core": "^8.1.2",
     "@angular/platform-browser": "^8.1.2",
     "@angular/platform-browser-dynamic": "^8.1.2",
     "@dagonmetric/ng-translit": "^6.2.1",
+    "rxjs": "^6.5.2",
+    "tslint": "^5.18.0",
     "zone.js": "^0.9.1"
   },
   "devDependencies": {
@@ -47,6 +32,7 @@
     "@angular/compiler": "^8.1.2",
     "@angular/compiler-cli": "^8.1.2",
     "@angular/language-service": "^8.1.2",
+    "@dagonmetric/angular-build": "^8.0.5",
     "@types/jasmine": "^3.3.14",
     "@types/jasminewd2": "^2.0.6",
     "@types/node": "^12.6.8",
@@ -58,8 +44,6 @@
     "karma-coverage-istanbul-reporter": "~2.0.6",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "rxjs": "^6.5.2",
-    "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "~3.4.5"
   }
