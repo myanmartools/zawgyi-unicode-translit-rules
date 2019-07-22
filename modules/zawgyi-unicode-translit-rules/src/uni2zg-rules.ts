@@ -42,10 +42,6 @@ export const uni2zgRules: TranslitRule = {
                     ['\u102D', '\u108B', 1],
                     ['\u102E', '\u108C', 1],
                     ['\u1036', '\u108D', 1]
-                ],
-                '#cx': [
-                    ['\u102F', '\u1033', 1],
-                    ['\u1030', '\u1034', 1]
                 ]
             },
             postRulesDef: {
@@ -3053,6 +3049,16 @@ export const uni2zgRules: TranslitRule = {
                     description: '်',
                     from: '\u103A',
                     to: '\u1039'
+                },
+                {
+                    description: 'ု',
+                    from: '\u102F',
+                    to: '\u1033'
+                },
+                {
+                    description: 'ူ',
+                    from: '\u1030',
+                    to: '\u1034'
                 },
                 {
                     description: '့',
