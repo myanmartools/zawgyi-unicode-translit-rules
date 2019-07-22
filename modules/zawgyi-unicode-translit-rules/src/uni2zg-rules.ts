@@ -2561,6 +2561,140 @@ export const uni2zgRules: TranslitRule = {
                 // တစ်ချောင်းငင်၊ နှစ်ချောင်းငင်
                 // ------------------------------------------------------------------------------------------
                 {
+                    // description: "[#u2e30] + 'ှ' + 'ေ' + [ိ  ီ] + 'ု'",
+                    from: '([#u2e30])\u103E\u1031([\u102D\u102E])\u102F',
+                    to: '\u1031$1$2\u1088',
+                    minLength: 5,
+                    quickTests: [['\u103E', 1], ['\u1031', 2], ['\u102F', 4]],
+                    postRulesRef: 'p31u2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ှ' + 'ေ' + [ိ  ီ] + 'ူ'",
+                    from: '([#u2e30])\u103E\u1031([\u102D\u102E])\u1030',
+                    to: '\u1031$1$2\u1089',
+                    minLength: 5,
+                    quickTests: [['\u103E', 1], ['\u1031', 2], ['\u1030', 4]],
+                    postRulesRef: 'p31u2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ှ' + 'ေ' + 'ု'",
+                    from: '([#u2e30])\u103E\u1031\u102F',
+                    to: '\u1031$1\u1088',
+                    minLength: 4,
+                    quickTests: [['\u103E', 1], ['\u1031', 2], ['\u102F', 3]],
+                    postRulesRef: 'p31u2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ှ' + 'ေ' + 'ူ'",
+                    from: '([#u2e30])\u103E\u1031\u1030',
+                    to: '\u1031$1\u1089',
+                    minLength: 4,
+                    quickTests: [['\u103E', 1], ['\u1031', 2], ['\u1030', 3]],
+                    postRulesRef: 'p31u2fOr30Or3d'
+                },
+
+                {
+                    // description: "[#u2e30] + 'ေ' + [ိ  ီ] + 'ု'",
+                    from: '([#u2e30])\u1031([\u102D\u102E])\u102F',
+                    to: '\u1031$1$2\u102F',
+                    minLength: 4,
+                    quickTests: [['\u1031', 1], ['\u102F', 3]],
+                    postRulesRef: 'p31u2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ေ' + [ိ  ီ] + 'ူ'",
+                    from: '([#u2e30])\u1031([\u102D\u102E])\u1030',
+                    to: '\u1031$1$2\u1030',
+                    minLength: 4,
+                    quickTests: [['\u1031', 1], ['\u1030', 3]],
+                    postRulesRef: 'p31u2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ေ' + 'ု'",
+                    from: '([#u2e30])\u1031\u102F',
+                    to: '\u1031$1\u102F',
+                    minLength: 3,
+                    quickTests: [['\u1031', 1], ['\u102F', 2]],
+                    postRulesRef: 'p31u2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ေ' + 'ူ'",
+                    from: '([#u2e30])\u1031\u1030',
+                    to: '\u1031$1\u1030',
+                    minLength: 3,
+                    quickTests: [['\u1031', 1], ['\u1030', 2]],
+                    postRulesRef: 'p31u2fOr30Or3d'
+                },
+
+                {
+                    // description: "[#u2e30] + 'ှ' + [ိ  ီ] + 'ု'",
+                    from: '([#u2e30])\u103E([\u102D\u102E])\u102F',
+                    to: '$1$2\u1088',
+                    minLength: 4,
+                    quickTests: [['\u103E', 1], ['\u102F', 3]],
+                    postRulesRef: 'pu2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ှ' + [ိ  ီ] + 'ူ'",
+                    from: '([#u2e30])\u103E([\u102D\u102E])\u1030',
+                    to: '$1$2\u1089',
+                    minLength: 4,
+                    quickTests: [['\u103E', 1], ['\u1030', 3]],
+                    postRulesRef: 'pu2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ှ' + 'ု'",
+                    from: '([#u2e30])\u103E\u102F',
+                    to: '$1\u1088',
+                    minLength: 3,
+                    quickTests: [['\u103E', 1], ['\u102F', 2]],
+                    postRulesRef: 'pu2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ှ' + 'ူ'",
+                    from: '([#u2e30])\u103E\u1030',
+                    to: '$1\u1089',
+                    minLength: 3,
+                    quickTests: [['\u103E', 1], ['\u1030', 2]],
+                    postRulesRef: 'pu2fOr30Or3d'
+                },
+
+                {
+                    // description: "[#u2e30] + [ိ  ီ] + 'ု'",
+                    from: '([#u2e30])([\u102D\u102E])\u102F',
+                    to: '$1$2\u102F',
+                    minLength: 3,
+                    quickTests: [['\u102F', 2]],
+                    postRulesRef: 'pu2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + [ိ  ီ] + 'ူ'",
+                    from: '([#u2e30])([\u102D\u102E])\u1030',
+                    to: '$1$2\u1030',
+                    minLength: 3,
+                    quickTests: [['\u1030', 2]],
+                    postRulesRef: 'pu2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ု'",
+                    from: '([#u2e30])\u102F',
+                    to: '$1\u102F',
+                    minLength: 2,
+                    quickTests: [['\u102F', 1]],
+                    postRulesRef: 'pu2fOr30Or3d'
+                },
+                {
+                    // description: "[#u2e30] + 'ူ'",
+                    from: '([#u2e30])\u1030',
+                    to: '$1\u1030',
+                    minLength: 2,
+                    quickTests: [['\u1030', 1]],
+                    postRulesRef: 'pu2fOr30Or3d'
+                },
+
+                // ------------------------------------------------------------------------------------------
+
+                {
                     // description: "[#uc] + 'ြ' + 'ွှ' + 'ေ' + [ိ  ီ] + '#cx'",
                     from: '([#uc])\u103C\u103D\u103E\u1031([\u102D\u102E])#cx',
                     to: '\u1031\u1083$1\u108A$2#cx',
