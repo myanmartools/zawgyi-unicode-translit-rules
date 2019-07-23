@@ -2236,6 +2236,36 @@ export const uni2zgRules: TranslitRule = {
 
                 // [ု  ူ]
                 // ------------------------------------------------------------------------------------------
+                // Special - [ဉဥ] + \u1033, \u1034
+                {
+                    // description: "[ဉဥ] + 'ှ' + 'ေ' + [ိ  ီ] + 'ု'",
+                    from: '[\u1009\u1025]\u103E\u1031([\u102D\u102E])\u102F',
+                    to: '\u1031\u1025$1\u1087\u1033',
+                    minLength: 5,
+                    quickTests: [['\u103E', 1], ['\u1031', 2], ['\u102F', 4]]
+                },
+                {
+                    // description: "[ဉဥ] + 'ှ' + 'ေ' + [ိ  ီ] + 'ူ'",
+                    from: '[\u1009\u1025]\u103E\u1031([\u102D\u102E])\u1030',
+                    to: '\u1031\u1025$1\u1087\u1034',
+                    minLength: 5,
+                    quickTests: [['\u103E', 1], ['\u1031', 2], ['\u1030', 4]]
+                },
+                {
+                    // description: "[ဉဥ] + 'ှ' + 'ေ' + 'ု'",
+                    from: '[\u1009\u1025]\u103E\u1031\u102F',
+                    to: '\u1031\u1025\u1087\u1033',
+                    minLength: 4,
+                    quickTests: [['\u103E', 1], ['\u1031', 2], ['\u102F', 3]]
+                },
+                {
+                    // description: "[ဉဥ] + 'ှ' + 'ေ' + 'ူ'",
+                    from: '[\u1009\u1025]\u103E\u1031\u1030',
+                    to: '\u1031\u1025\u1087\u1034',
+                    minLength: 4,
+                    quickTests: [['\u103E', 1], ['\u1031', 2], ['\u1030', 3]]
+                },
+
                 {
                     // description: "[#u2e30] + 'ှ' + 'ေ' + [ိ  ီ] + 'ု'",
                     from: '([#u2e30])\u103E\u1031([\u102D\u102E])\u102F',
@@ -2269,6 +2299,36 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u2fOr30Or3dOr3a'
                 },
 
+                // Special - [ဉဥ] + \u1033, \u1034
+                {
+                    // description: "[ဉဥ] + 'ေ' + [ိ  ီ] + 'ု'",
+                    from: '[\u1009\u1025]\u1031([\u102D\u102E])\u102F',
+                    to: '\u1031\u1025$1\u1033',
+                    minLength: 4,
+                    quickTests: [['\u1031', 1], ['\u102F', 3]]
+                },
+                {
+                    // description: "[ဉဥ] + 'ေ' + [ိ  ီ] + 'ူ'",
+                    from: '[\u1009\u1025]\u1031([\u102D\u102E])\u1030',
+                    to: '\u1031\u1025$1\u1034',
+                    minLength: 4,
+                    quickTests: [['\u1031', 1], ['\u1030', 3]]
+                },
+                {
+                    // description: "[ဉဥ] + 'ေ' + 'ု'",
+                    from: '[\u1009\u1025]\u1031\u102F',
+                    to: '\u1031\u1025\u1033',
+                    minLength: 3,
+                    quickTests: [['\u1031', 1], ['\u102F', 2]]
+                },
+                {
+                    // description: "[ဉဥ] + 'ေ' + 'ူ'",
+                    from: '[\u1009\u1025]\u1031\u1030',
+                    to: '\u1031\u1025\u1034',
+                    minLength: 3,
+                    quickTests: [['\u1031', 1], ['\u1030', 2]]
+                },
+
                 {
                     // description: "[#u2e30] + 'ေ' + [ိ  ီ] + 'ု'",
                     from: '([#u2e30])\u1031([\u102D\u102E])\u102F',
@@ -2300,6 +2360,37 @@ export const uni2zgRules: TranslitRule = {
                     minLength: 3,
                     quickTests: [['\u1031', 1], ['\u1030', 2]],
                     postRulesRef: 'p31u2fOr30Or3dOr3a'
+
+                },
+
+                // Special - [ဉဥ] + \u1033, \u1034
+                {
+                    // description: "[ဉဥ] + 'ှ' + [ိ  ီ] + 'ု'",
+                    from: '[\u1009\u1025]\u103E([\u102D\u102E])\u102F',
+                    to: '\u1025$1\u1087\u1033',
+                    minLength: 4,
+                    quickTests: [['\u103E', 1], ['\u102F', 3]]
+                },
+                {
+                    // description: "[ဉဥ] + 'ှ' + [ိ  ီ] + 'ု'",
+                    from: '[\u1009\u1025]\u103E([\u102D\u102E])\u1030',
+                    to: '\u1025$1\u1087\u1034',
+                    minLength: 4,
+                    quickTests: [['\u103E', 1], ['\u1030', 3]]
+                },
+                {
+                    // description: "[ဉဥ] + 'ှ' + 'ု'",
+                    from: '[\u1009\u1025]\u103E\u102F',
+                    to: '\u1025\u1087\u1033',
+                    minLength: 3,
+                    quickTests: [['\u103E', 1], ['\u102F', 2]]
+                },
+                {
+                    // description: "[ဉဥ] + 'ှ' + 'ူ'",
+                    from: '[\u1009\u1025]\u103E\u1030',
+                    to: '\u1025\u1087\u1034',
+                    minLength: 3,
+                    quickTests: [['\u103E', 1], ['\u1030', 2]]
                 },
 
                 {
@@ -2333,6 +2424,69 @@ export const uni2zgRules: TranslitRule = {
                     minLength: 3,
                     quickTests: [['\u103E', 1], ['\u1030', 2]],
                     postRulesRef: 'pu2fOr30Or3dOr3a'
+                },
+
+                // Special - [ဉဥ] + \u1033, \u1034
+                {
+                    // description: "[ဉဥ] + '်' + 'ု'",
+                    from: '[\u1009\u1025]\u103A\u102F',
+                    to: '\u1025\u1039\u1033',
+                    minLength: 3,
+                    quickTests: [['\u103A', 1], ['\u102F', 2]]
+                },
+                {
+                    // description: "[ဉဥ] + '်' + 'ူ'",
+                    from: '[\u1009\u1025]\u103A\u1030',
+                    to: '\u1025\u1039\u1034',
+                    minLength: 3,
+                    quickTests: [['\u103A', 1], ['\u1030', 2]]
+                },
+
+                {
+                    // description: "[#u2e30] + '်' + 'ု'",
+                    from: '([#u2e30])\u103A\u102F',
+                    to: '$1\u1039\u102F',
+                    minLength: 3,
+                    quickTests: [['\u103A', 1], ['\u102F', 2]],
+                    postRulesRef: 'pu2fOr30Or3dOr3a'
+                },
+                {
+                    // description: "[#u2e30] + '်' + 'ူ'",
+                    from: '([#u2e30])\u103A\u1030',
+                    to: '$1\u1039\u1030',
+                    minLength: 3,
+                    quickTests: [['\u103A', 1], ['\u1030', 2]],
+                    postRulesRef: 'pu2fOr30Or3dOr3a'
+                },
+
+                // Special - [ဉဥ] + \u1033, \u1034
+                {
+                    // description: "[ဉဥ] + [ိ  ီ] + 'ု'",
+                    from: '[\u1009\u1025]([\u102D\u102E])\u102F',
+                    to: '\u1025$1\u1033',
+                    minLength: 3,
+                    quickTests: [['\u102F', 2]]
+                },
+                {
+                    // description: "'[ဉဥ]' + [ိ  ီ] + 'ူ'",
+                    from: '[\u1009\u1025]([\u102D\u102E])\u1030',
+                    to: '\u1025$1\u1034',
+                    minLength: 3,
+                    quickTests: [['\u1030', 2]]
+                },
+                {
+                    // description: "'[ဉဥ]' + 'ု'",
+                    from: '[\u1009\u1025]\u102F',
+                    to: '\u1025\u1033',
+                    minLength: 2,
+                    quickTests: [['\u102F', 1]]
+                },
+                {
+                    // description: "'[ဉဥ]' + 'ူ'",
+                    from: '[\u1009\u1025]\u1030',
+                    to: '\u1025\u1034',
+                    minLength: 2,
+                    quickTests: [['\u1030', 1]]
                 },
 
                 {
@@ -2621,8 +2775,25 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu'
                 },
 
-                // 'ွှ'
+                // [ွှ  ွ]
                 // ------------------------------------------------------------------------------------------
+                {
+                    // description: "[#uc] + '်' + 'ွှ'",
+                    from: '([#uc])\u103A\u103D\u103E',
+                    to: '$1\u108A\u1039',
+                    minLength: 4,
+                    quickTests: [['\u103A', 1], ['\u103D', 2], ['\u103E', 3]],
+                    postRulesRef: 'pu8aOr3c'
+                },
+                {
+                    // description: "[#uc] + '်' + 'ွ'",
+                    from: '([#uc])\u103A\u103D',
+                    to: '$1\u103C\u1039',
+                    minLength: 6,
+                    quickTests: [['\u103A', 1], ['\u103D', 2]],
+                    postRulesRef: 'pu8aOr3c'
+                },
+
                 {
                     // description: "[#uc] + 'ွှ'",
                     from: '([#uc])\u103D\u103E',
@@ -2632,8 +2803,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu8aOr3c'
                 },
 
-                // 'ွ'
-                // ------------------------------------------------------------------------------------------
                 {
                     // description: "[#uc] + 'ွ'",
                     from: '([#uc])\u103D',
@@ -2654,77 +2823,8 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu2fOr30Or3dOr3a'
                 },
 
-                // [ဉဥ] +
+                // [ဉဥ]
                 // ------------------------------------------------------------------------------------------
-                {
-                    // description: "'[ဉဥ]' + [ိ  ီ] + 'ု'",
-                    from: '[\u1009\u1025]([\u102D\u102E])\u102F',
-                    to: '\u1025$1\u1033',
-                    minLength: 3,
-                    quickTests: [['\u102F', 2]]
-                },
-                {
-                    // description: "'[ဉဥ]' + [ိ  ီ] + 'ူ'",
-                    from: '[\u1009\u1025]([\u102D\u102E])\u1030',
-                    to: '\u1025$1\u1034',
-                    minLength: 3,
-                    quickTests: [['\u1030', 2]]
-                },
-
-                {
-                    // description: "'[ဉဥ]' + 'ှ' + 'ု'",
-                    from: '[\u1009\u1025]\u103E\u102F',
-                    to: '\u1025\u103D\u1033',
-                    minLength: 3,
-                    quickTests: [['\u103E', 1], ['\u102F', 2]]
-                },
-                {
-                    // description: "'[ဉဥ]' + 'ှ' + 'ူ'",
-                    from: '[\u1009\u1025]\u103E\u1030',
-                    to: '\u1025\u103D\u1034',
-                    minLength: 3,
-                    quickTests: [['\u103E', 1], ['\u1030', 2]]
-                },
-
-                {
-                    // description: "'[ဉဥ]' + 'ု'",
-                    from: '[\u1009\u1025]\u102F',
-                    to: '\u1025\u1033',
-                    minLength: 2,
-                    quickTests: [['\u102F', 1]]
-                },
-                {
-                    // description: "'[ဉဥ]' + 'ူ'",
-                    from: '[\u1009\u1025]\u1030',
-                    to: '\u1025\u1034',
-                    minLength: 2,
-                    quickTests: [['\u1030', 1]]
-                },
-
-                {
-                    // description: "'ဉ' + 'ွှ'",
-                    from: '\u1009\u103D\u103E',
-                    to: '\u106A\u108A',
-                    minLength: 3,
-                    quickTests: [['\u1009', 0], ['\u103D', 1], ['\u103E', 2]]
-                },
-                {
-                    // description: "'ဉ' + 'ွ'",
-                    from: '\u1009\u103D',
-                    to: '\u106A\u103C',
-                    minLength: 2,
-                    quickTests: [['\u1009', 0], ['\u103D', 1]]
-                },
-                {
-                    // description: "'ဉ' + 'ှ'",
-                    from: '\u1009\u103E',
-                    to: '\u1025\u103D',
-                    minLength: 2,
-                    quickTests: [['\u1009', 0], ['\u103E', 1]],
-                    when: {
-                        'Zawgyi-One-2008': true
-                    }
-                },
                 {
                     // description: "'ဉ' + '်'",
                     from: '\u1009\u103A',
@@ -2742,52 +2842,6 @@ export const uni2zgRules: TranslitRule = {
                     to: '\u1026',
                     minLength: 2,
                     quickTests: [['\u1009', 0], ['\u102E', 1]],
-                },
-
-                // န
-                // ------------------------------------------------------------------------------------------
-                {
-                    // description: "'န' + 'ွှ' + 'ု'",
-                    from: '\u1014\u103D\u103E\u102F',
-                    to: '\u108F\u108A\u1033'
-                },
-                {
-                    // description: "'န' + 'ွှ' + 'ူ'",
-                    from: '\u1014\u103D\u103E\u1030',
-                    to: '\u108F\u108A\u1034'
-                },
-                {
-                    // description: "'န' + [ု  ူ]",
-                    from: '\u1014([\u102F\u1030])',
-                    to: '\u108F$1'
-                },
-                {
-                    // description: "'န' + 'ွ'",
-                    from: '\u1014\u103D',
-                    to: '\u108F\u103C'
-                },
-
-                {
-                    // description: "'န' + 'ှ'",
-                    from: '\u1014\u103E',
-                    to: '\u108F\u103D'
-                },
-
-                {
-                    // description: "'န' + [ု  ူ  ွ  ှ  ...]",
-                    from: '\u1014([\u1087-\u108A])',
-                    to: '\u108F$1'
-                },
-
-                {
-                    // description: "'န' + [ိ  ီ  ေ] + [ု  ူ]",
-                    from: '\u1014([\u102D\u102E\u1031])([\u102F\u1030])',
-                    to: '\u108F$1$2'
-                },
-                {
-                    // description: "'န' + [်  င်္] + [ု  ူ  ွ  ွှ]",
-                    from: '\u1014([\u1039\u1064])([\u102F\u1030\u103C\u108A])',
-                    to: '\u108F$1$2'
                 },
 
                 // ၎င်း
