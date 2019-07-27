@@ -2696,7 +2696,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u2fOr30Or3dOr3a'
                 },
 
-
                 // 'ျ' + [ွှ  ွ]
                 // ...............
                 {
