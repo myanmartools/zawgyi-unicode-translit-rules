@@ -49,7 +49,6 @@ export const uni2zgRules: TranslitRule = {
             postRulesDef: {
                 // Pasin
                 //
-                // For \u1031\u1083$1\u1039$2....
                 p3183u39u: [
                     {
                         // description: "'န' အတို သို့",
@@ -112,7 +111,6 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'B'
                     }
                 ],
-                // For \u1031$1\u1039$2...
                 p31u39u: [
                     {
                         // description: "'န' အတို သို့",
@@ -169,7 +167,6 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'B'
                     }
                 ],
-                // For \u1083$1\u1039$2...
                 p83u39u: [
                     {
                         // description: "'န' အတို သို့",
@@ -231,7 +228,6 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'B'
                     }
                 ],
-                // For $1\u1039$2...
                 pu39u: [
                     {
                         // description: "'န' အတို သို့",
@@ -281,7 +277,6 @@ export const uni2zgRules: TranslitRule = {
                     }
                 ],
 
-                // For \u1031\u1082$1...
                 plx3182u: [
                     {
                         // description: "'ဿ' သို့",
@@ -290,7 +285,6 @@ export const uni2zgRules: TranslitRule = {
                         start: 2
                     }
                 ],
-                // For [\u1031\u1082]$1...
                 plx31Or82u: [
                     {
                         // description: "'ဿ' သို့",
@@ -299,7 +293,6 @@ export const uni2zgRules: TranslitRule = {
                         start: 1
                     }
                 ],
-                // For $1...
                 plxu: [
                     {
                         // description: "'ဿ' သို့",
@@ -308,8 +301,7 @@ export const uni2zgRules: TranslitRule = {
                     }
                 ],
 
-                // For \u1031\u1081$1...
-                psx3181u: [
+                px3181u: [
                     {
                         // description: "'န' အတို သို့",
                         from: '\u1014',
@@ -337,10 +329,15 @@ export const uni2zgRules: TranslitRule = {
                         to: '\u106A',
                         start: 2,
                         orGroup: 'A'
+                    },
+                    {
+                        from: '\u100A',
+                        to: '\u106B',
+                        start: 2,
+                        orGroup: 'A'
                     }
                 ],
-                // For [\u1031\u1081]$1...
-                psx31Or81u: [
+                px31Or81u: [
                     {
                         // description: "'န' အတို သို့",
                         from: '\u1014',
@@ -370,8 +367,7 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'A'
                     }
                 ],
-                // For $1...
-                psx1: [
+                pxu: [
                     {
                         // description: "'န' အတို သို့",
                         from: '\u1014',
@@ -399,8 +395,6 @@ export const uni2zgRules: TranslitRule = {
                 ],
 
                 // 'ေ' + 'ြ' ...
-                //
-                // 'ေ' + 'ြ' + $1 + [ွှွ] ...
                 p3181Or83u8aOr3c: [
                     {
                         // description: "'န' အတို သို့",
@@ -457,7 +451,6 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'B'
                     }
                 ],
-                // 'ေ' + 'ြ' + $1 ...
                 p313bOr7fu: [
                     {
                         // description: "'န' အတို သို့",
@@ -525,8 +518,6 @@ export const uni2zgRules: TranslitRule = {
                 ],
 
                 // 'ြ' ...
-                //
-                // 'ြ' + $1 + [ွှွ] ...
                 p81Or83u8aOr3c: [
                     {
                         // description: "'န' အတို သို့",
@@ -581,7 +572,6 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'B'
                     }
                 ],
-                // 'ြ' + $1...
                 p3bOr7fu: [
                     {
                         // description: "'န' အတို သို့",
@@ -645,8 +635,6 @@ export const uni2zgRules: TranslitRule = {
                 ],
 
                 // 'ေ' + ...
-                //
-                // 'ေ' + $1 + [ွှွ] + [ျ]? ...
                 p31u8aOr3c: [
                     {
                         // description: "'န' အတို သို့",
@@ -690,7 +678,6 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'A'
                     },
                 ],
-                // 'ေ' + $1 + [ု  ူ  ှ  ျ] ...
                 p31u2fOr30Or3dOr3a: [
                     {
                         // description: "'န' အတို သို့",
@@ -762,7 +749,6 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'A'
                     },
                 ],
-                // 'ေ' + $1 ...
                 p31u: [
                     {
                         // description: "'ဿ' သို့",
@@ -780,9 +766,7 @@ export const uni2zgRules: TranslitRule = {
                     }
                 ],
 
-                // $1 + ...
-                //
-                // $1 + [ွှွ] ...
+                // # + ...
                 pu8aOr3c: [
                     {
                         // description: "'န' အတို သို့",
@@ -820,7 +804,6 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'A'
                     },
                 ],
-                // $1 + 'ှ' ...
                 pu2fOr30Or3dOr3a: [
                     {
                         // description: "'န' အတို သို့",
@@ -877,7 +860,6 @@ export const uni2zgRules: TranslitRule = {
                         orGroup: 'A'
                     },
                 ],
-                // $1...
                 pu: [
                     {
                         // description: "'ဿ' သို့",
@@ -1151,22 +1133,51 @@ export const uni2zgRules: TranslitRule = {
                 // Pasin
                 // ...............
                 //
+                //  'ြ' + 'ွ' + 'ေ'
                 {
-                    // description: "'င်' + U+1039 + '#uc' + U+1039 + '#uc' + 'ြ' + 'ေ'",
+                    from: '\u1004\u103A\u1039([#ulc])\u1039\u1010\u103C\u103D\u1031',
+                    to: '\u1031\u1082$1\u1096\u1064',
+                    minLength: 9,
+                    quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u1010', 5], ['\u103C', 6], ['\u103D', 7], ['\u1031', 8]],
+                    postRulesRef: 'plx3182u'
+                },
+                {
+                    from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103C\u103D\u1031',
+                    to: '\u1031\u1081$1\u1096\u1064',
+                    minLength: 9,
+                    quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u1010', 5], ['\u103C', 6], ['\u103D', 7], ['\u1031', 8]],
+                    postRulesRef: 'px3181u'
+                },
+
+                // 'ွ' + 'ေ'
+                {
+                    from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103D\u1031',
+                    to: '\u1031$1\u1096\u1064',
+                    minLength: 8,
+                    quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u1010', 5], ['\u103D', 6], ['\u1031', 7]],
+                    postRulesRef: 'px31Or81u'
+                },
+
+                //
+                // 'ြ' + 'ေ'
+                {
                     from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103C\u1031',
                     to: '\u1031\u1083$1\u1039$2\u1064',
                     minLength: 8,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u103C', 6], ['\u1031', 7]],
                     postRulesRef: 'p3183u39u'
                 },
+
+                // 'ျ' + 'ေ'
                 {
-                    // description: "'င်' + U+1039 + '#uc' + U+1039 + '#uc' + 'ျ' + 'ေ'",
                     from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103B\u1031',
                     to: '\u1031$1\u1039$2\u107D\u1064',
                     minLength: 8,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u103B', 6], ['\u1031', 7]],
                     postRulesRef: 'p31u39u'
                 },
+
+                // 'ေ
                 {
                     // description: "'င်' + U+1039 + '#uc' + U+1039 + '#uc' + 'ေ'",
                     from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u1031',
@@ -1175,24 +1186,52 @@ export const uni2zgRules: TranslitRule = {
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u1031', 6]],
                     postRulesRef: 'p31u39u'
                 },
+
+                // 'ြ' + 'ွ'
                 {
-                    // description: "'င်' + U+1039 + '#uc' + U+1039 + '#uc' + 'ြ'",
+                    from: '\u1004\u103A\u1039([#ulc])\u1039\u1010\u103C\u103D',
+                    to: '\u1082$1\u1096\u1064',
+                    minLength: 8,
+                    quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u1010', 5], ['\u103C', 6], ['\u103D', 7]],
+                    postRulesRef: 'plx31Or82u'
+                },
+                {
+                    from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103C\u103D',
+                    to: '\u1081$1\u1096\u1064',
+                    minLength: 8,
+                    quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u1010', 5], ['\u103C', 6], ['\u103D', 7]],
+                    postRulesRef: 'px31Or81u'
+                },
+
+                // 'ွ'
+                {
+                    from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103D',
+                    to: '$1\u1096\u1064',
+                    minLength: 7,
+                    quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u1010', 5], ['\u103D', 6]],
+                    postRulesRef: 'pxu'
+                },
+
+                // 'ြ'
+                {
                     from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103C',
                     to: '\u1083$1\u1039$2\u1064',
                     minLength: 7,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u103C', 6]],
                     postRulesRef: 'p83u39u'
                 },
+
+                // 'ျ'
                 {
-                    // description: "'င်' + U+1039 + '#uc' + U+1039 + '#uc' + 'ျ'",
                     from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103B',
                     to: '$1\u1039$2\u107D\u1064',
                     minLength: 7,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u103B', 6]],
                     postRulesRef: 'pu39u'
                 },
+
+                // #
                 {
-                    // description: "'င်' + U+1039 + '#uc' + U+1039 + '#uc'",
                     from: '\u1004\u103A\u1039([#uc])\u1039([#uc])',
                     to: '$1\u1039$2\u1064',
                     minLength: 6,
@@ -2052,7 +2091,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '\u1031\u1082$1\u1096',
                     minLength: 6,
                     quickTests: [['\u1039', 1], ['\u1010', 2], ['\u103C', 3], ['\u103D', 4], ['\u1031', 5]],
-                    postRulesRef: 'psx3181u'
+                    postRulesRef: 'px3181u'
                 },
                 {
                     // description: "[#uc] + + U+1039 + 'တ' + 'ွ' + 'ေ'",
@@ -2060,7 +2099,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '\u1031$1\u1096',
                     minLength: 5,
                     quickTests: [['\u1039', 1], ['\u1010', 2], ['\u103D', 3], ['\u1031', 4]],
-                    postRulesRef: 'psx31Or81u'
+                    postRulesRef: 'px31Or81u'
                 },
 
                 {
@@ -2086,7 +2125,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '\u1031\u1081$1#psx',
                     minLength: 5,
                     quickTests: [['\u1039', 1], ['#psx', 2], ['\u103C', 3], ['\u1031', 4]],
-                    postRulesRef: 'psx3181u'
+                    postRulesRef: 'px3181u'
                 },
                 {
                     // description: "'[#uc]' + U+1039 + '#psx' + 'ေ'",
@@ -2094,7 +2133,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '\u1031$1#psx',
                     minLength: 4,
                     quickTests: [['\u1039', 1], ['#psx', 2], ['\u1031', 3]],
-                    postRulesRef: 'psx31Or81u'
+                    postRulesRef: 'px31Or81u'
                 },
 
                 // 'ြ'
@@ -2153,7 +2192,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '\u1082$1\u1096',
                     minLength: 5,
                     quickTests: [['\u1039', 1], ['\u1010', 2], ['\u103C', 3], ['\u103D', 4]],
-                    postRulesRef: 'psx31Or81u'
+                    postRulesRef: 'px31Or81u'
                 },
 
                 {
@@ -2171,7 +2210,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '\u1081$1#psx',
                     minLength: 4,
                     quickTests: [['\u1039', 1], ['#psx', 2], ['\u103C', 3]],
-                    postRulesRef: 'psx31Or81u'
+                    postRulesRef: 'px31Or81u'
                 },
 
                 // $1 ...
@@ -2229,7 +2268,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '$1\u1096',
                     minLength: 4,
                     quickTests: [['\u1039', 1], ['\u1010', 2], ['\u103D', 3]],
-                    postRulesRef: 'psx1'
+                    postRulesRef: 'pxu'
                 },
 
                 {
@@ -2245,7 +2284,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '$1#psx',
                     minLength: 3,
                     quickTests: [['\u1039', 1], ['#psx', 2]],
-                    postRulesRef: 'psx1'
+                    postRulesRef: 'pxu'
                 },
 
                 // 'း' (zg: \u1038)
