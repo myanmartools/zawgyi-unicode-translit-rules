@@ -1472,7 +1472,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '$1\u103A#kx',
                     minLength: 6,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u103B', 4], ['#kx', 5]],
-                    postRulesRef: 'u3a'
+                    postRulesRef: 'pu2fOr30Or3dOr3a'
                 },
 
                 // #
@@ -2046,7 +2046,7 @@ export const uni2zgRules: TranslitRule = {
                     to: '$1\u103A\u1064',
                     minLength: 5,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u103B', 4]],
-                    postRulesRef: 'u3a'
+                    postRulesRef: 'pu2fOr30Or3dOr3a'
                 },
 
                 // #
