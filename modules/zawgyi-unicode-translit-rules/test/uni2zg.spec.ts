@@ -1388,6 +1388,54 @@ describe('uni2zg-rules', () => {
             });
     });
 
+    // \u108B-\u108D
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u1004\u103A\u1039#kx' (\u108B)", (done: DoneFn) => {
+        const input = 'င်္ိ';
+        const expected = '\u108B';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039#kx' (\u108C)", (done: DoneFn) => {
+        const input = 'င်္ီ';
+        const expected = '\u108C';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039#kx' (\u108D)", (done: DoneFn) => {
+        const input = 'င်္ံ';
+        const expected = '\u108D';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // \u1064
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u1004\u103A\u1039'", (done: DoneFn) => {
+        const input = 'င်္';
+        const expected = '\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
     // // \u108E
     // // ------------------------------------------------------------------------------------------
     // it("should work with '#zc' + U+1039 + '#zc' + 'ြ' + 'ေ' + 'ိံ'", (done: DoneFn) => {
