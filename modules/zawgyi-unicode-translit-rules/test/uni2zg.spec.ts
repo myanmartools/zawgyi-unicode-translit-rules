@@ -338,6 +338,63 @@ describe('uni2zg-rules', () => {
 
     // [ု  ူ] (zg: \u1033, \u1034)
     // ...............
+    it("should work with '\u1004\u103A\u1039[\u1009\u1025]\u103E\u1031#kx\u102F'", (done: DoneFn) => {
+        const input = 'င်္ဉှေို';
+        const expected = '\u1031\u1025\u108B\u1087\u1033';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039[\u1009\u1025]\u103E\u1031#kx\u1030'", (done: DoneFn) => {
+        const input = 'င်္ဉှေိူ';
+        const expected = '\u1031\u1025\u108B\u1087\u1034';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039[\u1009\u1025]\u1031#kx\u102F'", (done: DoneFn) => {
+        const input = 'င်္ဉေို';
+        const expected = '\u1031\u1025\u108B\u1033';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039[\u1009\u1025]\u103E#kx\u1030'", (done: DoneFn) => {
+        const input = 'င်္ဉှိူ';
+        const expected = '\u1025\u108B\u1087\u1034';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039[\u1009\u1025]#kx\u1030'", (done: DoneFn) => {
+        const input = 'င်္ဉိူ';
+        const expected = '\u1025\u108B\u1034';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // [ု  ူ] (zg: \u1088, \u1089)
+    // ...............
 
     // it("should work with 'င်' + U+1039 + '#uc' + 'ြ' + 'ွှ' + 'ေ' + '#kx'", (done: DoneFn) => {
     //     const input = '\u1004\u103A\u1039\u1014\u103C\u103D\u103E\u1031\u102D';
