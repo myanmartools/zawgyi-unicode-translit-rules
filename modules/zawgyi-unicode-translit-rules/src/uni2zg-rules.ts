@@ -1250,14 +1250,14 @@ export const uni2zgRules: TranslitRule = {
                 // 'ေ' + [ု  ူ]
                 {
                     from: '\u1004\u103A\u1039([#u2e30])\u1031#kx\u102F',
-                    to: '\u1031$1#kx\u102F',
+                    to: '\u1031$1\u102F#kx',
                     minLength: 7,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1031', 4], ['#kx', 5], ['\u102F', 6]],
                     postRulesRef: 'p31u2fOr30Or3dOr3a'
                 },
                 {
                     from: '\u1004\u103A\u1039([#u2e30])\u1031#kx\u1030',
-                    to: '\u1031$1#kx\u1030',
+                    to: '\u1031$1\u1030#kx',
                     minLength: 7,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1031', 4], ['#kx', 5], ['\u1030', 6]],
                     postRulesRef: 'p31u2fOr30Or3dOr3a'
@@ -1267,14 +1267,14 @@ export const uni2zgRules: TranslitRule = {
                 // [ု  ူ]
                 {
                     from: '\u1004\u103A\u1039([#u2e30])#kx\u102F',
-                    to: '$1#kx\u102F',
+                    to: '$1\u102F#kx',
                     minLength: 6,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['#kx', 4], ['\u102F', 5]],
                     postRulesRef: 'pu2fOr30Or3dOr3a'
                 },
                 {
                     from: '\u1004\u103A\u1039([#u2e30])#kx\u1030',
-                    to: '$1#kx\u1030',
+                    to: '$1\u1030#kx',
                     minLength: 6,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['#kx', 4], ['\u1030', 5]],
                     postRulesRef: 'pu2fOr30Or3dOr3a'
@@ -1811,7 +1811,7 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu2fOr30Or3dOr3a'
                 },
 
-                // [ု  ူ] (zg: \u102F, \u1030)
+                // [ု  ူ] (zg: \u102F, \u1030) TODO:
                 // ...............
                 //
                 // 'ေ' + [ု  ူ]
@@ -3620,7 +3620,7 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu2fOr30Or3dOr3a'
                 },
 
-                // [ု  ူ] (zg: \u102F, \u1030)
+                // [ု  ူ] (zg: \u102F, \u1030) TODO:
                 // ------------------------------------------------------------------------------------------
                 // 'ေ' + '်'
                 // ...............
