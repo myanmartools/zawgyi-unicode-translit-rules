@@ -8,6 +8,10 @@
     "type": "git",
     "url": "https://github.com/myanmartools/zawgyi-unicode-translit-rules.git"
   },
+  "bugs": {
+    "url": "https://github.com/myanmartools/zawgyi-unicode-translit-rules/issues"
+  },
+  "homepage": "https://github.com/myanmartools/zawgyi-unicode-translit-rules",
   "scripts": {
     "ng": "ng",
     "ngb": "ngb",
@@ -16,34 +20,40 @@
     "test": "ng test"
   },
   "dependencies": {
-    "@angular/common": "^8.1.2",
-    "@angular/core": "^8.1.2",
-    "@angular/platform-browser": "^8.1.2",
-    "@angular/platform-browser-dynamic": "^8.1.2",
-    "@dagonmetric/ng-translit": "^6.2.1",
+    "@angular/common": "^8.1.3",
+    "@angular/core": "^8.1.3",
+    "@dagonmetric/ng-translit": "^6.2.2",
     "rxjs": "^6.5.2",
-    "tslint": "^5.18.0",
-    "zone.js": "^0.9.1"
+    "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.801.2",
-    "@angular/cli": "^8.1.2",
-    "@angular/compiler": "^8.1.2",
-    "@angular/compiler-cli": "^8.1.2",
-    "@angular/language-service": "^8.1.2",
+    "@angular-devkit/build-angular": "^0.801.3",
+    "@angular/cli": "^8.1.3",
+    "@angular/compiler": "^8.1.3",
+    "@angular/compiler-cli": "^8.1.3",
+    "@angular/language-service": "^8.1.3",
+    "@angular/platform-browser": "^8.1.3",
+    "@angular/platform-browser-dynamic": "^8.1.3",
     "@dagonmetric/angular-build": "^8.0.5",
-    "@types/jasmine": "^3.3.14",
+    "@types/jasmine": "^3.3.16",
     "@types/jasminewd2": "^2.0.6",
     "@types/node": "^12.6.8",
     "codelyzer": "^5.1.0",
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.2.0",
-    "karma-chrome-launcher": "^3.0.0",
-    "karma-coverage-istanbul-reporter": "~2.0.6",
+    "karma-chrome-launcher": "~3.0.0",
+    "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "karma-junit-reporter": "^1.2.0",
+    "protractor": "~5.4.2",
+    "puppeteer": "^1.19.0",
+    "ts-node": "^8.3.0",
+    "tsickle": "~0.35.0",
+    "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
-    "typescript": "~3.4.5"
+    "typescript": "~3.4.5",
+    "zone.js": "^0.10.0"
   }
 }
