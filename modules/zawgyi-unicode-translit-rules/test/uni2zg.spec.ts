@@ -88,8 +88,6 @@ describe('uni2zg-rules', () => {
     // ------------------------------------------------------------------------------------------
     // Pasin
     // ...............
-    //
-
     it("should work with '\u1004\u103A\u1039([#uc])\u1039\u1010\u103C\u103D\u1031#kx'", (done: DoneFn) => {
         const input = 'င်္န္တြွေိ';
         const expected = '\u1031\u1083\u108F\u1096\u108B';
@@ -739,6 +737,121 @@ describe('uni2zg-rules', () => {
 
     // \u1064
     // ------------------------------------------------------------------------------------------
+    // Pasin
+    // ...............
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039\u1010\u103C\u103D\u1031'", (done: DoneFn) => {
+        const input = 'င်္န္တြွေ';
+        const expected = '\u1031\u1083\u108F\u1096\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039\u1010\u103D\u1031'", (done: DoneFn) => {
+        const input = 'င်္ရ္တွေ';
+        const expected = '\u1031\u1090\u1096\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103C\u1031'", (done: DoneFn) => {
+        const input = 'င်္ဿ္တြေ';
+        const expected = '\u1031\u1084\u1086\u1071\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103B\u1031'", (done: DoneFn) => {
+        const input = 'င်္၀္တျေ';
+        const expected = '\u1031\u101D\u1072\u107D\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039([#uc])\u1031", (done: DoneFn) => {
+        const input = 'င်္ဉ္စေ';
+        const expected = '\u1031\u106A\u1065\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039\u1010\u103C\u103D'", (done: DoneFn) => {
+        const input = 'င်္ည္တြွ';
+        const expected = '\u1084\u106B\u1096\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039\u1010\u103D\u1031'", (done: DoneFn) => {
+        const input = 'င်္န္တွ';
+        const expected = '\u108F\u1096\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103C'", (done: DoneFn) => {
+        const input = 'င်္ရ္တြ';
+        const expected = '\u1083\u1090\u1072\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103B'", (done: DoneFn) => {
+        const input = 'င်္ရ္ထျ';
+        const expected = '\u1090\u1074\u107D\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '\u1004\u103A\u1039([#uc])\u1039([#uc])'", (done: DoneFn) => {
+        const input = 'င်္န္ထ';
+        const expected = '\u108F\u1074\u1064';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // '.' (zg: \u1094)
+    // ...............
+
     // it("should work with 'င်' + U+1039 + '#uc' + U+1039 + '#uc' + 'ြ' + 'ေ'", (done: DoneFn) => {
     //     const input = '\u1004\u103A\u1039\u1014\u1039\u1010\u103C\u1031';
     //     const expected = '\u1031\u1083\u108F\u1072\u1064';
