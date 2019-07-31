@@ -52,7 +52,10 @@
     },
     {
       "packageNames": ["typescript"],
-      "allowedVersions": "<=3.4.5",
+      "automerge": false
+    },
+    {
+      "packageNames": ["tsickle"],
       "automerge": false
     }
   ]
