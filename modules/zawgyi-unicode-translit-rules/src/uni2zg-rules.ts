@@ -554,10 +554,7 @@ export const uni2zgRules: TranslitRule = {
                         from: '\u1009',
                         to: '\u1025',
                         start: 2,
-                        orGroup: 'A',
-                        when: {
-                            'zawgyi-one-2008': true
-                        }
+                        orGroup: 'A'
                     },
 
                     {
@@ -676,10 +673,7 @@ export const uni2zgRules: TranslitRule = {
                         from: '\u1009',
                         to: '\u1025',
                         start: 1,
-                        orGroup: 'A',
-                        when: {
-                            'zawgyi-one-2008': true
-                        }
+                        orGroup: 'A'
                     },
 
                     {
@@ -1144,7 +1138,7 @@ export const uni2zgRules: TranslitRule = {
                     from: '\u1004\u103A\u1039[\u1009\u1025]#kx\u1037',
                     to: '\u1025#kx\u1037',
                     minLength: 6,
-                    quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1037', 4], ['\u1037', 5]]
+                    quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['#kx', 4], ['\u1037', 5]]
                 },
 
                 // '့'
