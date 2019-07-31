@@ -1474,7 +1474,6 @@ export const uni2zgRules: TranslitRule = {
                 // 'ြ'
                 // ...............
                 {
-                    // description: "'င်' + U+1039 + '#uc' + 'ြ' + '#kx'",
                     from: '\u1004\u103A\u1039([#uc])\u103C#kx',
                     to: '\u107F$1#kx',
                     minLength: 6,
@@ -1495,7 +1494,6 @@ export const uni2zgRules: TranslitRule = {
                 // #
                 // ...............
                 {
-                    // description: "''င်' + U+1039 + '#uc' + '#kx'",
                     from: '\u1004\u103A\u1039([#uc])#kx',
                     to: '$1#kx',
                     minLength: 5,
