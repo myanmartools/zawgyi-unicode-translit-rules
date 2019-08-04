@@ -2575,4 +2575,55 @@ describe('uni2zg-rules', () => {
                 done();
             });
     });
+
+    //  [ဲ  ံ] (zg: \u1032, \u1036) - [ု  ူ] + [ဲ  ံ] မှ [ဲ  ံ] + [ု  ူ] သို့
+    // ------------------------------------------------------------------------------------------
+    // 'ျ' + [ွှ  ွ] + 'ေ'
+    // ...............
+    it("should work with '([#uc])\u103B\u103D\u103E\u1031\u102F([\u1032\u1036])'", (done: DoneFn) => {
+        const input = 'ကျွှေုဲ';
+        const expected = '\u1031\u1000\u108A\u107D\u1032\u1033';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '([#uc])\u103B\u103D\u103E\u1031\u1030([\u1032\u1036])'", (done: DoneFn) => {
+        const input = 'ကျွှေူဲ';
+        const expected = '\u1031\u1000\u108A\u107D\u1032\u1034';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '([#uc])\u103B\u103D\u1031\u102F([\u1032\u1036])'", (done: DoneFn) => {
+        const input = 'နျွေုဲ';
+        const expected = '\u1031\u108F\u103C\u107D\u1032\u1033';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '([#uc])\u103B\u103D\u1031\u1030([\u1032\u1036])'", (done: DoneFn) => {
+        const input = 'နျွေူဲ';
+        const expected = '\u1031\u108F\u103C\u107D\u1032\u1034';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // 'ျ' + 'ှ' + 'ေ'
+    // ...............
 });
