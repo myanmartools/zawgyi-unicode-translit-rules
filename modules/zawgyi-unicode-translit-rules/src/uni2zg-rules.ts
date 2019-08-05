@@ -4268,91 +4268,110 @@ export const uni2zgRules: TranslitRule = {
                     quickTests: [['\u103F', 0]],
                 },
 
-                // Without consonants
+                // Others
                 // ------------------------------------------------------------------------------------------
+                // 'ိံ'
                 {
-                    // description: "'ိံ'",
                     from: '\u102D\u1036',
                     to: '\u108E',
                     minLength: 2,
                     quickTests: [['\u102D', 0], ['\u1036', 1]],
                 },
 
+                // U+1039 + 'တွ'
                 {
-                    // description: "U+1039 + 'တွ'",
                     from: '\u1039\u1010\u103D',
                     to: '\u1096',
                     minLength: 3,
                     quickTests: [['\u1039', 0], ['\u1010', 1], ['\u103D', 2]]
                 },
+
+                // U+1039 + '#psx'
                 {
-                    // description: "U+1039 + '#psx'",
                     from: '\u1039#psx',
                     to: '#psx',
                     minLength: 2,
                     quickTests: [['\u1039', 0], ['#psx', 1]]
                 },
 
+                // 'ါ်'
                 {
-                    description: 'ါ်',
                     from: '\u102B\u103A',
                     to: '\u105A',
                     minLength: 2,
                     quickTests: [['\u102B', 0], ['\u103A', 1]]
                 },
+
+                // 'ွှ'
                 {
-                    description: 'ွှ',
                     from: '\u103D\u103E',
                     to: '\u108A',
                     minLength: 2,
                     quickTests: [['\u103D', 0], ['\u103E', 1]]
                 },
+
+                // 'ျ'
                 {
-                    description: 'ျ',
                     from: '\u103B',
-                    to: '\u103A'
+                    to: '\u103A',
+                    quickTests: [['\u103B', 0]]
                 },
+
+                // 'ြ'
                 {
-                    description: 'ြ',
                     from: '\u103C',
-                    to: '\u103B'
+                    to: '\u103B',
+                    quickTests: [['\u103C', 0]]
                 },
+
+                // 'ွ'
                 {
-                    description: 'ွ',
                     from: '\u103D',
-                    to: '\u103C'
+                    to: '\u103C',
+                    quickTests: [['\u103D', 0]]
                 },
+
+                // 'ှ'
                 {
-                    description: 'ှ',
                     from: '\u103E',
-                    to: '\u103D'
+                    to: '\u103D',
+                    quickTests: [['\u103E', 0]]
                 },
 
+                // 'ု'
                 {
-                    // description: 'ု',
                     from: '\u102F',
-                    to: '\u1033'
-                },
-                {
-                    // description: 'ူ',
-                    from: '\u1030',
-                    to: '\u1034'
+                    to: '\u1033',
+                    quickTests: [['\u102F', 0]]
                 },
 
+                // 'ူ'
                 {
-                    // description: "'.' + '်' မှ '်' + '့' သို့",
+                    from: '\u1030',
+                    to: '\u1034',
+                    quickTests: [['\u1030', 0]]
+                },
+
+                // '.' + '်' မှ '်' + '့' သို့
+                {
                     from: '\u1037\u103A',
-                    to: '\u1039\u1095'
+                    to: '\u1039\u1095',
+                    quickTests: [['\u1037', 0], ['\u103A', 1]]
                 },
+
+                // '်'
                 {
-                    // description: '်',
                     from: '\u103A',
-                    to: '\u1039'
+                    to: '\u1039',
+                    quickTests: [['\u103A', 0]]
                 },
+
+                // '့'
                 {
-                    // description: '့',
                     from: '\u1037',
-                    to: '\u1095'
+                    to: '\u1095',
+                    quickTests: [['\u1037', 0]]
+
                 }
             ]
         }
