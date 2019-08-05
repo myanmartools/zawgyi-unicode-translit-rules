@@ -3739,9 +3739,59 @@ describe('uni2zg-rules', () => {
             });
     });
 
-    it("should work with ''([#uc])\u103E'", (done: DoneFn) => {
+    it("should work with '([#uc])\u103E'", (done: DoneFn) => {
         const input = 'နှ';
         const expected = '\u108F\u103D';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // 'ြ'
+    // ------------------------------------------------------------------------------------------
+    it("should work with '([#uc])\u103C'", (done: DoneFn) => {
+        const input = 'နြ';
+        const expected = '\u103B\u108F';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '([#uc])\u103B\u103C'", (done: DoneFn) => {
+        const input = 'နျြ';
+        const expected = '\u1081\u108F\u103A';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // 'ျ'
+    // ------------------------------------------------------------------------------------------
+    it("should work with '([#uc])\u103B'", (done: DoneFn) => {
+        const input = 'နျ';
+        const expected = '\u108F\u103A';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // 'ဦ'
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u1025\u102E'", (done: DoneFn) => {
+        const input = 'ဦ';
+        const expected = '\u1026';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
