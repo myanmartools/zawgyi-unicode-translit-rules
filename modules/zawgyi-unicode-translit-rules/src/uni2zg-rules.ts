@@ -4265,7 +4265,7 @@ export const uni2zgRules: TranslitRule = {
                 {
                     from: '\u103F',
                     to: '\u1086',
-                    quickTests: [['\u102D', 0]],
+                    quickTests: [['\u103F', 0]],
                 },
 
                 // Without consonants
