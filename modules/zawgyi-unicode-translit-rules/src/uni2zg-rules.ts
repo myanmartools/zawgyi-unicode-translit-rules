@@ -4052,7 +4052,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ျ' + [ွှ  ွ]
                 // ...............
-                // 'ျ' + 'ွှ' + 'ေ'
                 {
                     from: '([#uc])\u103B\u103D\u103E\u1031',
                     to: '\u1031$1\u108A\u107D',
@@ -4060,7 +4059,6 @@ export const uni2zgRules: TranslitRule = {
                     quickTests: [['\u103B', 1], ['\u103D', 2], ['\u103E', 3], ['\u1031', 4]],
                     postRulesRef: 'p31u8aOr3c'
                 },
-                // 'ျ' + 'ွ' + 'ေ'
                 {
                     from: '([#uc])\u103B\u103D\u1031',
                     to: '\u1031$1\u103C\u107D',
@@ -4091,7 +4089,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // [ွှ  ွ]
                 // ...............
-                // 'ွှ' + 'ေ'
                 {
                     from: '([#uc])\u103D\u103E\u1031',
                     to: '\u1031$1\u108A',
@@ -4099,7 +4096,6 @@ export const uni2zgRules: TranslitRule = {
                     quickTests: [['\u103D', 1], ['\u103E', 2], ['\u1031', 3]],
                     postRulesRef: 'p31u8aOr3c'
                 },
-                // 'ွ'+ 'ေ'
                 {
                     from: '([#uc])\u103D\u1031',
                     to: '\u1031$1\u103C',
