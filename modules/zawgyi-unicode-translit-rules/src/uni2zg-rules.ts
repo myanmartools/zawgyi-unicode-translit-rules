@@ -3593,9 +3593,8 @@ export const uni2zgRules: TranslitRule = {
                 // 'ေ'
                 // ...............
                 //
-                // 'ြ' + [ွှ  ွ] + 'ေ'
+                // 'ြ' + [ွှ  ွ] + '်' + 'ေ'
                 {
-                    // description: "[#uc] + 'ြ' + 'ွှ' + '်' + 'ေ'",
                     from: '([#uc])\u103C\u103D\u103E\u103A\u1031',
                     to: '\u1031\u1083$1\u108A\u1039',
                     minLength: 6,
@@ -3603,7 +3602,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p3181Or83u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ြ' + 'ွှ' + 'ေ'",
                     from: '([#uc])\u103A\u103C\u103D\u103E\u1031',
                     to: '\u1031\u1083$1\u108A\u1039',
                     minLength: 6,
@@ -3611,7 +3609,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p3181Or83u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + 'ြ' + 'ွ' + '်' + 'ေ'",
                     from: '([#uc])\u103C\u103D\u103A\u1031',
                     to: '\u1031\u1083$1\u103C\u1039',
                     minLength: 5,
@@ -3619,7 +3616,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p3181Or83u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ြ' + 'ွ' + 'ေ'",
                     from: '([#uc])\u103A\u103C\u103D\u1031',
                     to: '\u1031\u1083$1\u103C\u1039',
                     minLength: 5,
@@ -3629,7 +3625,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ြ' + 'ှ' + 'ေ'
                 {
-                    // description: "[#uc] + 'ြ' + 'ှ' + '်' + 'ေ'",
                     from: '([#uc])\u103C\u103E\u103A\u1031',
                     to: '\u1031\u1083$1\u1087\u1039',
                     minLength: 5,
@@ -3637,7 +3632,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p313bOr7fu'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ြ' + 'ှ' + 'ေ'",
                     from: '([#uc])\u103A\u103C\u103E\u1031',
                     to: '\u1031\u1083$1\u1087\u1039',
                     minLength: 5,
@@ -3647,7 +3641,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ြ' + 'ေ'
                 {
-                    // description: "[#uc] + '်' + 'ြ' + 'ေ'",
                     from: '([#uc])\u103A\u103C\u1031',
                     to: '\u1031\u107F$1\u1039',
                     minLength: 4,
@@ -3657,7 +3650,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ျ' + [ွှ  ွ] + 'ေ'
                 {
-                    // description: "[#uc] + 'ျ' + 'ွှ' + '်' + 'ေ'",
                     from: '([#uc])\u103B\u103D\u103E\u103A\u1031',
                     to: '\u1031$1\u108A\u107D\u1039',
                     minLength: 6,
@@ -3665,7 +3657,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ျ' + 'ွှ' + 'ေ'",
                     from: '([#uc])\u103A\u103B\u103D\u103E\u1031',
                     to: '\u1031$1\u108A\u107D\u1039',
                     minLength: 6,
@@ -3673,7 +3664,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + 'ျ' + 'ွ' + '်' + 'ေ'",
                     from: '([#uc])\u103B\u103D\u103A\u1031',
                     to: '\u1031$1\u103C\u107D\u1039',
                     minLength: 5,
@@ -3681,7 +3671,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ျ' + 'ွ' + 'ေ'",
                     from: '([#uc])\u103A\u103B\u103D\u1031',
                     to: '\u1031$1\u103C\u107D\u1039',
                     minLength: 5,
@@ -3691,7 +3680,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ျ' + 'ှ' + 'ေ'
                 {
-                    // description: "[#uc] + 'ျ' + 'ှ' + '်' + 'ေ'",
                     from: '([#uc])\u103B\u103E\u103A\u1031',
                     to: '\u1031$1\u103D\u103A\u1039',
                     minLength: 5,
@@ -3699,7 +3687,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u2fOr30Or3dOr3a'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ျ' + 'ှ' + 'ေ'",
                     from: '([#uc])\u103A\u103B\u103E\u1031',
                     to: '\u1031$1\u103D\u103A\u1039',
                     minLength: 5,
@@ -3709,7 +3696,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ျ' + 'ေ'
                 {
-                    // description: "[#uc] + 'ျ' + '်' + 'ေ'",
                     from: '([#uc])\u103B\u103A\u1031',
                     to: '\u1031$1\u103A\u1039',
                     minLength: 4,
@@ -3717,7 +3703,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u2fOr30Or3dOr3a'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ျ' + 'ေ'",
                     from: '([#uc])\u103A\u103B\u1031',
                     to: '\u1031$1\u103A\u1039',
                     minLength: 4,
@@ -3727,7 +3712,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // [ွှ  ွ] + 'ေ'
                 {
-                    // description: "[#uc] + 'ွှ' + '်' + 'ေ'",
                     from: '([#uc])\u103D\u103E\u103A\u1031',
                     to: '\u1031$1\u108A\u1039',
                     minLength: 5,
@@ -3735,7 +3719,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ွှ' + 'ေ'",
                     from: '([#uc])\u103A\u103D\u103E\u1031',
                     to: '\u1031$1\u108A\u1039',
                     minLength: 5,
@@ -3743,7 +3726,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + 'ွ' + '်' + 'ေ'",
                     from: '([#uc])\u103D\u103A\u1031',
                     to: '\u1031$1\u103C\u1039',
                     minLength: 4,
@@ -3751,7 +3733,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ွ' + 'ေ'",
                     from: '([#uc])\u103A\u103D\u1031',
                     to: '\u1031$1\u103C\u1039',
                     minLength: 4,
@@ -3761,7 +3742,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ှ' + 'ေ'
                 {
-                    // description: "[#uc] + 'ှ' + '်' + 'ေ'",
                     from: '([#uc])\u103E\u103A\u1031',
                     to: '\u1031$1\u103D\u1039',
                     minLength: 4,
@@ -3769,17 +3749,17 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p31u2fOr30Or3dOr3a'
                 },
 
-                // 'ေ'
+                // 'ဉ' +  'ေ'
                 {
-                    // description: "'ဉ' + '်' + 'ေ'",
                     from: '\u1009\u103A\u1031',
                     to: '\u1031\u1025\u1039',
                     minLength: 3,
                     quickTests: [['\u1009', 0], ['\u103A', 1], ['\u1031', 2]],
                     postRulesRef: 'p31u'
                 },
+
+                // 'ေ'
                 {
-                    // description: "[#uc] + '်' + 'ေ'",
                     from: '([#uc])\u103A\u1031',
                     to: '\u1031$1\u1039',
                     minLength: 3,
@@ -3791,7 +3771,6 @@ export const uni2zgRules: TranslitRule = {
                 // ...............
                 // 'ြ' + [ွှ  ွ]
                 {
-                    // description: "[#uc] + 'ြ' + 'ွှ' + '်'",
                     from: '([#uc])\u103C\u103D\u103E\u103A',
                     to: '\u1083$1\u108A\u1039',
                     minLength: 5,
@@ -3799,7 +3778,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p81Or83u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ြ' + 'ွှ'",
                     from: '([#uc])\u103A\u103C\u103D\u103E',
                     to: '\u1083$1\u108A\u1039',
                     minLength: 5,
@@ -3807,7 +3785,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p81Or83u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + 'ြ' + 'ွ' + '်'",
                     from: '([#uc])\u103C\u103D\u103A',
                     to: '\u1083$1\u103C\u1039',
                     minLength: 4,
@@ -3815,7 +3792,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p81Or83u8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ြ' + 'ွ'",
                     from: '([#uc])\u103A\u103C\u103D',
                     to: '\u1083$1\u103C\u1039',
                     minLength: 4,
@@ -3825,7 +3801,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ြ' + 'ှ'
                 {
-                    // description: "[#uc] + 'ြ' + 'ှ' + '်'",
                     from: '([#uc])\u103C\u103E\u103A',
                     to: '\u1083$1\u1087\u1039',
                     minLength: 4,
@@ -3833,7 +3808,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'p3bOr7fu'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ြ' + 'ှ'",
                     from: '([#uc])\u103A\u103C\u103E',
                     to: '\u1083$1\u1087\u1039',
                     minLength: 4,
@@ -3843,7 +3817,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ျ' + [ွှ  ွ]
                 {
-                    // description: "[#uc] + 'ျ' + 'ွှ' + '်'",
                     from: '([#uc])\u103B\u103D\u103E\u103A',
                     to: '$1\u108A\u107D\u1039',
                     minLength: 5,
@@ -3851,7 +3824,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ျ' + 'ွှ'",
                     from: '([#uc])\u103A\u103B\u103D\u103E',
                     to: '$1\u108A\u107D\u1039',
                     minLength: 5,
@@ -3859,7 +3831,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu8aOr3c'
                 },
                 {
-                    // description: "[#uc] + 'ျ' + 'ွ' + '်'",
                     from: '([#uc])\u103B\u103D\u103A',
                     to: '$1\u103C\u107D\u1039',
                     minLength: 4,
@@ -3867,7 +3838,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ျ' + 'ွ'",
                     from: '([#uc])\u103A\u103B\u103D',
                     to: '$1\u103C\u107D\u1039',
                     minLength: 4,
@@ -3877,7 +3847,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ျ' + 'ှ'
                 {
-                    // description: "[#uc] + 'ျ' + 'ှ' + '်'",
                     from: '([#uc])\u103B\u103E\u103A',
                     to: '$1\u103D\u103A\u1039',
                     minLength: 4,
@@ -3885,7 +3854,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu2fOr30Or3dOr3a'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ျ' + 'ှ'",
                     from: '([#uc])\u103A\u103B\u103E',
                     to: '$1\u103D\u103A\u1039',
                     minLength: 4,
@@ -3895,7 +3863,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // [ွှ  ွ]
                 {
-                    // description: "[#uc] + 'ွှ' + '်'",
                     from: '([#uc])\u103D\u103E\u103A',
                     to: '$1\u108A\u1039',
                     minLength: 4,
@@ -3903,7 +3870,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ွှ'",
                     from: '([#uc])\u103A\u103D\u103E',
                     to: '$1\u108A\u1039',
                     minLength: 4,
@@ -3911,7 +3877,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu8aOr3c'
                 },
                 {
-                    // description: "[#uc] + 'ွ' + '်'",
                     from: '([#uc])\u103D\u103A',
                     to: '$1\u103C\u1039',
                     minLength: 3,
@@ -3919,7 +3884,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pu8aOr3c'
                 },
                 {
-                    // description: "[#uc] + '်' + 'ွ'",
                     from: '([#uc])\u103A\u103D',
                     to: '$1\u103C\u1039',
                     minLength: 3,
@@ -3929,7 +3893,6 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ှ'
                 {
-                    // description: "[#uc] + 'ှ' + '်'",
                     from: '([#uc])\u103E\u103A',
                     to: '$1\u103D\u1039',
                     minLength: 3,
@@ -3940,7 +3903,6 @@ export const uni2zgRules: TranslitRule = {
                 // 'ြ'
                 // ...............
                 {
-                    // description: "[#uc] + '်' + 'ြ'",
                     from: '([#uc])\u103A\u103C',
                     to: '\u107F$1\u1039',
                     minLength: 3,
@@ -3951,7 +3913,6 @@ export const uni2zgRules: TranslitRule = {
                 // 'ျ'
                 // ...............
                 {
-                    // description: "[#uc] + 'ျ' + '်'",
                     from: '([#uc])\u103B\u103A',
                     to: '$1\u103A\u1039',
                     minLength: 3,
