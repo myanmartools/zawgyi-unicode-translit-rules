@@ -2901,4 +2901,117 @@ describe('uni2zg-rules', () => {
                 done();
             });
     });
+
+    // [ု  ူ] (zg: \u1088, \u1089)
+    // ------------------------------------------------------------------------------------------
+    // 'ေ' + 'ှ' + [ိ  ီ]
+    // ...............
+    it("should work with '([#u2e30])\u103E\u1031([\u102D\u102E])\u102F'", (done: DoneFn) => {
+        const input = 'နှေို';
+        const expected = '\u1031\u108F\u102D\u1088';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '([#u2e30])\u103E\u1031([\u102D\u102E])\u1030'", (done: DoneFn) => {
+        const input = 'နှေိူ';
+        const expected = '\u1031\u108F\u102D\u1089';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // 'ေ' + 'ှ' + '်'
+    // ...............
+    it("should work with '([#u2e30])\u103E\u103A\u1031\u1030'", (done: DoneFn) => {
+        const input = 'နှ်ေူ';
+        const expected = '\u1031\u108F\u1039\u1089';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '([#u2e30])\u103A\u103E\u1031\u1030'", (done: DoneFn) => {
+        const input = 'န်ှေူ';
+        const expected = '\u1031\u108F\u1039\u1089';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // 'ေ' + 'ှ'
+    // ...............
+    it("should work with '([#u2e30])\u103E\u1031\u1030'", (done: DoneFn) => {
+        const input = 'နှေူ';
+        const expected = '\u1031\u108F\u1089';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // 'ှ' + [ိ  ီ]
+    // ...............
+    it("should work with '([#u2e30])\u103E([\u102D\u102E])\u1030'", (done: DoneFn) => {
+        const input = 'နှိူ';
+        const expected = '\u108F\u102D\u1089';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // 'ှ' + '်'
+    // ...............
+    it("should work with '([#u2e30])\u103E\u103A\u1030'", (done: DoneFn) => {
+        const input = 'နှ်ူ';
+        const expected = '\u108F\u1039\u1089';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    it("should work with '([#u2e30])\u103A\u103E\u1030'", (done: DoneFn) => {
+        const input = 'န်ှူ';
+        const expected = '\u108F\u1039\u1089';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
+
+    // 'ှ'
+    // ...............
+    it("should work with '([#u2e30])\u103E\u1030'", (done: DoneFn) => {
+        const input = 'နှူ';
+        const expected = '\u108F\u1089';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(result));
+                done();
+            });
+    });
 });
