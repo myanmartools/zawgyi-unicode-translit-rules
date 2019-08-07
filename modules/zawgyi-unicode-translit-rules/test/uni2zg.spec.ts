@@ -40,22 +40,37 @@ export function formatCodePoints(str?: string): string {
     return cpArray.join('');
 }
 
-export function toFailOutput(result: TranslitResult): TranslitResult {
-    result.outputText = formatCodePoints(result.outputText);
+export function toFailOutput(input: string, result: TranslitResult): string {
+    let str = `\n\ninput: ${formatCodePoints(input)}\n`;
+    str += `outputText: ${formatCodePoints(result.outputText)}\n\n`;
+
     if (result.traces) {
         for (const trace of result.traces) {
-            trace.from = formatCodePoints(trace.from);
-            trace.to = formatCodePoints(trace.to);
-            trace.previousString = formatCodePoints(trace.previousString);
-            trace.matchedString = formatCodePoints(trace.matchedString);
-            trace.newString = formatCodePoints(trace.newString);
+            str += `from (parsed): ${formatCodePoints(trace.parsedFrom)}\n`;
+            str += `from: ${formatCodePoints(trace.from)}\n`;
+            str += `to: ${formatCodePoints(trace.to)}\n`;
+            str += `inputString: ${formatCodePoints(trace.inputString)}\n`;
+            str += `matchedString: ${formatCodePoints(trace.matchedString)}\n`;
+            str += `replacedString: ${formatCodePoints(trace.replacedString)}\n`;
+
+            if (trace.postRuleTraces && trace.postRuleTraces.length > 0) {
+                str += 'post rules:\n';
+                for (const subTrace of trace.postRuleTraces) {
+                    str += `from: ${formatCodePoints(subTrace.from)}\n`;
+                    str += `to: ${formatCodePoints(subTrace.to)}\n`;
+                    str += `inputString: ${formatCodePoints(subTrace.inputString)}\n`;
+                    str += `matchedString: ${formatCodePoints(subTrace.matchedString)}\n`;
+                    str += `replacedString: ${formatCodePoints(subTrace.replacedString)}\n`;
+                }
+            }
+            str += '\n';
         }
     }
 
-    return result;
+    return str;
 }
 
-describe('uni2zg-rules', () => {
+describe('uni2zg-rules-individual', () => {
     let translitService: TranslitService;
 
     beforeEach(() => {
@@ -73,13 +88,104 @@ describe('uni2zg-rules', () => {
 
     // \u1086
     // ------------------------------------------------------------------------------------------
-    it("should work with 'ဿ'", (done: DoneFn) => {
+    it("should work with '\u1086'", (done: DoneFn) => {
         const input = 'ဿ';
         const expected = '\u1086';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // \u1014
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u1014'", (done: DoneFn) => {
+        const input = 'န';
+        const expected = '\u1014';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // \u101B
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u101B'", (done: DoneFn) => {
+        const input = 'ရ';
+        const expected = '\u101B';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // \u1040
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u1040'", (done: DoneFn) => {
+        const input = '၀';
+        const expected = '\u1040';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // \u1044
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u1044'", (done: DoneFn) => {
+        const input = '၄';
+        const expected = '\u1044';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // \u1009
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u1009'", (done: DoneFn) => {
+        const input = 'ဉ';
+        const expected = '\u1009';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // \u1025
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u1025'", (done: DoneFn) => {
+        const input = 'ဥ';
+        const expected = '\u1025';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // \u100A
+    // ------------------------------------------------------------------------------------------
+    it("should work with '\u100A'", (done: DoneFn) => {
+        const input = 'ည';
+        const expected = '\u100A';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -94,7 +200,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -105,7 +211,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -116,7 +222,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -127,7 +233,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -138,7 +244,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -149,7 +255,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -160,7 +266,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -171,7 +277,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -182,7 +288,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -193,53 +299,53 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // '.' (zg: \u1094)
     // ...............
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u1031#kx\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u1031#kx\u102F\u1037'", (done: DoneFn) => {
         const input = 'င်္နေို့';
         const expected = '\u1031\u108F\u102F\u108B\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E\u1031#kx\u1037'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E\u1031#kx\u1037'", (done: DoneFn) => {
         const input = 'င်္နှေီ့';
         const expected = '\u1031\u108F\u103D\u108C\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])#kx\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])#kx\u102F\u1037'", (done: DoneFn) => {
         const input = 'င်္နီု့';
         const expected = '\u108F\u102F\u108C\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E#kx\u1037''", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E#kx\u1037''", (done: DoneFn) => {
         const input = 'င်္နှိ့';
         const expected = '\u108F\u103D\u108B\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -250,7 +356,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -261,20 +367,31 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // '.' (zg: \u1037)
     // ...............
+    it("should work with '\u1004\u103A\u1039([#u37\u1014])\u103C\u1031#kx([\u102B\u102C])\u1037'", (done: DoneFn) => {
+        const input = 'င်္နြေိာ့';
+        const expected = '\u1031\u107F\u108F\u108B\u102C\u1037';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
     it("should work with '\u1004\u103A\u1039([#u37\u1014])\u103C\u1031#kx\u1037'", (done: DoneFn) => {
         const input = 'င်္နြေိ့';
         const expected = '\u1031\u107F\u108F\u108B\u1037';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -285,7 +402,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -296,7 +413,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -307,7 +424,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -318,7 +435,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -329,7 +446,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -342,7 +459,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -353,7 +470,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -364,7 +481,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -375,7 +492,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -386,77 +503,77 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // [ု  ူ] (zg: \u1088, \u1089)
     // ...............
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E\u1031#kx\u102F'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E\u1031#kx\u102F'", (done: DoneFn) => {
         const input = 'င်္ကှေို';
         const expected = '\u1031\u1000\u108B\u1088';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E\u1031#kx\u1030'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E\u1031#kx\u1030'", (done: DoneFn) => {
         const input = 'င်္ကှေိူ';
         const expected = '\u1031\u1000\u108B\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E#kx\u1030'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E#kx\u1030'", (done: DoneFn) => {
         const input = 'င်္ပှိူ';
         const expected = '\u1015\u108B\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // [ု  ူ] (zg: \u102F, \u1030)
     // ...............
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u1031#kx\u102F'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u1031#kx\u102F'", (done: DoneFn) => {
         const input = 'င်္ကေို';
         const expected = '\u1031\u1000\u102F\u108B';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u1031#kx\u1030'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u1031#kx\u1030'", (done: DoneFn) => {
         const input = 'င်္ကေိူ';
         const expected = '\u1031\u1000\u1030\u108B';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])#kx\u1030'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])#kx\u1030'", (done: DoneFn) => {
         const input = 'င်္ကိူ';
         const expected = '\u1000\u1030\u108B';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -469,7 +586,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -480,7 +597,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -491,7 +608,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -502,7 +619,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -513,7 +630,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -524,7 +641,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -535,7 +652,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -546,7 +663,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -557,7 +674,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -568,7 +685,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -579,7 +696,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -590,7 +707,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -603,7 +720,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -614,7 +731,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -625,7 +742,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -636,7 +753,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -647,7 +764,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -658,7 +775,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -669,7 +786,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -680,7 +797,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -691,7 +808,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -704,7 +821,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -717,7 +834,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -730,7 +847,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -745,7 +862,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -756,7 +873,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -767,7 +884,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -778,7 +895,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -789,7 +906,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -800,7 +917,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -811,7 +928,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -822,7 +939,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -833,7 +950,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -844,7 +961,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -853,46 +970,46 @@ describe('uni2zg-rules', () => {
     // ...............
     // '.' (zg: \u1094)
     // ...............
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u1031\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u1031\u102F\u1037'", (done: DoneFn) => {
         const input = 'င်္နေု့';
         const expected = '\u1031\u108F\u102F\u1064\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E\u1031\u1037'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E\u1031\u1037'", (done: DoneFn) => {
         const input = 'င်္နှေ့';
         const expected = '\u1031\u108F\u103D\u1064\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u102F\u1037'", (done: DoneFn) => {
         const input = 'င်္နု့';
         const expected = '\u108F\u102F\u1064\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E\u1037''", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E\u1037''", (done: DoneFn) => {
         const input = 'င်္နှ့';
         const expected = '\u108F\u103D\u1064\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -903,7 +1020,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -914,7 +1031,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -927,7 +1044,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -938,7 +1055,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -949,7 +1066,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -960,7 +1077,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -971,7 +1088,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -982,7 +1099,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -995,7 +1112,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1006,7 +1123,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1017,7 +1134,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1028,7 +1145,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1039,77 +1156,77 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // [ု  ူ] (zg: \u1088, \u1089)
     // ...............
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E\u1031\u102F'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E\u1031\u102F'", (done: DoneFn) => {
         const input = 'င်္ကှေု';
         const expected = '\u1031\u1000\u1064\u1088';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E\u1031\u1030'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E\u1031\u1030'", (done: DoneFn) => {
         const input = 'င်္ကှေူ';
         const expected = '\u1031\u1000\u1064\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u103E\u1030'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u103E\u1030'", (done: DoneFn) => {
         const input = 'င်္ပှူ';
         const expected = '\u1015\u1064\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // [ု  ူ] (zg: \u102F, \u1030)
     // ...............
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u1031\u102F'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u1031\u102F'", (done: DoneFn) => {
         const input = 'င်္ကေု';
         const expected = '\u1031\u1000\u102F\u1064';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u1031\u1030'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u1031\u1030'", (done: DoneFn) => {
         const input = 'င်္ကေူ';
         const expected = '\u1031\u1000\u1030\u1064';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '\u1004\u103A\u1039([#u2e30])\u1030'", (done: DoneFn) => {
+    it("should work with '\u1004\u103A\u1039([#u2f30])\u1030'", (done: DoneFn) => {
         const input = 'င်္ကူ';
         const expected = '\u1000\u1030\u1064';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1122,7 +1239,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1133,7 +1250,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1144,7 +1261,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1155,7 +1272,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1166,7 +1283,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1177,7 +1294,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1188,7 +1305,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1199,7 +1316,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1210,7 +1327,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1221,7 +1338,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1232,7 +1349,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1243,7 +1360,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1256,7 +1373,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1267,7 +1384,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1278,7 +1395,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1289,7 +1406,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1300,7 +1417,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1311,7 +1428,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1322,7 +1439,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1333,7 +1450,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1344,7 +1461,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1357,7 +1474,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1370,7 +1487,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1383,7 +1500,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1396,7 +1513,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1407,7 +1524,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1418,7 +1535,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1431,7 +1548,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1446,7 +1563,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1457,7 +1574,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1468,7 +1585,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1480,7 +1597,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1491,7 +1608,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1502,7 +1619,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1513,7 +1630,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1524,7 +1641,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1535,7 +1652,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1546,7 +1663,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1557,7 +1674,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1572,7 +1689,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1583,7 +1700,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1594,7 +1711,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1605,7 +1722,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1616,7 +1733,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1627,7 +1744,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1638,7 +1755,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1649,7 +1766,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1660,7 +1777,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1671,7 +1788,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1682,7 +1799,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1693,7 +1810,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1704,7 +1821,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1715,7 +1832,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1726,7 +1843,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1737,7 +1854,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1748,7 +1865,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1759,7 +1876,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1770,7 +1887,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1783,7 +1900,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1794,7 +1911,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1807,7 +1924,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1818,7 +1935,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1829,7 +1946,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1840,7 +1957,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1853,7 +1970,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1864,7 +1981,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1875,7 +1992,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1886,7 +2003,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1897,7 +2014,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1908,7 +2025,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1919,7 +2036,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1930,7 +2047,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1941,7 +2058,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1954,7 +2071,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1965,7 +2082,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1976,7 +2093,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -1988,228 +2105,228 @@ describe('uni2zg-rules', () => {
     // ------------------------------------------------------------------------------------------
     // 'ေ' + 'ု'
     // ...............
-    it("should work with '([#u2e30])\u1031([\u102D\u102E])\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u1031([\u102D\u102E])\u102F\u1037'", (done: DoneFn) => {
         const input = 'ကေို့';
         const expected = '\u1031\u1000\u102D\u102F\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u1031\u102F([\u1032\u1036])\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u1031\u102F([\u1032\u1036])\u1037'", (done: DoneFn) => {
         const input = 'နေုဲ့';
         const expected = '\u1031\u108F\u102F\u1032\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u1031\u102F\u1037\u103A'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u1031\u102F\u1037\u103A'", (done: DoneFn) => {
         const input = 'နေု့်';
         const expected = '\u1031\u108F\u1039\u102F\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103A\u1031\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103A\u1031\u102F\u1037'", (done: DoneFn) => {
         const input = 'န်ေု့';
         const expected = '\u1031\u108F\u1039\u102F\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u1031\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u1031\u102F\u1037'", (done: DoneFn) => {
         const input = 'နေု့';
         const expected = '\u1031\u108F\u102F\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ေ' + 'ှ'
     // ...............
-    it("should work with '([#u2e30])\u103E\u1031([\u102D\u102E\u1032\u1036])\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u1031([\u102D\u102E\u1032\u1036])\u1037'", (done: DoneFn) => {
         const input = 'ကှေိ့';
         const expected = '\u1031\u1000\u103D\u102D\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103E\u1031\u1037\u103A'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u1031\u1037\u103A'", (done: DoneFn) => {
         const input = 'နှေ့်';
         const expected = '\u1031\u108F\u103D\u1039\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103A\u103E\u1031\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103A\u103E\u1031\u1037'", (done: DoneFn) => {
         const input = 'န်ှေ့';
         const expected = '\u1031\u108F\u103D\u1039\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103E\u103A\u1031\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u103A\u1031\u1037'", (done: DoneFn) => {
         const input = 'နှ်ေ့';
         const expected = '\u1031\u108F\u103D\u1039\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103E\u1031\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u1031\u1037'", (done: DoneFn) => {
         const input = 'နှေ့';
         const expected = '\u1031\u108F\u103D\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ု'
     // ...............
-    it("should work with '([#u2e30])([\u102D\u102E])\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])([\u102D\u102E])\u102F\u1037'", (done: DoneFn) => {
         const input = 'နို့';
         const expected = '\u108F\u102D\u102F\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u102F([\u1032\u1036])\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u102F([\u1032\u1036])\u1037'", (done: DoneFn) => {
         const input = 'နုဲ့';
         const expected = '\u108F\u102F\u1032\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u102F\u1037\u103A'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u102F\u1037\u103A'", (done: DoneFn) => {
         const input = 'နု့်';
         const expected = '\u108F\u1039\u102F\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103A\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103A\u102F\u1037'", (done: DoneFn) => {
         const input = 'န်ု့';
         const expected = '\u108F\u1039\u102F\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u102F\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u102F\u1037'", (done: DoneFn) => {
         const input = 'နု့';
         const expected = '\u108F\u102F\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ှ'
     // ...............
-    it("should work with '([#u2e30])\u103E([\u102D\u102E\u1032\u1036])\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E([\u102D\u102E\u1032\u1036])\u1037'", (done: DoneFn) => {
         const input = 'နှိ့';
         const expected = '\u108F\u103D\u102D\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103E\u1037\u103A'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u1037\u103A'", (done: DoneFn) => {
         const input = 'နှ့်';
         const expected = '\u108F\u103D\u1039\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103A\u103E\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103A\u103E\u1037'", (done: DoneFn) => {
         const input = 'န်ှ့';
         const expected = '\u108F\u103D\u1039\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103E\u103A\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u103A\u1037'", (done: DoneFn) => {
         const input = 'နှ့်';
         const expected = '\u108F\u103D\u1039\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103E\u1037'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u1037'", (done: DoneFn) => {
         const input = 'နှ့';
         const expected = '\u108F\u103D\u1094';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2222,7 +2339,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2233,7 +2350,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2244,7 +2361,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2255,7 +2372,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2266,7 +2383,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2277,7 +2394,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2288,7 +2405,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2299,7 +2416,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2312,7 +2429,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2323,7 +2440,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2334,7 +2451,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2345,7 +2462,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2358,7 +2475,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2369,7 +2486,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2380,7 +2497,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2391,7 +2508,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2402,7 +2519,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2413,7 +2530,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2424,7 +2541,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2435,7 +2552,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2448,7 +2565,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2459,7 +2576,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2470,7 +2587,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2481,7 +2598,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2494,7 +2611,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2505,7 +2622,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2516,7 +2633,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2527,7 +2644,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2538,7 +2655,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2549,7 +2666,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2560,7 +2677,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2571,7 +2688,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2586,7 +2703,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2597,7 +2714,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2608,7 +2725,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2619,7 +2736,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2632,7 +2749,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2643,7 +2760,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2656,7 +2773,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2669,7 +2786,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2680,7 +2797,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2693,7 +2810,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2706,7 +2823,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2719,7 +2836,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2730,7 +2847,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2743,7 +2860,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2754,7 +2871,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2769,7 +2886,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2782,7 +2899,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2793,7 +2910,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2806,7 +2923,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2819,7 +2936,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2832,7 +2949,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2845,7 +2962,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2858,7 +2975,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2871,7 +2988,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2884,7 +3001,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2897,7 +3014,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -2906,111 +3023,111 @@ describe('uni2zg-rules', () => {
     // ------------------------------------------------------------------------------------------
     // 'ေ' + 'ှ' + [ိ  ီ]
     // ...............
-    it("should work with '([#u2e30])\u103E\u1031([\u102D\u102E])\u102F'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u1031([\u102D\u102E])\u102F'", (done: DoneFn) => {
         const input = 'နှေို';
         const expected = '\u1031\u108F\u102D\u1088';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103E\u1031([\u102D\u102E])\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u1031([\u102D\u102E])\u1030'", (done: DoneFn) => {
         const input = 'နှေိူ';
         const expected = '\u1031\u108F\u102D\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ေ' + 'ှ' + '်'
     // ...............
-    it("should work with '([#u2e30])\u103E\u103A\u1031\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u103A\u1031\u1030'", (done: DoneFn) => {
         const input = 'နှ်ေူ';
         const expected = '\u1031\u108F\u1039\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103A\u103E\u1031\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103A\u103E\u1031\u1030'", (done: DoneFn) => {
         const input = 'န်ှေူ';
         const expected = '\u1031\u108F\u1039\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ေ' + 'ှ'
     // ...............
-    it("should work with '([#u2e30])\u103E\u1031\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u1031\u1030'", (done: DoneFn) => {
         const input = 'နှေူ';
         const expected = '\u1031\u108F\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ှ' + [ိ  ီ]
     // ...............
-    it("should work with '([#u2e30])\u103E([\u102D\u102E])\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E([\u102D\u102E])\u1030'", (done: DoneFn) => {
         const input = 'နှိူ';
         const expected = '\u108F\u102D\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ှ' + '်'
     // ...............
-    it("should work with '([#u2e30])\u103E\u103A\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u103A\u1030'", (done: DoneFn) => {
         const input = 'နှ်ူ';
         const expected = '\u108F\u1039\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it("should work with '([#u2e30])\u103A\u103E\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103A\u103E\u1030'", (done: DoneFn) => {
         const input = 'န်ှူ';
         const expected = '\u108F\u1039\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ှ'
     // ...............
-    it("should work with '([#u2e30])\u103E\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103E\u1030'", (done: DoneFn) => {
         const input = 'နှူ';
         const expected = '\u108F\u1089';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3019,78 +3136,78 @@ describe('uni2zg-rules', () => {
     // ------------------------------------------------------------------------------------------
     // 'ေ' + '်'
     // ...............
-    it("should work with '([#u2e30])\u103A\u1031\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103A\u1031\u1030'", (done: DoneFn) => {
         const input = 'န်ေူ';
         const expected = '\u1031\u108F\u1039\u1030';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ေ' + [ိ  ီ]
     // ...............
-    it("should work with '([#u2e30])\u1031([\u102D\u102E])\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u1031([\u102D\u102E])\u1030'", (done: DoneFn) => {
         const input = 'နေိူ';
         const expected = '\u1031\u108F\u102D\u1030';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // 'ေ'
     // ...............
-    it("should work with '([#u2e30])\u1031\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u1031\u1030'", (done: DoneFn) => {
         const input = 'နေူ';
         const expected = '\u1031\u108F\u1030';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // '်'
     // ...............
-    it("should work with '([#u2e30])\u103A\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])\u103A\u1030'", (done: DoneFn) => {
         const input = 'န်ူ';
         const expected = '\u108F\u1039\u1030';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // [ိ  ီ]
     // ...............
-    it("should work with '([#u2e30])([\u102D\u102E])\u1030'", (done: DoneFn) => {
+    it("should work with '([#u2f30])([\u102D\u102E])\u1030'", (done: DoneFn) => {
         const input = 'နိူ';
         const expected = '\u108F\u102D\u1030';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     // #
     // ...............
-    it("should work with '([#u2e30])\u1030'", (done: DoneFn) => {
-        const input = 'နူ';
-        const expected = '\u108F\u1030';
+    it("should work with '([#u2f30])\u1030'", (done: DoneFn) => {
+        const input = 'ရု';
+        const expected = '\u1090\u102F';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3105,7 +3222,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3116,7 +3233,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3127,7 +3244,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3138,7 +3255,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3149,7 +3266,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3160,7 +3277,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3171,7 +3288,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3182,7 +3299,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3193,7 +3310,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3204,7 +3321,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3215,7 +3332,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3226,7 +3343,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3237,7 +3354,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3248,7 +3365,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3259,7 +3376,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3272,7 +3389,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3283,7 +3400,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3294,7 +3411,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3305,7 +3422,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3316,7 +3433,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3327,7 +3444,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3338,7 +3455,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3349,7 +3466,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3360,7 +3477,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3373,7 +3490,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3386,7 +3503,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3397,7 +3514,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3410,7 +3527,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3421,7 +3538,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3434,7 +3551,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3447,7 +3564,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3460,7 +3577,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3473,7 +3590,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3486,7 +3603,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3501,7 +3618,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3512,7 +3629,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3525,7 +3642,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3538,7 +3655,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3551,7 +3668,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3562,7 +3679,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3575,7 +3692,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3588,7 +3705,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3601,7 +3718,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3612,7 +3729,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3625,7 +3742,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3638,7 +3755,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3653,7 +3770,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3664,7 +3781,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3675,7 +3792,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3688,7 +3805,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3699,7 +3816,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3710,7 +3827,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3723,7 +3840,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3734,7 +3851,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3745,7 +3862,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3758,7 +3875,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3769,7 +3886,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3782,7 +3899,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3795,7 +3912,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3808,7 +3925,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3819,7 +3936,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3830,7 +3947,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3841,7 +3958,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3852,7 +3969,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3863,7 +3980,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3874,7 +3991,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3885,7 +4002,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3896,7 +4013,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3907,29 +4024,51 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     it("should work with '\u102F'", (done: DoneFn) => {
         const input = 'ု';
-        const expected = '\u1033';
+        const expected = '\u102F';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '\u102F' to '\u1033'", (done: DoneFn) => {
+        const input = 'ကျို';
+        const expected = '\u1000\u103a\u102d\u1033';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     it("should work with '\u1030'", (done: DoneFn) => {
         const input = 'ူ';
-        const expected = '\u1034';
+        const expected = '\u1030';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '\u1030' to '\u1034'", (done: DoneFn) => {
+        const input = 'ကျူ';
+        const expected = '\u1000\u103a\u1034';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3940,7 +4079,7 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
@@ -3951,18 +4090,29 @@ describe('uni2zg-rules', () => {
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
     it("should work with '\u1037'", (done: DoneFn) => {
         const input = '့';
-        const expected = '\u1095';
+        const expected = '\u1037';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
             .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(result));
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '\u1037' to '\u1095'", (done: DoneFn) => {
+        const input = 'ကျို့';
+        const expected = '\u1000\u103a\u102d\u1033\u1095';
+
+        translitService.translit(input, 'uni2zg', uni2zgRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
