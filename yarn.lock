@@ -329,10 +329,10 @@
     webpack-sources "^1.4.3"
     yargs "^13.3.0"
 
-"@dagonmetric/ng-translit@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@dagonmetric/ng-translit/-/ng-translit-8.0.0.tgz#58ce5e173d2532b91fbfb3081530d93be95fc7eb"
-  integrity sha512-ilk+KGjg1efi/rBvFYqIAm/+dUDPEj1Y+NR6TvX/sL0txREoBFW63ssDPrYig1xDVfo2VnmkXXQeWTySEcMiiQ==
+"@dagonmetric/ng-translit@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@dagonmetric/ng-translit/-/ng-translit-10.0.0.tgz#1cf765dd2060de92b22f99269b2d9098a6531265"
+  integrity sha512-UBhXA4RLHP7+/jYhHdCrMhOLWizB4Ah3hte5jwp4pSRa35vfcxhvOodNeBIVFb7iKVJmztUCk++n32t5tT/+Hg==
   dependencies:
     tslib "^1.9.3"
 
