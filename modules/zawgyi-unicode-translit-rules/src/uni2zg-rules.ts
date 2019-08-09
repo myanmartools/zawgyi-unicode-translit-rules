@@ -320,6 +320,8 @@ export const uni2zgRules: TranslitRule = {
                     postRulesStart: { gc1: 1 }
                 },
 
+                // TODO: \u106E...
+
                 // 'ြ' + 'ေ'
                 {
                     from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103C\u1031#kx',
@@ -329,6 +331,8 @@ export const uni2zgRules: TranslitRule = {
                     postRulesRef: 'pPasinOr8aOr3c',
                     postRulesStart: { g81To84: 1, gc1: 2, gc139c2: 2 }
                 },
+
+                // TODO: \u106E...
 
                 // 'ျ' + 'ေ'
                 {
