@@ -90,9 +90,31 @@ describe('uni2zg-rules-individual', () => {
     // ------------------------------------------------------------------------------------------
     // Pasin
     // ...............
-    it("should work with '\u1031[#z3bOr7eTo84]([#zc])\u1096#zkx'", (done: DoneFn) => {
+    it("should work with '\u1031[#z3bOr7eTo84]([#zc])\u1096#kx'", (done: DoneFn) => {
         const input = '\u1031\u1083\u108F\u1096\u108B';
         const expected = 'င်္န္တြွေိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '\u1031([#zc])\u1096#kx", (done: DoneFn) => {
+        const input = '\u1031\u1090\u1096\u108C';
+        const expected = 'င်္ရ္တွေီ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '\u1031[#z3bOr7eTo84]([#zc])([##zplc])#kx", (done: DoneFn) => {
+        const input = '\u1031\u1084\u1086\u1071\u108D';
+        const expected = 'င်္ဿ္တြေံ';
 
         translitService.translit(input, 'zg2uni', zg2uniRules)
             .subscribe(result => {
