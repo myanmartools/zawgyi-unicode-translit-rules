@@ -27,11 +27,24 @@
             "karmaConfig": "modules/zawgyi-unicode-translit-rules/karma.conf.js",
             "codeCoverageExclude": [
               "**/test.ts",
+              "**/test.*.ts",
               "**/index.ts",
               "**/public_api.ts"
             ]
           },
           "configurations": {
+            "zg2uni": {
+              "main": "modules/zawgyi-unicode-translit-rules/test.zg2uni-only.ts"
+            },
+            "uni2zg": {
+              "main": "modules/zawgyi-unicode-translit-rules/test.uni2zg-only.ts"
+            },
+            "zg2uni-sb": {
+              "main": "modules/zawgyi-unicode-translit-rules/test.zg2uni-spelling-book.ts"
+            },
+            "uni2zg-sb": {
+              "main": "modules/zawgyi-unicode-translit-rules/test.uni2zg-spelling-book.ts"
+            },
             "ci": {
               "browsers": "ChromeHeadless",
               "reporters": ["progress", "junit"],

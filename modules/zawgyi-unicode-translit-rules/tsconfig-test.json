@@ -6,12 +6,5 @@
       "jasmine",
       "node"
     ]
-  },
-  "files": [
-    "test.ts"
-  ],
-  "include": [
-    "**/test/**/*.spec.ts",
-    "**/test/**/*.d.ts"
-  ]
+  }
 }
