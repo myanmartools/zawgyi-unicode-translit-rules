@@ -13,19 +13,69 @@ import { TranslitRule } from '@dagonmetric/ng-translit';
 export const zg2uniRules: TranslitRule = {
     phases: [
         {
+            description: 'Fixing overlapped words phase',
+            tplSeq: {
+                '#olx': [
+                    ['\u102B', '\u102B', 10],
+                    ['\u1036', '\u1036', 8],
+                    ['\u105A', '\u105A', 1],
+                    ['\u1060', '\u1060', 10],
+                    ['\u106C', '\u106C', 2],
+                    ['\u1070', '\u1070', 22],
+                    ['\u1087', '\u1087', 8],
+                    ['\u1093', '\u1093', 4],
+                ]
+            },
+            // TODO: Add `when` option to phase?
+            rules: [
+                {
+                    from: '(#olx)+',
+                    to: '#olx',
+                    minLength: 1,
+                    when: {
+                        'fix-overlapped-words': true
+                    }
+                }
+            ]
+        },
+        {
             tplVar: {
                 '#zc': '\u1000-\u1021\u1025\u1027\u1040-\u1049\u106A\u106B\u1086\u108F\u1090',
+                '#zplc': '\u1060-\u1063\u1065-\u1069\u106C\u106D\u1070-\u107C\u1085\u1093',
                 '#z3bOr7eTo84': '\u103B\u107E-\u1084',
             },
             tplSeq: {
-                '#zkx': [
+                '#kx': [
                     ['\u108B', '\u102D', 1],
                     ['\u108C', '\u102E', 1],
                     ['\u108D', '\u1036', 1]
-                ]
+                ],
+                '#px': [
+                    ['\u1060', '\u1000', 4],
+                    ['\u1065', '\u1005', 1],
+                    ['\u1066', '\u1006', 1],
+                    ['\u1067', '\u1006', 3],
+                    ['\u106C', '\u100B', 2],
+                    ['\u1070', '\u100F', 1],
+                    ['\u1071', '\u1010', 1],
+                    ['\u1072', '\u1010', 1],
+                    ['\u1073', '\u1011', 1],
+                    ['\u1074', '\u1011', 7],
+                    ['\u107B', '\u1018', 1],
+                    ['\u107C', '\u1019', 1],
+                    ['\u1085', '\u101C', 1],
+                    ['\u1093', '\u1018', 1]
+                ],
             },
             postRulesDef: {
                 pz2u: [
+                    {
+                        // description: "'ဿ' သို့",
+                        from: '\u1086',
+                        to: '\u103F',
+                        start: -1,
+                        orGroup: 'gc1'
+                    },
                     {
                         // description: "'န' သို့",
                         from: '\u108F',
@@ -61,7 +111,14 @@ export const zg2uniRules: TranslitRule = {
                         to: '\u101D',
                         start: -1,
                         orGroup: 'gc1'
-                    }
+                    },
+
+                    {
+                        from: '#px',
+                        to: '#px',
+                        start: -1,
+                        orGroup: 'gpx'
+                    },
                 ]
             },
             rules: [
@@ -69,14 +126,34 @@ export const zg2uniRules: TranslitRule = {
                 // ------------------------------------------------------------------------------------------
                 // Pasin
                 // ...............
-                // 'ေ' + 'ြ' + 'တ' + 'ွ'
+                // 'ေ' + 'ြ' + \u1096
                 {
-                    from: '\u1031[#z3bOr7eTo84]([#zc])\u1096#zkx',
-                    to: '\u1004\u103A\u1039$1\u1039\u1010\u103C\u103D\u1031#zkx',
+                    from: '\u1031[#z3bOr7eTo84]([#zc])\u1096#kx',
+                    to: '\u1004\u103A\u1039$1\u1039\u1010\u103C\u103D\u1031#kx',
                     minLength: 5,
-                    quickTests: [['\u1031', 0], ['\u1096', 3], ['#zkx', 4]],
+                    quickTests: [['\u1031', 0], ['\u1096', 3], ['#kx', 4]],
                     postRulesRef: 'pz2u',
                     postRulesStart: { gc1: 3 }
+                },
+
+                // 'ေ' + \u1096
+                {
+                    from: '\u1031([#zc])\u1096#kx',
+                    to: '\u1004\u103A\u1039$1\u1039\u1010\u103D\u1031#kx',
+                    minLength: 4,
+                    quickTests: [['\u1031', 0], ['\u1096', 2], ['#kx', 3]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // 'ေ' + 'ြ'
+                {
+                    from: '\u1031[#z3bOr7eTo84]([#zc])([##zplc])#kx',
+                    to: '\u1004\u103A\u1039$1\u1039$2\u103C\u1031#kx',
+                    minLength: 5,
+                    quickTests: [['\u1031', 0], ['#kx', 4]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3, gpx: 5 }
                 },
             ]
         }
