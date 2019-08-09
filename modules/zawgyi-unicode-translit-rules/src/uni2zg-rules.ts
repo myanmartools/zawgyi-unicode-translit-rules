@@ -299,7 +299,7 @@ export const uni2zgRules: TranslitRule = {
                 // ------------------------------------------------------------------------------------------
                 // Pasin
                 // ...............
-                //
+                // TODO: 'ွ' for others?
                 //  'တ' + 'ွ' + 'ြ' + 'ေ'
                 {
                     from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103C\u103D\u1031#kx',
@@ -310,6 +310,7 @@ export const uni2zgRules: TranslitRule = {
                     postRulesStart: { g81To84: 1, gc1: 2 }
                 },
 
+                // TODO: 'ွ' for others?
                 //  'တ' + 'ွ' + 'ေ'
                 {
                     from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103D\u1031#kx',
@@ -320,8 +321,7 @@ export const uni2zgRules: TranslitRule = {
                     postRulesStart: { gc1: 1 }
                 },
 
-                // TODO: \u106E...
-
+                // TODO: \u106E...?
                 // 'ြ' + 'ေ'
                 {
                     from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103C\u1031#kx',
@@ -332,8 +332,7 @@ export const uni2zgRules: TranslitRule = {
                     postRulesStart: { g81To84: 1, gc1: 2, gc139c2: 2 }
                 },
 
-                // TODO: \u106E...
-
+                // TODO: \u106E...?
                 // 'ျ' + 'ေ'
                 {
                     from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103B\u1031#kx',
