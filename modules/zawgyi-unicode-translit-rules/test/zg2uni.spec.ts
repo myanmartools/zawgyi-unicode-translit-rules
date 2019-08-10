@@ -265,4 +265,17 @@ describe('zg2uni-rules-individual', () => {
                 done();
             });
     });
+
+    // [ု  ူ]
+    // ...............
+    it(String.raw`\u1031([#zc])([\u102F\u1030])#kx`, (done: DoneFn) => {
+        const input = '\u1031\u108F\u102F\u108B';
+        const expected = 'င်္နေို';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
 });
