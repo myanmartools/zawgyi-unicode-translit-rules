@@ -19,7 +19,7 @@ export const uni2zgRules: TranslitRule = {
                 '#u37': '\u1000-\u1007\u1009\u100A\u100C\u100E-\u1013\u1015-\u101A\u101C-\u101F\u1021\u1025-\u1027\u103F\u1040',
                 '#u2fOr30': '\u1000-\u1007\u100E-\u101A\u101C-\u101F\u1021\u1027\u103F\u1040',
                 '#zc': '\u1000-\u1021\u1025\u1027\u1040-\u1049\u106A\u106B\u1086\u108F\u1090',
-                '#zlc': '\u1000\u1003\u1006\u100A\u100F-\u1011\u1018\u101A\u101C\u101E\u101F\u1021\u106B\u1086',
+                '#zlc': '\u1000\u1003\u1006\u100A\u100F-\u1011\u1018\u101A\u101C\u101E\u101F\u1021\u106B\u1086\u1091',
                 '#z33Or34': '\u1000-\u1021\u1023-\u1027\u1029\u102B-\u102E\u1032\u1036-\u103D\u1040-\u1049\u1060-\u1087\u108A-\u1097',
                 '#z95': '\u1000-\u1021\u1023-\u1027\u1029\u102B-\u1034\u1036\u1038-\u103D\u1040-\u1049\u1060-\u1093\u1096\u1097'
             },
@@ -96,16 +96,39 @@ export const uni2zgRules: TranslitRule = {
                     },
 
                     {
-                        from: '\u1083([#zlc])',
-                        to: '\u1084$1',
+                        // description: "'ဍ' + U+1039 + 'ဍ'",
+                        from: '\u100D\u1039\u100D',
+                        to: '\u106E',
                         start: -1,
-                        orGroup: 'g81To84'
+                        orGroup: 'gc139c2'
                     },
                     {
-                        from: '\u1081([#zlc])',
-                        to: '\u1082$1',
+                        // description: "'ဍ' + U+1039 + 'ဎ'",
+                        from: '\u100D\u1039\u100E',
+                        to: '\u106F',
                         start: -1,
-                        orGroup: 'g81To84'
+                        orGroup: 'gc139c2'
+                    },
+                    {
+                        // description: "'ဏ' + U+1039 + 'ဍ'",
+                        from: '\u100F\u1039\u100D',
+                        to: '\u1091',
+                        start: -1,
+                        orGroup: 'gc139c2'
+                    },
+                    {
+                        // description: "'ဋ' + U+1039 + 'ဌ'",
+                        from: '\u100B\u1039\u100C',
+                        to: '\u1092',
+                        start: -1,
+                        orGroup: 'gc139c2'
+                    },
+                    {
+                        // description: "'ဋ' + U+1039 + 'ဋ'",
+                        from: '\u100B\u1039\u100B',
+                        to: '\u1097',
+                        start: -1,
+                        orGroup: 'gc139c2'
                     },
 
                     {
@@ -119,6 +142,19 @@ export const uni2zgRules: TranslitRule = {
                         to: '$1#psx',
                         start: -1,
                         orGroup: 'gc139c2'
+                    },
+
+                    {
+                        from: '\u1083([#zlc])',
+                        to: '\u1084$1',
+                        start: -1,
+                        orGroup: 'g81To84'
+                    },
+                    {
+                        from: '\u1081([#zlc])',
+                        to: '\u1082$1',
+                        start: -1,
+                        orGroup: 'g81To84'
                     }
                 ],
 
@@ -299,7 +335,6 @@ export const uni2zgRules: TranslitRule = {
                 // ------------------------------------------------------------------------------------------
                 // Pasin
                 // ...............
-                // TODO: 'ွ' for others?
                 //  'တ' + 'ွ' + 'ြ' + 'ေ'
                 {
                     from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103C\u103D\u1031#kx',
@@ -310,7 +345,6 @@ export const uni2zgRules: TranslitRule = {
                     postRulesStart: { g81To84: 1, gc1: 2 }
                 },
 
-                // TODO: 'ွ' for others?
                 //  'တ' + 'ွ' + 'ေ'
                 {
                     from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103D\u1031#kx',
@@ -321,22 +355,20 @@ export const uni2zgRules: TranslitRule = {
                     postRulesStart: { gc1: 1 }
                 },
 
-                // TODO: \u106E...?
                 // 'ြ' + 'ေ'
                 {
-                    from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103C\u1031#kx',
-                    to: '\u1031\u1083$1\u1039$2#kx',
+                    from: '\u1004\u103A\u1039([#uc]\u1039[#uc])\u103C\u1031#kx',
+                    to: '\u1031\u1083$1#kx',
                     minLength: 9,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u103C', 6], ['\u1031', 7], ['#kx', 8]],
                     postRulesRef: 'pPasinOr8aOr3c',
                     postRulesStart: { g81To84: 1, gc1: 2, gc139c2: 2 }
                 },
 
-                // TODO: \u106E...?
                 // 'ျ' + 'ေ'
                 {
-                    from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103B\u1031#kx',
-                    to: '\u1031$1\u1039$2\u107D#kx',
+                    from: '\u1004\u103A\u1039([#uc]\u1039[#uc])\u103B\u1031#kx',
+                    to: '\u1031$1\u107D#kx',
                     minLength: 9,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u103B', 6], ['\u1031', 7], ['#kx', 8]],
                     postRulesRef: 'pPasinOr8aOr3c',
@@ -345,15 +377,15 @@ export const uni2zgRules: TranslitRule = {
 
                 // 'ေ'
                 {
-                    from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u1031#kx',
-                    to: '\u1031$1\u1039$2#kx',
+                    from: '\u1004\u103A\u1039([#uc]\u1039[#uc])\u1031#kx',
+                    to: '\u1031$1#kx',
                     minLength: 8,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u1031', 6], ['#kx', 7]],
                     postRulesRef: 'pPasinOr8aOr3c',
                     postRulesStart: { gc1: 1, gc139c2: 1 }
                 },
 
-                // 'ြ' + 'ွ'
+                // 'ြ' + 'တ' + 'ွ'
                 {
                     from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103C\u103D#kx',
                     to: '\u1083$1\u1096#kx',
@@ -363,7 +395,7 @@ export const uni2zgRules: TranslitRule = {
                     postRulesStart: { g81To84: 0, gc1: 1 }
                 },
 
-                // 'ွ'
+                // 'တ' + 'ွ'
                 {
                     from: '\u1004\u103A\u1039([#uc])\u1039\u1010\u103D#kx',
                     to: '$1\u1096#kx',
@@ -374,10 +406,9 @@ export const uni2zgRules: TranslitRule = {
                 },
 
                 // 'ြ'
-                //
                 {
-                    from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103C#kx',
-                    to: '\u1083$1\u1039$2#kx',
+                    from: '\u1004\u103A\u1039([#uc]\u1039[#uc])\u103C#kx',
+                    to: '\u1083$1#kx',
                     minLength: 8,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u103C', 6], ['#kx', 7]],
                     postRulesRef: 'pPasinOr8aOr3c',
@@ -385,10 +416,9 @@ export const uni2zgRules: TranslitRule = {
                 },
 
                 // 'ျ'
-                //
                 {
-                    from: '\u1004\u103A\u1039([#uc])\u1039([#uc])\u103B#kx',
-                    to: '$1\u1039$2\u107D#kx',
+                    from: '\u1004\u103A\u1039([#uc]\u1039[#uc])\u103B#kx',
+                    to: '$1\u107D#kx',
                     minLength: 8,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u103B', 6], ['#kx', 7]],
                     postRulesRef: 'pPasinOr8aOr3c',
@@ -396,22 +426,17 @@ export const uni2zgRules: TranslitRule = {
                 },
 
                 // #
-                //
                 {
-                    from: '\u1004\u103A\u1039([#uc])\u1039([#uc])#kx',
-                    to: '$1\u1039$2#kx',
+                    from: '\u1004\u103A\u1039([#uc]\u1039[#uc])#kx',
+                    to: '$1#kx',
                     minLength: 7,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['#kx', 6]],
                     postRulesRef: 'pPasinOr8aOr3c',
                     postRulesStart: { gc1: 0, gc139c2: 0 }
                 },
 
-                // '.' (zg: \u1095)
-                // ...............
-
                 // '.' (zg: \u1094)
                 // ...............
-                //
                 // 'ေ' + 'ု' + '့'
                 {
                     from: '\u1004\u103A\u1039([#u2fOr30])\u1031#kx\u102F\u1037',
@@ -979,7 +1004,7 @@ export const uni2zgRules: TranslitRule = {
                     minLength: 8,
                     quickTests: [['\u1004', 0], ['\u103A', 1], ['\u1039', 2], ['\u1039', 4], ['\u103B', 6], ['\u1031', 7]],
                     postRulesRef: 'pPasinOr8aOr3c',
-                    postRulesStart: {  gc1: 1, gc139c2: 1 }
+                    postRulesStart: { gc1: 1, gc139c2: 1 }
                 },
 
                 // 'ေ
