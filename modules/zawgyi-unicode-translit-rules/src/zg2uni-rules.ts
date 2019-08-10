@@ -11,7 +11,9 @@
 import { TranslitRule } from '@dagonmetric/ng-translit';
 
 export const zg2uniRules: TranslitRule = {
-    // TODO: Add `when` option to phase?
+    tplVar: {
+        '#zplc': '\u1060-\u1063\u1065-\u1069\u106C\u106D\u1070-\u107C\u1085\u1093'
+    },
     phases: [
         {
             description: 'Preprocess normalization phase',
@@ -159,25 +161,27 @@ export const zg2uniRules: TranslitRule = {
         },
         {
             description: 'Order normalization phase',
+            tplSeq: {
+                '#kx': [
+                    ['\u108B', '\u108B', 1],
+                    ['\u108C', '\u108C', 1],
+                    ['\u108D', '\u108D', 1]
+                ]
+            },
             rules: [
                 {
-                    // TODO:
-                    from: '([\u108B-\u108D])([\u103A\u107D])',
-                    to: '$2$1',
-                    minLength: 2
-                },
-                {
-                    // TODO:
-                    from: '([\u108B-\u108D])([\u1060-\u1063\u1065-\u1069\u106C\u106D\u1070-\u107C\u1085\u1093])',
-                    to: '$2$1',
-                    minLength: 2
+                    from: '#kx([#zplc\u103A\u1096])',
+                    to: '$1#kx',
+                    minLength: 2,
+                    quickTests: [['#kx', 0]]
                 }
             ]
         },
         {
+            description: 'Core Zawgyi to Unicode conversion phase',
             tplVar: {
+                // Note '\u103F' is Unicode
                 '#zc': '\u1000-\u1021\u1025\u1027\u103F\u1040-\u1049',
-                '#zplc': '\u1060-\u1063\u1065-\u1069\u106C\u106D\u1070-\u107C\u1085\u1093',
                 '#zpc': '\u106E\u106F\u1091\u1092\u1097',
             },
             tplSeq: {
