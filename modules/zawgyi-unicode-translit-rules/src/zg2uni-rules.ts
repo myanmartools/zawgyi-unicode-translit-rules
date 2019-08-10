@@ -169,12 +169,107 @@ export const zg2uniRules: TranslitRule = {
                 ]
             },
             rules: [
+                // #kx - 'ှ', '့'
+                {
+                    from: '\u1037#kx\u103D',
+                    to: '\u103D#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['\u1037', 0], ['#kx', 1], ['\u103D', 2]]
+                },
+                {
+                    from: '#kx\u103D\u1037',
+                    to: '\u103D#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u103D', 1], ['\u1037', 2]]
+                },
+                {
+                    from: '#kx\u1037\u103D',
+                    to: '\u103D#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u1037', 1], ['\u103D', 2]]
+                },
+                {
+                    from: '\u103D\u1037#kx',
+                    to: '\u103D#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['\u103D', 0], ['\u1037', 1], ['#kx', 2]]
+                },
+                {
+                    from: '\u1037\u103D#kx',
+                    to: '\u103D#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['\u1037', 0], ['\u103D', 1], ['#kx', 2]]
+                },
+
+                // #kx - 'ှ', [ု  ူ]
+                {
+                    from: '#kx([\u102F\u1030])\u103D',
+                    to: '#kx\u103D$1',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u103D', 2]]
+                },
+                {
+                    from: '\u103D([\u102F\u1030])#kx',
+                    to: '#kx\u103D$1',
+                    minLength: 3,
+                    quickTests: [['\u103D', 0], ['#kx', 2]]
+                },
+                {
+                    from: '([\u102F\u1030])\u103D#kx',
+                    to: '#kx\u103D$1',
+                    minLength: 3,
+                    quickTests: [['\u103D', 1], ['#kx', 2]]
+                },
+                {
+                    from: '\u103D#kx([\u102F\u1030])',
+                    to: '#kx\u103D$1',
+                    minLength: 3,
+                    quickTests: [['\u103D', 0], ['#kx', 1]]
+                },
+
+                // #kx - [ု  ူ], '့'
+                {
+                    from: '([\u102F\u1030])\u1037#kx',
+                    to: '$1#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['\u1037', 1], ['#kx', 2]]
+                },
+                {
+                    from: '#kx\u1037([\u102F\u1030])',
+                    to: '$1#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u1037', 1]]
+                },
+                {
+                    from: '\u1037([\u102F\u1030])#kx',
+                    to: '$1#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['\u1037', 0], ['#kx', 2]]
+                },
+
+                // #kx - '့'
+                {
+                    from: '\u1037#kx',
+                    to: '#kx\u1037',
+                    minLength: 2,
+                    quickTests: [['\u1037', 0], ['#kx', 1]]
+                },
+
+                // #kx - [ု  ူ]
+                {
+                    from: '([\u102F\u1030])#kx',
+                    to: '#kx$1',
+                    minLength: 2,
+                    quickTests: [['#kx', 1]]
+                },
+
+                // #kx - [#zplc\u103A\u1096]
                 {
                     from: '#kx([#zplc\u103A\u1096])',
                     to: '$1#kx',
                     minLength: 2,
                     quickTests: [['#kx', 0]]
-                }
+                },
             ]
         },
         {
@@ -406,6 +501,30 @@ export const zg2uniRules: TranslitRule = {
                     minLength: 2,
                     quickTests: [['#kx', 1]],
                     postRulesRef: 'ppz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // [ု  ူ]
+                // ...............
+                // 'ေ' + [ု  ူ]
+                {
+                    from: '\u1031([#zc])#kx([\u102F\u1030])',
+                    to: '\u1004\u103A\u1039$1\u1031#kx$2',
+                    minLength: 4,
+                    quickTests: [['\u1031', 0], ['#kx', 2]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // 'ှ'
+                // ...............
+                // 'ေ' + 'ှ'
+                {
+                    from: '\u1031([#zc])\u103D#kx',
+                    to: '\u1004\u103A\u1039$1\u103E\u1031#kx',
+                    minLength: 4,
+                    quickTests: [['\u1031', 0], ['\u103D', 2], ['#kx', 3]],
+                    postRulesRef: 'pz2u',
                     postRulesStart: { gc1: 3 }
                 },
             ]
