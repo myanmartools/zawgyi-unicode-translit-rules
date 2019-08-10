@@ -70,7 +70,7 @@ export function toFailOutput(input: string, result: TranslitResult): string {
     return str;
 }
 
-describe('uni2zg-rules-individual', () => {
+describe('zg2uni-rules-individual', () => {
     let translitService: TranslitService;
 
     beforeEach(() => {
@@ -90,7 +90,7 @@ describe('uni2zg-rules-individual', () => {
     // ------------------------------------------------------------------------------------------
     // Pasin
     // ...............
-    it("should work with '\u1031\u103B([#zc])\u1096#kx'", (done: DoneFn) => {
+    it(String.raw`\u1031\u103B([#zc])\u1096#kx`, (done: DoneFn) => {
         const input = '\u1031\u1083\u108F\u1096\u108B';
         const expected = 'င်္န္တြွေိ';
 
@@ -101,7 +101,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031([#zc])\u1096#kx", (done: DoneFn) => {
+    it(String.raw`\u1031([#zc])\u1096#kx`, (done: DoneFn) => {
         const input = '\u1031\u1090\u1096\u108C';
         const expected = 'င်္ရ္တွေီ';
 
@@ -112,7 +112,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031\u103B([#zc])([#zplc])#kx'", (done: DoneFn) => {
+    it(String.raw`\u1031\u103B([#zc])([#zplc])#kx`, (done: DoneFn) => {
         const input = '\u1031\u1084\u1086\u1071\u108D';
         const expected = 'င်္ဿ္တြေံ';
 
@@ -123,7 +123,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031\u103B([#zpc])#kx'", (done: DoneFn) => {
+    it(String.raw`\u1031\u103B([#zpc])#kx`, (done: DoneFn) => {
         const input = '\u1031\u1084\u106F\u108D';
         const expected = 'င်္ဍ္ဎြေံ';
 
@@ -134,7 +134,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031([#zc])([#zplc])\u103A#kx'", (done: DoneFn) => {
+    it(String.raw`\u1031([#zc])([#zplc])\u103A#kx`, (done: DoneFn) => {
         const input = '\u1031\u1040\u1072\u107D\u108B';
         const expected = 'င်္ဝ္တျေိ';
 
@@ -145,7 +145,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031([#zpc])\u103A#kx'", (done: DoneFn) => {
+    it(String.raw`\u1031([#zpc])\u103A#kx`, (done: DoneFn) => {
         const input = '\u1031\u1091\u107D\u108B';
         const expected = 'င်္ဏ္ဍျေိ';
 
@@ -156,7 +156,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031([#zc])([#zplc])#kx'", (done: DoneFn) => {
+    it(String.raw`\u1031([#zc])([#zplc])#kx`, (done: DoneFn) => {
         const input = '\u1031\u106A\u1065\u108C';
         const expected = 'င်္ဉ္စေီ';
 
@@ -167,7 +167,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031([#zpc])#kx'", (done: DoneFn) => {
+    it(String.raw`\u1031([#zpc])#kx`, (done: DoneFn) => {
         const input = '\u1031\u1092\u108B';
         const expected = 'င်္ဋ္ဌေိ';
 
@@ -178,7 +178,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u103B([#zc])\u1096#kx'", (done: DoneFn) => {
+    it(String.raw`\u103B([#zc])\u1096#kx`, (done: DoneFn) => {
         const input = '\u1084\u106B\u1096\u108C';
         const expected = 'င်္ည္တြွီ';
 
@@ -189,7 +189,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '([#zc])\u1096#kx'", (done: DoneFn) => {
+    it(String.raw`([#zc])\u1096#kx`, (done: DoneFn) => {
         const input = '\u108F\u1096\u108C';
         const expected = 'င်္န္တွီ';
 
@@ -200,7 +200,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u103B([#zc])([#zplc])#kx'", (done: DoneFn) => {
+    it(String.raw`\u103B([#zc])([#zplc])#kx`, (done: DoneFn) => {
         const input = '\u1083\u1090\u1072\u108D';
         const expected = 'င်္ရ္တြံ';
 
@@ -211,7 +211,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u103B([#zpc])#kx'", (done: DoneFn) => {
+    it(String.raw`\u103B([#zpc])#kx`, (done: DoneFn) => {
         const input = '\u1084\u1091\u108B';
         const expected = 'င်္ဏ္ဍြိ';
 
@@ -222,7 +222,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '([#zc])([#zplc])\u103A#kx'", (done: DoneFn) => {
+    it(String.raw`([#zc])([#zplc])\u103A#kx`, (done: DoneFn) => {
         const input = '\u1090\u1074\u107D\u108B';
         const expected = 'င်္ရ္ထျိ';
 
@@ -233,7 +233,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '([#zpc])\u103A#kx'", (done: DoneFn) => {
+    it(String.raw`([#zpc])\u103A#kx`, (done: DoneFn) => {
         const input = '\u1097\u107D\u108B';
         const expected = 'င်္ဋ္ဋျိ';
 
@@ -244,7 +244,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '([#zc])([#zplc])#kx'", (done: DoneFn) => {
+    it(String.raw`([#zc])([#zplc])#kx`, (done: DoneFn) => {
         const input = '\u108F\u1074\u108C';
         const expected = 'င်္န္ထီ';
 
@@ -255,7 +255,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '([#zplc])#kx'", (done: DoneFn) => {
+    it(String.raw`([#zplc])#kx`, (done: DoneFn) => {
         const input = '\u106E\u108B';
         const expected = 'င်္ဍ္ဍိ';
 
