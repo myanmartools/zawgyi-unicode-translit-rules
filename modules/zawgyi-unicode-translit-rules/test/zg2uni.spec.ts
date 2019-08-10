@@ -90,7 +90,7 @@ describe('uni2zg-rules-individual', () => {
     // ------------------------------------------------------------------------------------------
     // Pasin
     // ...............
-    it("should work with '\u1031[#z3bOr7eTo84]([#zc])\u1096#kx'", (done: DoneFn) => {
+    it("should work with '\u1031\u103B([#zc])\u1096#kx'", (done: DoneFn) => {
         const input = '\u1031\u1083\u108F\u1096\u108B';
         const expected = 'င်္န္တြွေိ';
 
@@ -112,7 +112,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031[#z3bOr7eTo84]([#zc])([#zplc])#kx", (done: DoneFn) => {
+    it("should work with '\u1031\u103B([#zc])([#zplc])#kx'", (done: DoneFn) => {
         const input = '\u1031\u1084\u1086\u1071\u108D';
         const expected = 'င်္ဿ္တြေံ';
 
@@ -123,7 +123,18 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031([#zc])([#zplc])[#z3aOr7d]#kx", (done: DoneFn) => {
+    it("should work with '\u1031\u103B([#zpc])#kx'", (done: DoneFn) => {
+        const input = '\u1031\u1084\u106F\u108D';
+        const expected = 'င်္ဍ္ဎြေံ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '\u1031([#zc])([#zplc])\u103A#kx'", (done: DoneFn) => {
         const input = '\u1031\u1040\u1072\u107D\u108B';
         const expected = 'င်္ဝ္တျေိ';
 
@@ -134,7 +145,18 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '\u1031([#zc])([#zplc])#kx", (done: DoneFn) => {
+    it("should work with '\u1031([#zpc])\u103A#kx'", (done: DoneFn) => {
+        const input = '\u1031\u1091\u107D\u108B';
+        const expected = 'င်္ဏ္ဍျေိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '\u1031([#zc])([#zplc])#kx'", (done: DoneFn) => {
         const input = '\u1031\u106A\u1065\u108C';
         const expected = 'င်္ဉ္စေီ';
 
@@ -145,7 +167,18 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '[#z3bOr7eTo84]([#zc])\u1096#kx", (done: DoneFn) => {
+    it("should work with '\u1031([#zpc])#kx'", (done: DoneFn) => {
+        const input = '\u1031\u1092\u108B';
+        const expected = 'င်္ဋ္ဌေိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '\u103B([#zc])\u1096#kx'", (done: DoneFn) => {
         const input = '\u1084\u106B\u1096\u108C';
         const expected = 'င်္ည္တြွီ';
 
@@ -156,7 +189,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '([#zc])\u1096#kx", (done: DoneFn) => {
+    it("should work with '([#zc])\u1096#kx'", (done: DoneFn) => {
         const input = '\u108F\u1096\u108C';
         const expected = 'င်္န္တွီ';
 
@@ -167,7 +200,7 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '[#z3bOr7eTo84]([#zc])([#zplc])#kx", (done: DoneFn) => {
+    it("should work with '\u103B([#zc])([#zplc])#kx'", (done: DoneFn) => {
         const input = '\u1083\u1090\u1072\u108D';
         const expected = 'င်္ရ္တြံ';
 
@@ -178,7 +211,18 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '([#zc])([#zplc])[#z3aOr7d]#kx", (done: DoneFn) => {
+    it("should work with '\u103B([#zpc])#kx'", (done: DoneFn) => {
+        const input = '\u1084\u1091\u108B';
+        const expected = 'င်္ဏ္ဍြိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '([#zc])([#zplc])\u103A#kx'", (done: DoneFn) => {
         const input = '\u1090\u1074\u107D\u108B';
         const expected = 'င်္ရ္ထျိ';
 
@@ -189,9 +233,31 @@ describe('uni2zg-rules-individual', () => {
             });
     });
 
-    it("should work with '([#zc])([#zplc])#kx", (done: DoneFn) => {
+    it("should work with '([#zpc])\u103A#kx'", (done: DoneFn) => {
+        const input = '\u1097\u107D\u108B';
+        const expected = 'င်္ဋ္ဋျိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '([#zc])([#zplc])#kx'", (done: DoneFn) => {
         const input = '\u108F\u1074\u108C';
         const expected = 'င်္န္ထီ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it("should work with '([#zplc])#kx'", (done: DoneFn) => {
+        const input = '\u106E\u108B';
+        const expected = 'င်္ဍ္ဍိ';
 
         translitService.translit(input, 'zg2uni', zg2uniRules)
             .subscribe(result => {
