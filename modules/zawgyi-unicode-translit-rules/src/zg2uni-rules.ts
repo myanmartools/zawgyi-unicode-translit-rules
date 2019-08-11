@@ -16,6 +16,32 @@ export const zg2uniRules: TranslitRule = {
     },
     phases: [
         {
+            description: 'Overlapped words normalization phase',
+            tplSeq: {
+                '#olx': [
+                    ['\u102B', '\u102B', 10],
+                    ['\u1036', '\u1036', 8],
+                    ['\u105A', '\u105A', 1],
+                    ['\u1060', '\u1060', 10],
+                    ['\u106C', '\u106C', 2],
+                    ['\u1070', '\u1070', 22],
+                    ['\u1087', '\u1087', 8],
+                    ['\u1093', '\u1093', 4],
+                ]
+            },
+            rules: [
+                {
+                    from: '(#olx)+',
+                    to: '#olx',
+                    minLength: 2,
+                    quickTests: [['#olx', 0], ['#olx', 1]],
+                    when: {
+                        fixOverlappedWords: true
+                    }
+                }
+            ]
+        },
+        {
             description: 'Preprocess normalization phase',
             tplSeq: {
                 '#94Or95x': [
@@ -75,12 +101,20 @@ export const zg2uniRules: TranslitRule = {
                     minLength: 1,
                     quickTests: [['\u1086', 0]]
                 },
+
                 {
-                    // description: "'ျ' သို့",
-                    from: '\u107D',
-                    to: '\u103A',
-                    minLength: 1,
-                    quickTests: [['\u107D', 0]],
+                    // description: "'ှ' + 'ွ' မှ 'ွ' + 'ှ' သို့",
+                    from: '\u103D\u103C',
+                    to: '\u103C\u103D',
+                    minLength: 2,
+                    quickTests: [['\u103D', 0], ['\u103C', 1]]
+                },
+                {
+                    // description: "'ှ' (\u1087) + 'ွ' မှ 'ွ' + 'ှ' သို့",
+                    from: '\u1087\u103C',
+                    to: '\u103C\u103D',
+                    minLength: 2,
+                    quickTests: [['\u1087', 0], ['\u103C', 1]]
                 },
                 {
                     // description: "'ွ' + 'ှ' သို့",
@@ -89,6 +123,7 @@ export const zg2uniRules: TranslitRule = {
                     minLength: 1,
                     quickTests: [['\u108A', 0]],
                 },
+
                 {
                     // description: "'ှ' သို့",
                     from: '\u1087',
@@ -96,6 +131,15 @@ export const zg2uniRules: TranslitRule = {
                     minLength: 1,
                     quickTests: [['\u1087', 0]],
                 },
+
+                {
+                    // description: "'ျ' သို့",
+                    from: '\u107D',
+                    to: '\u103A',
+                    minLength: 1,
+                    quickTests: [['\u107D', 0]],
+                },
+
                 {
                     // description: "'ှ' + 'ု' သို့",
                     from: '\u1088',
@@ -134,32 +178,6 @@ export const zg2uniRules: TranslitRule = {
             ]
         },
         {
-            description: 'Overlapped words normalization phase',
-            tplSeq: {
-                '#olx': [
-                    ['\u102B', '\u102B', 10],
-                    ['\u1036', '\u1036', 8],
-                    ['\u105A', '\u105A', 1],
-                    ['\u1060', '\u1060', 10],
-                    ['\u106C', '\u106C', 2],
-                    ['\u1070', '\u1070', 22],
-                    ['\u1087', '\u1087', 8],
-                    ['\u1093', '\u1093', 4],
-                ]
-            },
-            rules: [
-                {
-                    from: '(#olx)+',
-                    to: '#olx',
-                    minLength: 2,
-                    quickTests: [['#olx', 0], ['#olx', 1]],
-                    when: {
-                        'fix-overlapped-words': true
-                    }
-                }
-            ]
-        },
-        {
             description: 'Order normalization phase',
             tplSeq: {
                 '#kx': [
@@ -169,6 +187,76 @@ export const zg2uniRules: TranslitRule = {
                 ]
             },
             rules: [
+                // #kx
+                // ...............
+                // #kx - 'ျ', 'ွ', 'ှ'
+                {
+                    from: '#kx\u103C\u103D\u103A',
+                    to: '\u103C\u103D\u103A#kx',
+                    minLength: 4,
+                    quickTests: [['#kx', 0], ['\u103C', 1], ['\u103D', 2], ['\u103A', 3]]
+                },
+                {
+                    from: '#kx\u103A\u103C\u103D',
+                    to: '\u103C\u103D\u103A#kx',
+                    minLength: 4,
+                    quickTests: [['#kx', 0], ['\u103A', 1], ['\u103C', 2], ['\u103D', 3]]
+                },
+                {
+                    from: '\u103C\u103D#kx\u103A',
+                    to: '\u103C\u103D\u103A#kx',
+                    minLength: 4,
+                    quickTests: [['\u103C', 0], ['\u103D', 1], ['#kx', 2], ['\u103A', 3]]
+                },
+
+                // #kx - 'ျ', 'ွ'
+                {
+                    from: '#kx\u103C\u103A',
+                    to: '\u103C\u103A#kx',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u103C', 1], ['\u103A', 2]]
+                },
+                {
+                    from: '#kx\u103A\u103C',
+                    to: '\u103C\u103A#kx',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u103A', 1], ['\u103C', 2]]
+                },
+                {
+                    from: '\u103C#kx\u103A',
+                    to: '\u103C\u103A#kx',
+                    minLength: 3,
+                    quickTests: [['\u103C', 0], ['#kx', 1], ['\u103A', 2]]
+                },
+
+                // #kx - 'ျ', 'ှ'
+                {
+                    from: '#kx\u103D\u103A',
+                    to: '\u103D\u103A#kx',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u103D', 1], ['\u103A', 2]]
+                },
+                {
+                    from: '#kx\u103A\u103D',
+                    to: '\u103D\u103A#kx',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u103A', 1], ['\u103D', 2]]
+                },
+                {
+                    from: '\u103D#kx\u103A',
+                    to: '\u103D\u103A#kx',
+                    minLength: 3,
+                    quickTests: [['\u103D', 0], ['#kx', 1], ['\u103A', 2]]
+                },
+
+                // #kx - 'ွ', 'ှ'
+                {
+                    from: '#kx\u103C\u103D',
+                    to: '\u103C\u103D#kx',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u103C', 1], ['\u103D', 2]]
+                },
+
                 // #kx - 'ှ', '့'
                 {
                     from: '\u1037#kx\u103D',
@@ -201,6 +289,26 @@ export const zg2uniRules: TranslitRule = {
                     quickTests: [['\u1037', 0], ['\u103D', 1], ['#kx', 2]]
                 },
 
+                // #kx - [ု  ူ], '့'
+                {
+                    from: '([\u102F\u1030])\u1037#kx',
+                    to: '$1#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['\u1037', 1], ['#kx', 2]]
+                },
+                {
+                    from: '#kx\u1037([\u102F\u1030])',
+                    to: '$1#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['#kx', 0], ['\u1037', 1]]
+                },
+                {
+                    from: '\u1037([\u102F\u1030])#kx',
+                    to: '$1#kx\u1037',
+                    minLength: 3,
+                    quickTests: [['\u1037', 0], ['#kx', 2]]
+                },
+
                 // #kx - 'ှ', [ု  ူ]
                 {
                     from: '#kx([\u102F\u1030])\u103D',
@@ -227,24 +335,20 @@ export const zg2uniRules: TranslitRule = {
                     quickTests: [['\u103D', 0], ['#kx', 1]]
                 },
 
-                // #kx - [ု  ူ], '့'
+                // #kx - 'ွ'
                 {
-                    from: '([\u102F\u1030])\u1037#kx',
-                    to: '$1#kx\u1037',
-                    minLength: 3,
-                    quickTests: [['\u1037', 1], ['#kx', 2]]
+                    from: '#kx\u103C',
+                    to: '\u103C#kx',
+                    minLength: 2,
+                    quickTests: [['#kx', 0], ['\u103C', 1]]
                 },
+
+                // #kx - 'ှ'
                 {
-                    from: '#kx\u1037([\u102F\u1030])',
-                    to: '$1#kx\u1037',
-                    minLength: 3,
-                    quickTests: [['#kx', 0], ['\u1037', 1]]
-                },
-                {
-                    from: '\u1037([\u102F\u1030])#kx',
-                    to: '$1#kx\u1037',
-                    minLength: 3,
-                    quickTests: [['\u1037', 0], ['#kx', 2]]
+                    from: '#kx\u103D',
+                    to: '\u103D#kx',
+                    minLength: 2,
+                    quickTests: [['#kx', 0], ['\u103D', 1]]
                 },
 
                 // #kx - '့'
@@ -269,6 +373,56 @@ export const zg2uniRules: TranslitRule = {
                     to: '$1#kx',
                     minLength: 2,
                     quickTests: [['#kx', 0]]
+                },
+
+                // ...............
+                // 'ျ', 'ွ', 'ှ'
+                {
+                    from: '\u103A\u103C\u103D',
+                    to: '\u103C\u103D\u103A',
+                    minLength: 3,
+                    quickTests: [['\u103A', 0], ['\u103C', 1], ['\u103D', 2]]
+                },
+
+                // .............
+                // 'ျ' + 'ွ' မှ 'ွ' + 'ျ' သို့
+                {
+                    from: '\u103A\u103C',
+                    to: '\u103C\u103A',
+                    minLength: 2,
+                    quickTests: [['\u103A', 0], ['\u103C', 1]]
+                },
+
+                // 'ျ' + 'ှ' မှ 'ှ' + 'ျ' သို့
+                {
+                    from: '\u103A\u103D',
+                    to: '\u103D\u103A',
+                    minLength: 2,
+                    quickTests: [['\u103A', 0], ['\u103D', 1]]
+                },
+
+                // '့' + 'ှ' မှ 'ှ' + '့' သို့
+                {
+                    from: '\u1037\u103D',
+                    to: '\u103D\u1037',
+                    minLength: 2,
+                    quickTests: [['\u1037', 0], ['\u103D', 1]]
+                },
+
+                // '့' + [ု  ူ] မှ [ု  ူ] + '့' သို့
+                {
+                    from: '\u1037([\u102F\u1030])',
+                    to: '$1\u1037',
+                    minLength: 2,
+                    quickTests: [['\u1037', 0]]
+                },
+
+                // [ု  ူ] + 'ှ' မှ 'ှ' + [ု  ူ] သို့
+                {
+                    from: '([\u102F\u1030])\u103D',
+                    to: '\u103D$1',
+                    minLength: 2,
+                    quickTests: [['\u103D', 0]]
                 },
             ]
         },
