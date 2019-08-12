@@ -511,7 +511,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ေ' + 'ြ'
                 // ...............
                 //
-                // 'ေ' + 'ြ' + \u1096 (Pasin)
+                // \u1096 (Pasin)
                 {
                     from: '\u1031\u103B([#zc])\u1096#kx',
                     to: '\u1004\u103A\u1039$1\u1039\u1010\u103C\u103D\u1031#kx',
@@ -521,7 +521,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // 'ေ' + 'ြ' (Pasin)
+                // (Pasin)
                 {
                     from: '\u1031\u103B([#zc])([#zplc])#kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u103C\u1031#kx',
@@ -531,7 +531,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // 'ေ' + 'ြ' (Pasin - Single)
+                // (Pasin - Single)
                 {
                     from: '\u1031\u103B([#zpc])#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u1031#kx',
@@ -541,7 +541,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // 'ေ' + 'ြ' + 'ွှ'
+                // + 'ွှ'
                 {
                     from: '\u1031\u103B([#zc])\u103C\u103D#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u103D\u103E\u1031#kx',
@@ -551,7 +551,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // 'ေ' + 'ြ' + 'ှ'
+                // + 'ှ'
                 {
                     from: '\u1031\u103B([#zc])\u103D#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u103E\u1031#kx',
@@ -561,7 +561,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                 // 'ေ' + 'ြ' + 'ွ'
+                 // + 'ွ'
                  {
                     from: '\u1031\u103B([#zc])\u103C#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u103D\u1031#kx',
@@ -571,7 +571,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // 'ေ' + 'ြ'
+                //
                 {
                     from: '\u1031\u103B([#zc])#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u1031#kx',
@@ -717,7 +717,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ြ'
                 // ...............
                 //
-                // 'ြ' + \u1096 (Pasin)
+                // \u1096 (Pasin)
                 {
                     from: '\u103B([#zc])\u1096#kx',
                     to: '\u1004\u103A\u1039$1\u1039\u1010\u103C\u103D#kx',
@@ -727,7 +727,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // 'ြ' (Pasin)
+                // (Pasin)
                 {
                     from: '\u103B([#zc])([#zplc])#kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u103C#kx',
@@ -737,7 +737,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // 'ြ' (Pasin - Single)
+                // (Pasin - Single)
                 {
                     from: '\u103B([#zpc])#kx',
                     to: '\u1004\u103A\u1039$1\u103C#kx',
@@ -747,33 +747,90 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // 'ျ'
-                // ...............
-                //
-                // 'ျ' (Pasin)
+                // 'ွှ'
                 {
-                    from: '([#zc])([#zplc])\u103A#kx',
-                    to: '\u1004\u103A\u1039$1\u1039$2\u103B#kx',
-                    minLength: 4,
-                    quickTests: [['\u103A', 2], ['#kx', 3]],
-                    postRulesRef: 'pz2u',
-                    postRulesStart: { gc1: 3, gpx: 5 }
-                },
-
-                // 'ျ' (Pasin - Single)
-                {
-                    from: '([#zpc])\u103A#kx',
-                    to: '\u1004\u103A\u1039$1\u103B#kx',
-                    minLength: 3,
-                    quickTests: [['\u103A', 1], ['#kx', 2]],
+                    from: '\u103B([#zc])\u103C\u103D#kx',
+                    to: '\u1004\u103A\u1039$1\u103C\u103D\u103E#kx',
+                    minLength: 5,
+                    quickTests: [['\u103B', 0], ['\u103C', 2], ['\u103D', 3], ['#kx', 4]],
                     postRulesRef: 'ppz2u',
                     postRulesStart: { gc1: 3 }
                 },
 
                 // 'ှ'
+                {
+                    from: '\u103B([#zc])\u103D#kx',
+                    to: '\u1004\u103A\u1039$1\u103C\u103E#kx',
+                    minLength: 4,
+                    quickTests: [['\u103B', 0], ['\u103D', 2], ['#kx', 3]],
+                    postRulesRef: 'ppz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // 'ွ'
+                {
+                    from: '\u103B([#zc])\u103C#kx',
+                    to: '\u1004\u103A\u1039$1\u103C\u103D#kx',
+                    minLength: 4,
+                    quickTests: [['\u103B', 0], ['\u103C', 2], ['#kx', 3]],
+                    postRulesRef: 'ppz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                //  #
+                {
+                    from: '\u103B([#zc])#kx',
+                    to: '\u1004\u103A\u1039$1\u103C#kx',
+                    minLength: 3,
+                    quickTests: [['\u103B', 0], ['#kx', 2]],
+                    postRulesRef: 'ppz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // [ွှ  ွ  ှ]
                 // ...............
                 //
-                // #
+                // 'ွှ' + 'ျ'
+                {
+                    from: '([#zc])\u103C\u103D\u103A#kx',
+                    to: '\u1004\u103A\u1039$1\u103B\u103D\u103E#kx',
+                    minLength: 5,
+                    quickTests: [['\u103C', 1], ['\u103D', 2], ['\u103A', 3], ['#kx', 4]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // 'ှ' + 'ျ'
+                {
+                    from: '([#zc])\u103D\u103A#kx',
+                    to: '\u1004\u103A\u1039$1\u103B\u103E#kx',
+                    minLength: 4,
+                    quickTests: [['\u103D', 1], ['\u103A', 2], ['#kx', 3]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // 'ွ' + 'ျ'
+                {
+                    from: '([#zc])\u103C\u103A#kx',
+                    to: '\u1004\u103A\u1039$1\u103B\u103D#kx',
+                    minLength: 4,
+                    quickTests: [['\u103C', 1], ['\u103A', 2], ['#kx', 3]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // 'ွှ'
+                {
+                    from: '([#zc])\u103C\u103D#kx',
+                    to: '\u1004\u103A\u1039$1\u103D\u103E#kx',
+                    minLength: 4,
+                    quickTests: [['\u103C', 1], ['\u103D', 2], ['#kx', 3]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // 'ှ'
                 {
                     from: '([#zc])\u103D#kx',
                     to: '\u1004\u103A\u1039$1\u103E#kx',
@@ -783,15 +840,55 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // 'ွ'
-                // ...............
-                //
-                // \u1096 (Pasin)
+                // 'ွ' + \u1096 (Pasin)
                 {
                     from: '([#zc])\u1096#kx',
                     to: '\u1004\u103A\u1039$1\u1039\u1010\u103D#kx',
                     minLength: 3,
                     quickTests: [['\u1096', 1], ['#kx', 2]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // 'ွ'
+                {
+                    from: '([#zc])\u103C#kx',
+                    to: '\u1004\u103A\u1039$1\u103D#kx',
+                    minLength: 3,
+                    quickTests: [['\u103C', 1], ['#kx', 2]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // 'ျ'
+                // ...............
+                //
+                // (Pasin)
+                {
+                    from: '([#zc])([#zplc])\u103A#kx',
+                    to: '\u1004\u103A\u1039$1\u1039$2\u103B#kx',
+                    minLength: 4,
+                    quickTests: [['\u103A', 2], ['#kx', 3]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3, gpx: 5 }
+                },
+
+                // (Pasin - Single)
+                {
+                    from: '([#zpc])\u103A#kx',
+                    to: '\u1004\u103A\u1039$1\u103B#kx',
+                    minLength: 3,
+                    quickTests: [['\u103A', 1], ['#kx', 2]],
+                    postRulesRef: 'ppz2u',
+                    postRulesStart: { gc1: 3 }
+                },
+
+                // #
+                {
+                    from: '([#zc])\u103A#kx',
+                    to: '\u1004\u103A\u1039$1\u103B#kx',
+                    minLength: 3,
+                    quickTests: [['\u103A', 1], ['#kx', 2]],
                     postRulesRef: 'pz2u',
                     postRulesStart: { gc1: 3 }
                 },
@@ -817,6 +914,16 @@ export const zg2uniRules: TranslitRule = {
                     quickTests: [['#kx', 1]],
                     postRulesRef: 'ppz2u',
                     postRulesStart: { gc1: 3 }
+                },
+
+                // #
+                {
+                    from: '([#zc])#kx',
+                    to: '\u1004\u103A\u1039$1#kx',
+                    minLength: 2,
+                    quickTests: [['#kx', 1]],
+                    postRulesRef: 'pz2u',
+                    postRulesStart: { gc1: 3}
                 },
             ]
         }
