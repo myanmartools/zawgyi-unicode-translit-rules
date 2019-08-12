@@ -86,7 +86,7 @@ describe('zg2uni-rules-individual', () => {
         translitService = TestBed.get<TranslitService>(TranslitService) as TranslitService;
     });
 
-    // (zg: \u108B-\u108D) -> \u102D, \u102E, \u1036
+    // \u108B-\u108D -> \u102D, \u102E, \u1036
     // ------------------------------------------------------------------------------------------
     // 'ေ' + 'ြ'
     // ...............
