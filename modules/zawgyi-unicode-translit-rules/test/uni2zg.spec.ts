@@ -770,7 +770,7 @@ describe('uni2zg-rules-individual', () => {
     });
 
     it(String.raw`\u1004\u103A\u1039([#uc])\u103B\u103E#kx`, (done: DoneFn) => {
-        const input = '\u1004\u103A\u1039\u1014\u103B\u103E\u102D';
+        const input = 'င်္နျှိ';
         const expected = '\u108F\u103D\u103A\u108B';
 
         translitService.translit(input, 'uni2zg', uni2zgRules)
