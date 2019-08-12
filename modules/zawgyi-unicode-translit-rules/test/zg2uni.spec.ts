@@ -347,6 +347,129 @@ describe('zg2uni-rules-individual', () => {
             });
     });
 
+    it(String.raw`\u103B([#zc])\u103C\u103D#kx`, (done: DoneFn) => {
+        const input = '\u1083\u108F\u108A\u108B';
+        const expected = 'င်္နြွှိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u103B([#zc])\u103D#kx`, (done: DoneFn) => {
+        const input = '\u1083\u108F\u103D\u108B';
+        const expected = 'င်္နြှိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u103B([#zc])\u103C#kx`, (done: DoneFn) => {
+        const input = '\u1083\u108F\u103C\u108B';
+        const expected = 'င်္နြွိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u103B([#zc])#kx`, (done: DoneFn) => {
+        const input = '\u107F\u108F\u108B';
+        const expected = 'င်္နြိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // [ွှ  ွ  ှ]
+    // ...............
+    it(String.raw`([#zc])\u103C\u103D\u103A#kx`, (done: DoneFn) => {
+        const input = '\u108F\u108A\u107D\u108B';
+        const expected = 'င်္နျွှိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`([#zc])\u103D\u103A#kx`, (done: DoneFn) => {
+        const input = '\u108F\u103D\u103A\u108B';
+        const expected = 'င်္နျှိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`([#zc])\u103C\u103A#kx`, (done: DoneFn) => {
+        const input = '\u108F\u103C\u107D\u108B';
+        const expected = 'င်္နျွိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`([#zc])\u103C\u103D#kx`, (done: DoneFn) => {
+        const input = '\u108F\u108A\u108B';
+        const expected = 'င်္နွှိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`([#zc])\u103D#kx`, (done: DoneFn) => {
+        const input = '\u1090\u103D\u108B';
+        const expected = 'င်္ရှိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`([#zc])\u1096#kx`, (done: DoneFn) => {
+        const input = '\u108F\u1096\u108C';
+        const expected = 'င်္န္တွီ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`([#zc])\u1096#kx`, (done: DoneFn) => {
+        const input = '\u108F\u103C\u108B';
+        const expected = 'င်္နွိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
     // 'ျ'
     // ...............
     it(String.raw`([#zc])([#zplc])\u103A#kx`, (done: DoneFn) => {
@@ -371,24 +494,9 @@ describe('zg2uni-rules-individual', () => {
             });
     });
 
-    // 'ှ'
-    // ...............
-    it(String.raw`([#zc])\u103D#kx`, (done: DoneFn) => {
-        const input = '\u1090\u103D\u108B';
-        const expected = 'င်္ရှိ';
-
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(input, result));
-                done();
-            });
-    });
-
-    // 'ွ'
-    // ...............
-    it(String.raw`([#zc])\u1096#kx`, (done: DoneFn) => {
-        const input = '\u108F\u1096\u108C';
-        const expected = 'င်္န္တွီ';
+    it(String.raw`([#zc])\u103A#kx`, (done: DoneFn) => {
+        const input = '\u108F\u103A\u108B';
+        const expected = 'င်္နျိ';
 
         translitService.translit(input, 'zg2uni', zg2uniRules)
             .subscribe(result => {
@@ -413,6 +521,17 @@ describe('zg2uni-rules-individual', () => {
     it(String.raw`([#zplc])#kx`, (done: DoneFn) => {
         const input = '\u106E\u108B';
         const expected = 'င်္ဍ္ဍိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules)
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`([#zc])#kx`, (done: DoneFn) => {
+        const input = '\u1086\u108B';
+        const expected = 'င်္ဿိ';
 
         translitService.translit(input, 'zg2uni', zg2uniRules)
             .subscribe(result => {
