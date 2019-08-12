@@ -17,6 +17,9 @@ export const zg2uniRules: TranslitRule = {
     phases: [
         {
             description: 'Overlapped words normalization phase',
+            when: {
+                fixOverlappedWords: true
+            },
             tplSeq: {
                 '#olx': [
                     ['\u102B', '\u102B', 10],
@@ -34,10 +37,7 @@ export const zg2uniRules: TranslitRule = {
                     from: '(#olx)+',
                     to: '#olx',
                     minLength: 2,
-                    quickTests: [['#olx', 0], ['#olx', 1]],
-                    when: {
-                        fixOverlappedWords: true
-                    }
+                    quickTests: [['#olx', 0], ['#olx', 1]]
                 }
             ]
         },
@@ -437,7 +437,8 @@ export const zg2uniRules: TranslitRule = {
                 '#kx': [
                     ['\u108B', '\u102D', 1],
                     ['\u108C', '\u102E', 1],
-                    ['\u108D', '\u1036', 1]
+                    ['\u108D', '\u1036', 1],
+                    ['\u1064', '', 1]
                 ],
                 '#px': [
                     ['\u1060', '\u1000', 4],
@@ -506,7 +507,7 @@ export const zg2uniRules: TranslitRule = {
                 ]
             },
             rules: [
-                // (zg: \u108B-\u108D) -> \u102D, \u102E, \u1036
+                // \u108B-\u108D -> \u102D, \u102E, \u1036
                 // ------------------------------------------------------------------------------------------
                 // 'ေ' + 'ြ'
                 // ...............
@@ -571,7 +572,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                //
+                // #
                 {
                     from: '\u1031\u103B([#zc])#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u1031#kx',
@@ -777,7 +778,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                //  #
+                // #
                 {
                     from: '\u103B([#zc])#kx',
                     to: '\u1004\u103A\u1039$1\u103C#kx',
@@ -925,6 +926,9 @@ export const zg2uniRules: TranslitRule = {
                     postRulesRef: 'pz2u',
                     postRulesStart: { gc1: 3}
                 },
+
+                // \u1064
+                // ------------------------------------------------------------------------------------------
             ]
         }
     ]
