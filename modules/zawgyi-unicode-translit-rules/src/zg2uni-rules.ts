@@ -507,7 +507,7 @@ export const zg2uniRules: TranslitRule = {
                 ]
             },
             rules: [
-                // \u108B-\u108D -> \u102D, \u102E, \u1036
+                // \u108B-\u108D, \u1064
                 // ------------------------------------------------------------------------------------------
                 // 'ေ' + 'ြ'
                 // ...............
@@ -522,7 +522,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // (Pasin)
+                // Pasin
                 {
                     from: '\u1031\u103B([#zc])([#zplc])#kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u103C\u1031#kx',
@@ -532,7 +532,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // (Pasin - Single)
+                // Pasin (Single)
                 {
                     from: '\u1031\u103B([#zpc])#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u1031#kx',
@@ -542,7 +542,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // + 'ွှ'
+                // 'ွှ'
                 {
                     from: '\u1031\u103B([#zc])\u103C\u103D#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u103D\u103E\u1031#kx',
@@ -552,7 +552,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // + 'ှ'
+                // 'ှ'
                 {
                     from: '\u1031\u103B([#zc])\u103D#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u103E\u1031#kx',
@@ -562,7 +562,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                 // + 'ွ'
+                 // 'ွ'
                  {
                     from: '\u1031\u103B([#zc])\u103C#kx',
                     to: '\u1004\u103A\u1039$1\u103C\u103D\u1031#kx',
@@ -615,7 +615,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // (Pasin)
+                // Pasin
                 {
                     from: '\u1031([#zc])([#zplc])#kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u1031#kx',
@@ -625,7 +625,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // (Pasin - Single)
+                // Pasin (Single)
                 {
                     from: '\u1031([#zpc])#kx',
                     to: '\u1004\u103A\u1039$1\u1031#kx',
@@ -728,7 +728,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // (Pasin)
+                // Pasin
                 {
                     from: '\u103B([#zc])([#zplc])#kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u103C#kx',
@@ -738,7 +738,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // (Pasin - Single)
+                // Pasin (Single)
                 {
                     from: '\u103B([#zpc])#kx',
                     to: '\u1004\u103A\u1039$1\u103C#kx',
@@ -864,7 +864,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ျ'
                 // ...............
                 //
-                // (Pasin)
+                // Pasin
                 {
                     from: '([#zc])([#zplc])\u103A#kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u103B#kx',
@@ -874,7 +874,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // (Pasin - Single)
+                // Pasin (Single)
                 {
                     from: '([#zpc])\u103A#kx',
                     to: '\u1004\u103A\u1039$1\u103B#kx',
@@ -907,7 +907,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // Pasin - Single
+                // Pasin (Single)
                 {
                     from: '([#zpc])#kx',
                     to: '\u1004\u103A\u1039$1#kx',
@@ -917,7 +917,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // #
+                // #zc
                 {
                     from: '([#zc])#kx',
                     to: '\u1004\u103A\u1039$1#kx',
@@ -927,7 +927,15 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3}
                 },
 
-                // \u1064
+                // #kx
+                {
+                    from: '#kx',
+                    to: '\u1004\u103A\u1039#kx',
+                    minLength: 1,
+                    quickTests: [['#kx', 0]]
+                },
+
+                //
                 // ------------------------------------------------------------------------------------------
             ]
         }
