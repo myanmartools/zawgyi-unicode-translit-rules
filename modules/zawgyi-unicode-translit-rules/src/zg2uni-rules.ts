@@ -219,15 +219,23 @@ export const zg2uniRules: TranslitRule = {
             rules: [
                 // #px
                 // ...............
-                // #px + $1
+                // #px + 'ိံ'
                 {
-                    from: '([\u102D\u102E\u1032-\u1034\u1036-\u103A\u103C\u103D\u1064\u108B-\u108E])#px',
+                    from: '(\u102D\u1036)#px',
+                    to: '#px$1',
+                    minLength: 3,
+                    quickTests: [['\u102D', 0], ['\u1036', 1], ['#px', 2]]
+                },
+
+                // #px + [\u102D\u102E\u1032...]
+                {
+                    from: '([\u102D\u102E\u1032-\u1034\u1036-\u103A\u103C\u103D\u1064\u108B-\u108D])#px',
                     to: '#px$1',
                     minLength: 2,
                     quickTests: [['#px', 1]]
                 },
 
-                // Reverse
+                // 'ှ'
                 // ...............
                 // 'ွ' + 'ှ'
                 {
@@ -237,6 +245,7 @@ export const zg2uniRules: TranslitRule = {
                     quickTests: [['\u103D', 0], ['\u103C', 1]]
                 },
 
+                // ...............
                   // 'ွ' + 'ျ' သို့ (TODO:)
                   {
                     from: '\u103A\u103C',
@@ -253,6 +262,18 @@ export const zg2uniRules: TranslitRule = {
                     quickTests: [['\u103A', 0], ['\u103D', 1]]
                 },
 
+                // [ု  ူ]
+                // ...............
+                // 'ှ' + [ု  ူ]
+                {
+                    from: '([\u102F\u1030])\u103D',
+                    to: '\u103D$1',
+                    minLength: 2,
+                    quickTests: [['\u103D', 1]]
+                },
+
+                // '့'
+                // ...............
                 // 'ှ' + '့'
                 {
                     from: '\u1037\u103D',
@@ -269,14 +290,8 @@ export const zg2uniRules: TranslitRule = {
                     quickTests: [['\u1037', 0]]
                 },
 
-                // 'ှ' + [ု  ူ]
-                {
-                    from: '([\u102F\u1030])\u103D',
-                    to: '\u103D$1',
-                    minLength: 2,
-                    quickTests: [['\u103D', 1]]
-                },
-
+                // [ဲ  ံ]
+                // ...............
                 // [ု  ူ] + 'ဲ'
                 {
                     from: '\u1032([\u102F\u1030])',
@@ -292,9 +307,6 @@ export const zg2uniRules: TranslitRule = {
                     minLength: 2,
                     quickTests: [['\u1036', 0]]
                 }
-
-                // #kx
-                // ...............
             ]
         },
         {
