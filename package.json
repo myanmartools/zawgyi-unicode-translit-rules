@@ -20,20 +20,20 @@
     "test": "ng test"
   },
   "dependencies": {
-    "@angular/common": "^8.2.1",
-    "@angular/core": "^8.2.1",
-    "@dagonmetric/ng-translit": "^10.2.0",
+    "@angular/common": "^8.2.2",
+    "@angular/core": "^8.2.2",
+    "@dagonmetric/ng-translit": "^11.0.0",
     "rxjs": "^6.5.2",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.802.1",
     "@angular/cli": "^8.2.1",
-    "@angular/compiler": "^8.2.1",
-    "@angular/compiler-cli": "^8.2.1",
-    "@angular/language-service": "^8.2.1",
-    "@angular/platform-browser": "^8.2.1",
-    "@angular/platform-browser-dynamic": "^8.2.1",
+    "@angular/compiler": "^8.2.2",
+    "@angular/compiler-cli": "^8.2.2",
+    "@angular/language-service": "^8.2.2",
+    "@angular/platform-browser": "^8.2.2",
+    "@angular/platform-browser-dynamic": "^8.2.2",
     "@dagonmetric/angular-build": "^8.0.6",
     "@types/jasmine": "^3.4.0",
     "@types/jasminewd2": "^2.0.6",
@@ -42,7 +42,7 @@
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.2.0",
-    "karma-chrome-launcher": "~3.0.0",
+    "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
@@ -54,6 +54,6 @@
     "tslint": "^5.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "~3.5.3",
-    "zone.js": "^0.10.1"
+    "zone.js": "^0.10.2"
   }
 }
