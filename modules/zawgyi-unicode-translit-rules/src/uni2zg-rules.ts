@@ -4137,13 +4137,13 @@ export const uni2zgRules: TranslitRule = {
                 {
                     from: '\u102F',
                     quickTests: [['\u102F', 0]],
-                    matchOnStart: true
+                    hasLeft: false
                 },
 
                 {
                     from: '\u1030',
                     quickTests: [['\u1030', 0]],
-                    matchOnStart: true
+                    hasLeft: false
                 },
 
                 // 'ု'
@@ -4243,7 +4243,7 @@ export const uni2zgRules: TranslitRule = {
                 {
                     from: '\u1037',
                     quickTests: [['\u1037', 0]],
-                    matchOnStart: true
+                    hasLeft: false
                 },
 
                 {
