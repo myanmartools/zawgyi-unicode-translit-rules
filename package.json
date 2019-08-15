@@ -22,13 +22,13 @@
   "dependencies": {
     "@angular/common": "^8.2.2",
     "@angular/core": "^8.2.2",
-    "@dagonmetric/ng-translit": "^11.0.0",
+    "@dagonmetric/ng-translit": "^12.0.0",
     "rxjs": "^6.5.2",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.802.1",
-    "@angular/cli": "^8.2.1",
+    "@angular-devkit/build-angular": "^0.802.2",
+    "@angular/cli": "^8.2.2",
     "@angular/compiler": "^8.2.2",
     "@angular/compiler-cli": "^8.2.2",
     "@angular/language-service": "^8.2.2",
@@ -37,7 +37,7 @@
     "@dagonmetric/angular-build": "^8.0.6",
     "@types/jasmine": "^3.4.0",
     "@types/jasminewd2": "^2.0.6",
-    "@types/node": "^12.7.1",
+    "@types/node": "^12.7.2",
     "codelyzer": "^5.1.0",
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
