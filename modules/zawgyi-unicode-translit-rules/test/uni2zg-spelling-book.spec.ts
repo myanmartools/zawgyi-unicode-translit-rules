@@ -48,7 +48,6 @@ export function toFailOutput(result: TranslitResult): string {
 
     if (result.traces) {
         for (const trace of result.traces) {
-            // str += `from (parsed): ${formatCodePoints(trace.parsedFrom)}\n`;
             str += `from: ${formatCodePoints(trace.from)}\n`;
             str += `to: ${formatCodePoints(trace.to)}\n`;
             str += `inputString: ${formatCodePoints(trace.inputString)}\n`;
