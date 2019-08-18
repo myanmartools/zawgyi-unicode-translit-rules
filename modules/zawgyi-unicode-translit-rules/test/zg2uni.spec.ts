@@ -42,25 +42,24 @@ export function formatCodePoints(str?: string): string {
 
 export function toFailOutput(input: string, result: TranslitResult): string {
     let str = `\n\ninput: ${formatCodePoints(input)}\n`;
-    str += `outputText: ${formatCodePoints(result.outputText)}\n\n`;
+    str += `output: ${formatCodePoints(result.outputText)}\n\n`;
 
     if (result.traces) {
         for (const trace of result.traces) {
-            str += `from (parsed): ${formatCodePoints(trace.parsedFrom)}\n`;
             str += `from: ${formatCodePoints(trace.from)}\n`;
             str += `to: ${formatCodePoints(trace.to)}\n`;
-            str += `inputString: ${formatCodePoints(trace.inputString)}\n`;
-            str += `matchedString: ${formatCodePoints(trace.matchedString)}\n`;
-            str += `replacedString: ${formatCodePoints(trace.replacedString)}\n`;
+            str += `input: ${formatCodePoints(trace.inputString)}\n`;
+            // str += `matched: ${formatCodePoints(trace.matchedString)}\n`;
+            str += `replaced: ${formatCodePoints(trace.replacedString)}\n`;
 
             if (trace.postRuleTraces && trace.postRuleTraces.length > 0) {
                 str += 'post rules:\n';
                 for (const subTrace of trace.postRuleTraces) {
-                    str += `from: ${formatCodePoints(subTrace.from)}\n`;
-                    str += `to: ${formatCodePoints(subTrace.to)}\n`;
-                    str += `inputString: ${formatCodePoints(subTrace.inputString)}\n`;
-                    str += `matchedString: ${formatCodePoints(subTrace.matchedString)}\n`;
-                    str += `replacedString: ${formatCodePoints(subTrace.replacedString)}\n`;
+                    str += `  from: ${formatCodePoints(subTrace.from)}\n`;
+                    str += `  to: ${formatCodePoints(subTrace.to)}\n`;
+                    str += `  input: ${formatCodePoints(subTrace.inputString)}\n`;
+                    // str += `  matched: ${formatCodePoints(subTrace.matchedString)}\n`;
+                    str += `  replaced: ${formatCodePoints(subTrace.replacedString)}\n`;
                 }
             }
             str += '\n';
@@ -86,6 +85,45 @@ describe('zg2uni-rules-individual', () => {
         translitService = TestBed.get<TranslitService>(TranslitService) as TranslitService;
     });
 
+    // Overlapped characters normalization
+    // ------------------------------------------------------------------------------------------
+    it(String.raw`overlapped characters normalization`, (done: DoneFn) => {
+        const input = '\u1000\u102D\u102D\u102D\u1036\u1036';
+        const expected = '\u1000\u102D\u1036';
+
+        translitService.translit(input, 'rule1', zg2uniRules, { fixOverlappedChars: true })
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // Single form normalization
+    // ------------------------------------------------------------------------------------------
+    it(String.raw`single form normalization`, (done: DoneFn) => {
+        const input = '\u107F\u108F\u107D\u103C\u108A\u102D\u102E\u1033\u1034';
+        const expected = '\u103B\u1014\u103A\u103C\u103D\u102E\u1030';
+
+        translitService.translit(input, 'rule1', zg2uniRules, { fixOverlappedChars: true, singleForm: true })
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // Order normalization phase
+    // ------------------------------------------------------------------------------------------
+    it(String.raw`order normalization phase`, (done: DoneFn) => {
+        const input = '\u1000\u1036\u102E\u1060\u102F\u103A';
+        const expected = '\u1000\u1060\u103A\u102E\u102F\u1036';
+
+        translitService.translit(input, 'rule1', zg2uniRules, { sortOrder: true })
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
     // \u108B-\u108D, \u1064
     // ------------------------------------------------------------------------------------------
     // 'ေ' + 'ြ'
@@ -94,8 +132,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1083\u108F\u1096\u108B';
         const expected = 'င်္န္တြွေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -105,8 +148,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1083\u108F\u1096\u1064';
         const expected = 'င်္န္တြွေ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -116,8 +164,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1084\u1086\u1071\u108D';
         const expected = 'င်္ဿ္တြေံ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -127,8 +180,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1084\u1086\u1071\u1064';
         const expected = 'င်္ဿ္တြေ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -138,8 +196,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1084\u106F\u108D';
         const expected = 'င်္ဍ္ဎြေံ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -149,8 +212,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1084\u106F\u1064';
         const expected = 'င်္ဍ္ဎြေ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -160,8 +228,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1083\u108F\u108A\u108B';
         const expected = 'င်္နြွှေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -171,30 +244,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1083\u108F\u108A\u1064';
         const expected = 'င်္နြွှေ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(input, result));
-                done();
-            });
-    });
-
-    it(String.raw`\u1031\u103B([#zc])\u103C#kx`, (done: DoneFn) => {
-        const input = '\u1031\u1083\u108F\u103C\u108B';
-        const expected = 'င်္နြွေိ';
-
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
-                expect(result.outputText).toBe(expected, toFailOutput(input, result));
-                done();
-            });
-    });
-
-    it(String.raw`\u1031\u103B([#zc])\u103C#kx - (\u1064)`, (done: DoneFn) => {
-        const input = '\u1031\u1083\u108F\u103C\u1064';
-        const expected = 'င်္နြွေ';
-
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -204,8 +260,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1083\u108F\u103D\u108B';
         const expected = 'င်္နြှေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -215,8 +276,45 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1083\u108F\u103D\u1064';
         const expected = 'င်္နြှေ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u1031\u103B([#zc])\u103C#kx`, (done: DoneFn) => {
+        const input = '\u1031\u1083\u108F\u103C\u108B';
+        const expected = 'င်္နြွေိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u1031\u103B([#zc])\u103C#kx - (\u1064)`, (done: DoneFn) => {
+        const input = '\u1031\u1083\u108F\u103C\u1064';
+        const expected = 'င်္နြွေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -226,8 +324,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u107F\u108F\u108B';
         const expected = 'င်္နြေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -237,8 +340,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u107F\u108F\u1064';
         const expected = 'င်္နြေ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -250,8 +358,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1090\u1096\u108C';
         const expected = 'င်္ရ္တွေီ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -261,8 +374,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1090\u1096\u1064';
         const expected = 'င်္ရ္တွေ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -272,8 +390,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1040\u1072\u107D\u108B';
         const expected = 'င်္ဝ္တျေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -283,8 +406,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1091\u107D\u108B';
         const expected = 'င်္ဏ္ဍျေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -294,8 +422,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u106A\u1065\u108C';
         const expected = 'င်္ဉ္စေီ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -305,41 +438,61 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1092\u108B';
         const expected = 'င်္ဋ္ဌေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it(String.raw`\u1031([#zc])\u103C\u103D\u103A#kx`, (done: DoneFn) => {
+    it(String.raw`\u1031([#zc])\u103A\u103C\u103D#kx`, (done: DoneFn) => {
         const input = '\u1031\u108F\u108A\u107D\u108B';
         const expected = 'င်္နျွှေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it(String.raw`\u1031([#zc])\u103D\u103A#kx`, (done: DoneFn) => {
+    it(String.raw`\u1031([#zc])\u103A\u103D#kx`, (done: DoneFn) => {
         const input = '\u1031\u108F\u103D\u103A\u108B';
         const expected = 'င်္နျှေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it(String.raw`\u1031([#zc])\u103C\u103A#kx`, (done: DoneFn) => {
+    it(String.raw`\u1031([#zc])\u103A\u103C#kx`, (done: DoneFn) => {
         const input = '\u1031\u108F\u103C\u107D\u108B';
         const expected = 'င်္နျွေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -349,8 +502,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u108F\u103A\u108B';
         const expected = 'င်္နျေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -360,8 +518,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u108F\u108A\u108B';
         const expected = 'င်္နွှေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -371,8 +534,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1090\u103D\u108B';
         const expected = 'င်္ရှေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -382,8 +550,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u108F\u103C\u108B';
         const expected = 'င်္နွေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -393,8 +566,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1086\u108B';
         const expected = 'င်္ဿေိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -404,21 +582,31 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1086\u1064';
         const expected = 'င်္ဿေ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    // 'ြ'
-    // ...............
+    // // 'ြ'
+    // // ...............
     it(String.raw`\u103B([#zc])\u1096#kx`, (done: DoneFn) => {
         const input = '\u1084\u106B\u1096\u108C';
         const expected = 'င်္ည္တြွီ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -428,8 +616,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1084\u106B\u1096\u1064';
         const expected = 'င်္ည္တြွ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -439,8 +632,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1083\u1090\u1072\u108D';
         const expected = 'င်္ရ္တြံ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -450,8 +648,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1084\u1091\u108B';
         const expected = 'င်္ဏ္ဍြိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -461,8 +664,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1083\u108F\u108A\u108B';
         const expected = 'င်္နြွှိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -472,8 +680,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1083\u108F\u103D\u108B';
         const expected = 'င်္နြှိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -483,8 +696,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1083\u108F\u103D\u1064';
         const expected = 'င်္နြှ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -494,8 +712,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1083\u108F\u103C\u108B';
         const expected = 'င်္နြွိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -505,8 +728,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u107F\u108F\u108B';
         const expected = 'င်္နြိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -516,32 +744,47 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u107F\u108F\u1064';
         const expected = 'င်္နြ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    // [ွှ  ွ  ှ]
-    // ...............
-    it(String.raw`([#zc])\u103C\u103D\u103A#kx`, (done: DoneFn) => {
+    // // [ွှ  ွ  ှ]
+    // // ...............
+    it(String.raw`([#zc])\u103A\u103C\u103D#kx`, (done: DoneFn) => {
         const input = '\u108F\u108A\u107D\u108B';
         const expected = 'င်္နျွှိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it(String.raw`([#zc])\u103C\u103D\u103A#kx - (\u1064)`, (done: DoneFn) => {
+    it(String.raw`([#zc])\u103A\u103C\u103D#kx - (\u1064)`, (done: DoneFn) => {
         const input = '\u108F\u108A\u107D\u1064';
         const expected = 'င်္နျွှ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -551,8 +794,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u108F\u108A\u108B';
         const expected = 'င်္နွှိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -562,19 +810,29 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u108F\u108A\u1064';
         const expected = 'င်္နွှ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it(String.raw`([#zc])\u103D\u103A#kx`, (done: DoneFn) => {
+    it(String.raw`([#zc])\u103A\u103D#kx`, (done: DoneFn) => {
         const input = '\u108F\u103D\u103A\u108B';
         const expected = 'င်္နျှိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -584,8 +842,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u108F\u103C\u107D\u108B';
         const expected = 'င်္နျွိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -595,8 +858,29 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1090\u103D\u108B';
         const expected = 'င်္ရှိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`([#zc])\u103A\u103C#kx`, (done: DoneFn) => {
+        const input = '\u108F\u103C\u107D\u108B';
+        const expected = 'င်္နျွိ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -606,43 +890,63 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u108F\u1096\u108C';
         const expected = 'င်္န္တွီ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it(String.raw`([#zc])\u1096#kx`, (done: DoneFn) => {
+    it(String.raw`([#zc])\u103C#kx`, (done: DoneFn) => {
         const input = '\u108F\u103C\u108B';
         const expected = 'င်္နွိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    it(String.raw`([#zc])\u1096#kx - (\u1064)`, (done: DoneFn) => {
+    it(String.raw`([#zc])\u103C#kx - (\u1064)`, (done: DoneFn) => {
         const input = '\u108F\u103C\u1064';
         const expected = 'င်္နွ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    // 'ျ'
-    // ...............
+    // // 'ျ'
+    // // ...............
     it(String.raw`([#zc])([#zplc])\u103A#kx`, (done: DoneFn) => {
         const input = '\u1090\u1074\u107D\u108B';
         const expected = 'င်္ရ္ထျိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -652,8 +956,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1090\u1074\u107D\u1064';
         const expected = 'င်္ရ္ထျ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -663,8 +972,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1097\u107D\u108B';
         const expected = 'င်္ဋ္ဋျိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -674,8 +988,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1097\u107D\u1064';
         const expected = 'င်္ဋ္ဋျ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -685,8 +1004,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u108F\u103A\u108B';
         const expected = 'င်္နျိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -696,21 +1020,31 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u108F\u103A\u1064';
         const expected = 'င်္နျ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    // #
-    // ...............
+    // // #
+    // // ...............
     it(String.raw`([#zc])([#zplc])#kx`, (done: DoneFn) => {
         const input = '\u108F\u1074\u108C';
         const expected = 'င်္န္ထီ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -720,8 +1054,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u108F\u1074\u1064';
         const expected = 'င်္န္ထ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -731,8 +1070,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u106E\u108B';
         const expected = 'င်္ဍ္ဍိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -742,8 +1086,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u106E\u1064';
         const expected = 'င်္ဍ္ဍ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -753,8 +1102,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1086\u108B';
         const expected = 'င်္ဿိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -764,8 +1118,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1086\u1064';
         const expected = 'င်္ဿ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -775,8 +1134,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u108B';
         const expected = 'င်္ိ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -786,21 +1150,31 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1064';
         const expected = '\u1004\u103A\u1039';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
     });
 
-    // Extra
-    // ...............
+    // // Extra
+    // // ...............
     it(String.raw`\u1031\u108F\u108B\u102F\u1094`, (done: DoneFn) => {
         const input = '\u1031\u108F\u108B\u102F\u1094';
         const expected = 'င်္နေို့';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -810,8 +1184,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u108F\u103D\u108C\u1094';
         const expected = 'င်္နှေီ့';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -821,8 +1200,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1014\u108B\u1094';
         const expected = 'င်္နေိ့';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -832,8 +1216,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1025\u108B\u1037';
         const expected = 'င်္ဥေိ့';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -843,8 +1232,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u107F\u108F\u108B\u1037';
         const expected = 'င်္နြေိ့';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -854,8 +1248,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1000\u108B\u1037';
         const expected = 'င်္ကေိ့';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -865,8 +1264,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u103B\u108F\u108B\u1037';
         const expected = 'င်္နြိ့';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -876,8 +1280,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1001\u108B\u1037';
         const expected = 'င်္ခိ့';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -887,8 +1296,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1025\u108B\u1087\u1033';
         const expected = 'င်္ဥှေို';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -898,8 +1312,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u100A\u108B\u1087\u1033';
         const expected = 'င်္ညှေို';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -909,8 +1328,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1025\u108B\u1034';
         const expected = 'င်္ဥိူ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -920,8 +1344,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1000\u108B\u1088';
         const expected = 'င်္ကှေို';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -931,8 +1360,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1000\u108B\u1089';
         const expected = 'င်္ကှေိူ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -942,8 +1376,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1015\u108B\u1089';
         const expected = 'င်္ပှိူ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -953,8 +1392,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1000\u108B\u102F';
         const expected = 'င်္ကေို';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -964,8 +1408,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1031\u1000\u108B\u1030';
         const expected = 'င်္ကေိူ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
@@ -975,8 +1424,13 @@ describe('zg2uni-rules-individual', () => {
         const input = '\u1000\u108B\u1030';
         const expected = 'င်္ကိူ';
 
-        translitService.translit(input, 'zg2uni', zg2uniRules)
-            .subscribe(result => {
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
             });
