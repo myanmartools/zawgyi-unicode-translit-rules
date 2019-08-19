@@ -111,6 +111,52 @@ describe('zg2uni-rules-individual', () => {
             });
     });
 
+    // Space between accented characters normalization phase
+    // ------------------------------------------------------------------------------------------
+    it(String.raw`space between accented characters normalization phase - (with \u1031\u103B)`, (done: DoneFn) => {
+        const input = '\u1031  \u103B \u1000';
+        const expected = '\u1031\u103B\u1000';
+
+        translitService.translit(input, 'rule1', zg2uniRules, { fixSpaceBetweenAccentedChars: true })
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`space between accented characters normalization phase - (with \u1031)`, (done: DoneFn) => {
+        const input = '\u1031  \u1000';
+        const expected = '\u1031\u1000';
+
+        translitService.translit(input, 'rule1', zg2uniRules, { fixSpaceBetweenAccentedChars: true })
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`space between accented characters normalization phase - (with \u103B)`, (done: DoneFn) => {
+        const input = '\u103B  \u1000';
+        const expected = '\u103B\u1000';
+
+        translitService.translit(input, 'rule1', zg2uniRules, { fixSpaceBetweenAccentedChars: true })
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`space between accented characters normalization phase`, (done: DoneFn) => {
+        const input = '\u1000   \u102D  \u1037';
+        const expected = '\u1000\u102D\u1037';
+
+        translitService.translit(input, 'rule1', zg2uniRules, { fixSpaceBetweenAccentedChars: true })
+            .subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
     // Order normalization phase
     // ------------------------------------------------------------------------------------------
     it(String.raw`order normalization phase`, (done: DoneFn) => {
