@@ -1558,7 +1558,7 @@ describe('zg2uni-rules-individual', () => {
     // ...............
     it(String.raw`\u1031\u103B([#zc])([#zplc])`, (done: DoneFn) => {
         const input = '\u1031\u1081\u106A\u1065';
-        const expected = '\u1009\u1039\u1005\u103C\u1031';
+        const expected = 'ဉ္စြေ';
 
         translitService.translit(input, 'zg2uni', zg2uniRules,
             {
@@ -1574,7 +1574,7 @@ describe('zg2uni-rules-individual', () => {
 
     it(String.raw`\u1031\u103B([#zpc])`, (done: DoneFn) => {
         const input = '\u1031\u107E\u1091';
-        const expected = '\u100F\u1039\u100D\u103C\u1031';
+        const expected = 'ဏ္ဍြေ';
 
         translitService.translit(input, 'zg2uni', zg2uniRules,
             {
@@ -1605,5 +1605,231 @@ describe('zg2uni-rules-individual', () => {
     });
 
     // 'ေ'
+    // ------------------------------------------------------------------------------------------
+    // 'ျ' + 'ွှ'
+    // ...............
+    it(String.raw`\u1031([#zc])\u103A\u103C\u103D`, (done: DoneFn) => {
+        const input = '\u1031\u1090\u108A\u107D';
+        const expected = 'ရျွှေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // 'ွှ'
+    // ...............
+    it(String.raw`\u1031([#zc])\u103C\u103D`, (done: DoneFn) => {
+        const input = '\u1031\u1090\u108A';
+        const expected = 'ရွှေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // 'ျ' + 'ှ'
+    // ...............
+    it(String.raw`\u1031([#zc])\u103A\u103D`, (done: DoneFn) => {
+        const input = '\u1031\u101B\u103D\u107D';
+        const expected = 'ရျှေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // 'ှ'
+    // ...............
+    it(String.raw`\u1031([#zc])\u103D`, (done: DoneFn) => {
+        const input = '\u1031\u101B\u103D';
+        const expected = 'ရှေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // 'ျ' + 'ွ'
+    // ...............
+    it(String.raw`\u1031([#zc])\u103A\u103C`, (done: DoneFn) => {
+        const input = '\u1031\u101B\u103C\u107D';
+        const expected = 'ရျွေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // 'ွ'
+    // ...............
+    it(String.raw`\u1031([#zc])\u1096`, (done: DoneFn) => {
+        const input = '\u1031\u108F\u1096';
+        const expected = 'န္တွေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u1031([#zc])\u103C`, (done: DoneFn) => {
+        const input = '\u1031\u1090\u103C';
+        const expected = 'ရွေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // 'ျ'
+    // ...............
+    it(String.raw`\u1031([#zc])([#zplc])\u103A`, (done: DoneFn) => {
+        const input = '\u1031\u1014\u1071\u107D';
+        const expected = 'န္တျေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u1031([#zpc])\u103A`, (done: DoneFn) => {
+        const input = '\u1031\u1091\u107D';
+        const expected = 'ဏ္ဍျေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u1031([#zc])\u103A`, (done: DoneFn) => {
+        const input = '\u1031\u1000\u103A';
+        const expected = 'ကျေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // #
+    // ...............
+    it(String.raw`\u1031([#zc])([#zplc])`, (done: DoneFn) => {
+        const input = '\u1031\u1086\u1085';
+        const expected = 'ဿ္လေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u1031([#zpc])`, (done: DoneFn) => {
+        const input = '\u1031\u1091';
+        const expected = 'ဏ္ဍေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    it(String.raw`\u1031([#zc])`, (done: DoneFn) => {
+        const input = '\u1031\u1000';
+        const expected = 'ကေ';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules,
+            {
+                // fixOverlappedChars: true,
+                sortOrder: true,
+                singleForm: true,
+                zg2uni: true
+            }).subscribe(result => {
+                expect(result.outputText).toBe(expected, toFailOutput(input, result));
+                done();
+            });
+    });
+
+    // 'ြ'
     // ------------------------------------------------------------------------------------------
 });
