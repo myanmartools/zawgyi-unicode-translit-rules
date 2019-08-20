@@ -356,7 +356,7 @@ export const zg2uniRules: TranslitRule = {
                         from: '(\u1039)(\u1037)',
                         to: '$2$1',
                         when: {
-                            preferU1037U103A: true
+                            preferU1037U103a: true
                         },
                         orGroup: 'g3739'
                     },
@@ -373,7 +373,7 @@ export const zg2uniRules: TranslitRule = {
                         from: '(\u1037)(\u1039)',
                         to: '$2$1',
                         skip: {
-                            preferU1037U103A: true
+                            preferU1037U103a: true
                         },
                         orGroup: 'g3739'
                     },
@@ -499,13 +499,19 @@ export const zg2uniRules: TranslitRule = {
                         from: '\u1040',
                         to: '\u101D',
                         start: -1,
-                        orGroup: 'gc1'
+                        orGroup: 'gc1',
+                        skip: {
+                            fixU101d: false
+                        }
                     },
                     {
                         from: '\u1025([\u102C\u1039\u103A])',
                         to: '\u1009$1',
                         start: -1,
-                        orGroup: 'gc1'
+                        orGroup: 'gc1',
+                        skip: {
+                            fixU1009And1025: false
+                        }
                     },
 
                     {
@@ -1296,7 +1302,10 @@ export const zg2uniRules: TranslitRule = {
                     from: '\u1040\u1004\u1039\u1038',
                     to: '\u101D\u1004\u103A\u1038',
                     minLength: 4,
-                    quickTests: [['\u1040', 0], ['\u1004', 1], ['\u1039', 2], ['\u1038', 3]]
+                    quickTests: [['\u1040', 0], ['\u1004', 1], ['\u1039', 2], ['\u1038', 3]],
+                    skip: {
+                        fixU101d: false
+                    }
                 },
 
                 // [ဉ  ဥ]
@@ -1306,7 +1315,10 @@ export const zg2uniRules: TranslitRule = {
                     from: '\u1009(\u102F\u1036)',
                     to: '\u1025$1',
                     minLength: 3,
-                    quickTests: [['\u1009', 0], ['\u102F', 1], ['\u1036', 2]]
+                    quickTests: [['\u1009', 0], ['\u102F', 1], ['\u1036', 2]],
+                    skip: {
+                        fixU1009And1025: false
+                    }
                 },
 
                 // 'ဉာ'
@@ -1314,7 +1326,10 @@ export const zg2uniRules: TranslitRule = {
                     from: '\u1025\u102C',
                     to: '\u1009\u102C',
                     minLength: 2,
-                    quickTests: [['\u1025', 0], ['\u102C', 1]]
+                    quickTests: [['\u1025', 0], ['\u102C', 1]],
+                    skip: {
+                        fixU1009And1025: false
+                    }
                 },
 
                 // 'ဉ့်'
@@ -1324,7 +1339,10 @@ export const zg2uniRules: TranslitRule = {
                     minLength: 3,
                     quickTests: [['\u1025', 0], ['\u1037', 1], ['\u1039', 2]],
                     when: {
-                        preferU1037U103A: true
+                        preferU1037U103a: true
+                    },
+                    skip: {
+                        fixU1009And1025: false
                     }
                 },
                 {
@@ -1333,7 +1351,8 @@ export const zg2uniRules: TranslitRule = {
                     minLength: 3,
                     quickTests: [['\u1025', 0], ['\u1039', 1], ['\u1037', 2]],
                     skip: {
-                        preferU1037U103A: true
+                        preferU1037U103a: true,
+                        fixU1009And1025: false
                     }
                 },
 
@@ -1342,7 +1361,10 @@ export const zg2uniRules: TranslitRule = {
                     from: '\u1025\u1039',
                     to: '\u1009\u103A',
                     minLength: 2,
-                    quickTests: [['\u1025', 0], ['\u1039', 1]]
+                    quickTests: [['\u1025', 0], ['\u1039', 1]],
+                    skip: {
+                        fixU1009And1025: false
+                    }
                 },
 
                 // 'ဉတ်'
@@ -1350,7 +1372,10 @@ export const zg2uniRules: TranslitRule = {
                     from: '\u1025\u1010\u1039',
                     to: '\u1009\u1010\u103A',
                     minLength: 3,
-                    quickTests: [['\u1025', 0], ['\u1010', 1], ['\u1039', 2]]
+                    quickTests: [['\u1025', 0], ['\u1010', 1], ['\u1039', 2]],
+                    skip: {
+                        fixU1009And1025: false
+                    }
                 },
 
                 // 'ဉ' + [\u1000-\u1021] + '်'
@@ -1358,7 +1383,10 @@ export const zg2uniRules: TranslitRule = {
                     from: '\u1025([\u1000-\u1021\u103F])\u1039',
                     to: '\u1009$1\u103A',
                     minLength: 3,
-                    quickTests: [['\u1025', 0], ['\u1039', 2]]
+                    quickTests: [['\u1025', 0], ['\u1039', 2]],
+                    skip: {
+                        fixU1009And1025: false
+                    }
                 },
 
                 // 'ဝ' (သုည '၀' မှ ဝလုံး 'ဝ')
