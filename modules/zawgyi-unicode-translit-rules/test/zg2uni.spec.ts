@@ -1460,7 +1460,7 @@ describe('zg2uni-rules-individual', () => {
 
         translitService.translit(input, 'zg2uni', zg2uniRules,
             {
-                preferU1037U103A: true
+                preferU1037U103a: true
             }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
@@ -1473,7 +1473,7 @@ describe('zg2uni-rules-individual', () => {
 
         translitService.translit(input, 'zg2uni', zg2uniRules,
             {
-                preferU1037U103A: true
+                preferU1037U103a: true
             }).subscribe(result => {
                 expect(result.outputText).toBe(expected, toFailOutput(input, result));
                 done();
