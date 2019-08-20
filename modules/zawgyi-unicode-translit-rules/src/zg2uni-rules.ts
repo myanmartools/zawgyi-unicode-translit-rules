@@ -457,7 +457,7 @@ export const zg2uniRules: TranslitRule = {
             tplVar: {
                 '#zc': '\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u1040-\u1049',
                 '#zplc': '\u1060-\u1063\u1065-\u1069\u106C\u106D\u1070-\u107C\u1085\u1093',
-                '#zpc': '\u106E\u106F\u1091\u1092\u1097',
+                '#zpc': '\u106E\u106F\u1091\u1092\u1097'
             },
             tplSeq: {
                 '@kx': [
@@ -482,6 +482,13 @@ export const zg2uniRules: TranslitRule = {
                     ['\u1085', '\u101C', 1],
                     ['\u1093', '\u1018', 1]
                 ],
+                '@ppx': [
+                    ['\u106E', '\u100D\u1039\u100D', 1],
+                    ['\u106F', '\u100D\u1039\u100E', 1],
+                    ['\u1091', '\u100F\u1039\u100D', 1],
+                    ['\u1092', '\u100B\u1039\u100C', 1],
+                    ['\u1097', '\u100B\u1039\u100B', 1]
+                ]
             },
             postRulesDef: {
                 pz2u: [
@@ -503,36 +510,12 @@ export const zg2uniRules: TranslitRule = {
                         to: '@px',
                         start: -1,
                         orGroup: 'gpx'
-                    },
+                    }
                 ],
                 ppz2u: [
                     {
-                        from: '\u106E',
-                        to: '\u100D\u1039\u100D',
-                        start: -1,
-                        orGroup: 'gc1'
-                    },
-                    {
-                        from: '\u106F',
-                        to: '\u100D\u1039\u100E',
-                        start: -1,
-                        orGroup: 'gc1'
-                    },
-                    {
-                        from: '\u1091',
-                        to: '\u100F\u1039\u100D',
-                        start: -1,
-                        orGroup: 'gc1'
-                    },
-                    {
-                        from: '\u1092',
-                        to: '\u100B\u1039\u100C',
-                        start: -1,
-                        orGroup: 'gc1'
-                    },
-                    {
-                        from: '\u1097',
-                        to: '\u100B\u1039\u100B',
+                        from: '@ppx',
+                        to: '@ppx',
                         start: -1,
                         orGroup: 'gc1'
                     }
@@ -1246,8 +1229,6 @@ export const zg2uniRules: TranslitRule = {
                 // Pasin
                 // ------------------------------------------------------------------------------------------
                 // ([#zc]) + \u1096
-                // ...............
-                //
                 {
                     from: '([#zc])\u1096',
                     to: '$1\u1039\u1010\u103D',
@@ -1257,32 +1238,25 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 0 }
                 },
 
-                // #
-                // ...............
-                //
-                // ([#zc])([#zplc])
+                // ([#zc])@px
                 {
-                    from: '([#zc])([#zplc])',
-                    to: '$1\u1039$2',
+                    from: '([#zc])@px',
+                    to: '$1\u1039@px',
                     minLength: 2,
-                    quickTests: [['', 2]],
+                    quickTests: [['@px', 1]],
                     postRulesRef: 'pz2u',
-                    postRulesStart: { gc1: 0, gpx: 2 }
-                },
-
-                // ([#zpc])
-                {
-                    from: '([#zpc])',
-                    to: '$1',
-                    minLength: 1,
-                    quickTests: [['', 1]],
-                    postRulesRef: 'ppz2u',
                     postRulesStart: { gc1: 0 }
                 },
 
+                // @ppx
+                {
+                    from: '@ppx',
+                    to: '@ppx',
+                    minLength: 1,
+                    quickTests: [['@ppx', 0]]
+                },
+
                 // \u1096
-                // ...............
-                //
                 {
                     from: '\u1096',
                     to: '\u1039\u1010\u103D',
@@ -1290,13 +1264,12 @@ export const zg2uniRules: TranslitRule = {
                     quickTests: [['\u1096', 0]]
                 },
 
-                // ([#zplc])
-                // ...............
-                //
+                // @px
                 {
-                    from: '([#zplc])',
-                    to: '\u1039$1',
-                    minLength: 1
+                    from: '@px',
+                    to: '\u1039@px',
+                    minLength: 1,
+                    quickTests: [['@px', 0]]
                 },
 
                 // 'း'
