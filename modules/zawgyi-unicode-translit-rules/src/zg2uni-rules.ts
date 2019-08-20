@@ -14,8 +14,8 @@ export const zg2uniRules: TranslitRule = {
     phases: [
         {
             description: 'Overlapped characters normalization phase',
-            when: {
-                fixOverlappedChars: true
+            skip: {
+                fixOverlappedChars: false
             },
             tplSeq: {
                 '@ox': [
@@ -40,8 +40,8 @@ export const zg2uniRules: TranslitRule = {
         },
         {
             description: 'Single form normalization phase',
-            when: {
-                singleForm: true
+            skip: {
+                convertSingleForm: false
             },
             tplSeq: {
                 '@94Or95x': [
@@ -255,8 +255,8 @@ export const zg2uniRules: TranslitRule = {
         },
         {
             description: 'Space between accented characters normalization phase',
-            when: {
-                fixSpaceBetweenAccentedChars: true
+            skip: {
+                fixSpaceBetweenAccentedChars: false
             },
             tplVar: {
                 '#s': ' \u00A0\u1680\u2000-\u200D\u202F\u205F\u2060\u3000\uFEFF',
@@ -278,7 +278,7 @@ export const zg2uniRules: TranslitRule = {
                 ]
             },
             postRulesDef: {
-                psc: [
+                prs: [
                     {
                         from: '[#s]+',
                         to: ''
@@ -310,15 +310,15 @@ export const zg2uniRules: TranslitRule = {
                     to: '$1@sx$2$3',
                     minLength: 3,
                     quickTests: [['@sx', 1]],
-                    postRulesRef: 'psc',
+                    postRulesRef: 'prs',
                     postRulesStrategy: 'whileMatch'
                 }
             ]
         },
         {
             description: 'Order normalization phase',
-            when: {
-                sortOrder: true
+            skip: {
+                sortOrder: false
             },
             tplVar: {
                 '#3ar': '\u1060-\u1063\u1065-\u1069\u106C\u106D\u1070-\u107C\u1085\u1093\u1096',
@@ -331,10 +331,10 @@ export const zg2uniRules: TranslitRule = {
                 '#2bOr2cr': '#32Or36r\u1032\u1036',
                 '#39r': '#2bOr2cr\u102B\u102C',
                 '#37r': '#39r',
-                '#r': '#37r'
+                '#r': '#37r\u1037\u1039'
             },
             tplSeq: {
-                '@sx': [
+                '@ox': [
                     ['\u102B', '\u102B', 6],
                     ['\u1032', '\u1032', 1],
                     ['\u1036', '\u1036', 1],
@@ -356,7 +356,7 @@ export const zg2uniRules: TranslitRule = {
                         from: '(\u1039)(\u1037)',
                         to: '$2$1',
                         when: {
-                            prefer3739: true
+                            preferU1037U103A: true
                         },
                         orGroup: 'g3739'
                     },
@@ -372,6 +372,9 @@ export const zg2uniRules: TranslitRule = {
                     {
                         from: '(\u1037)(\u1039)',
                         to: '$2$1',
+                        skip: {
+                            preferU1037U103A: true
+                        },
                         orGroup: 'g3739'
                     },
 
@@ -440,10 +443,10 @@ export const zg2uniRules: TranslitRule = {
             rules: [
                 // Sort order
                 {
-                    from: '@sx([#r]+)',
-                    to: '@sx$1',
+                    from: '@ox([#r]+)',
+                    to: '@ox$1',
                     minLength: 2,
-                    quickTests: [['@sx', 0]],
+                    quickTests: [['@ox', 0]],
                     postRulesRef: 'po',
                     postRulesStrategy: 'whileMatch'
                 }
@@ -451,8 +454,8 @@ export const zg2uniRules: TranslitRule = {
         },
         {
             description: 'Core Zawgyi to Unicode conversion phase',
-            when: {
-                zg2uni: true
+            skip: {
+                convertZg2Uni: false
             },
             tplVar: {
                 '#zc': '\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u1040-\u1049',
@@ -1238,7 +1241,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 0 }
                 },
 
-                // ([#zc])@px
+                // ([#zc]) + @px
                 {
                     from: '([#zc])@px',
                     to: '$1\u1039@px',
@@ -1313,25 +1316,25 @@ export const zg2uniRules: TranslitRule = {
                     minLength: 2,
                     quickTests: [['\u1025', 0], ['\u102C', 1]]
                 },
-                {
-                    from: '\u1025\u102B',
-                    to: '\u1009\u102B',
-                    minLength: 2,
-                    quickTests: [['\u1025', 0], ['\u102B', 1]]
-                },
 
                 // 'ဉ့်'
-                {
-                    from: '\u1025\u1039\u1037',
-                    to: '\u1009\u103A\u1037',
-                    minLength: 3,
-                    quickTests: [['\u1025', 0], ['\u1039', 1], ['\u1037', 2]]
-                },
                 {
                     from: '\u1025\u1037\u1039',
                     to: '\u1009\u1037\u103A',
                     minLength: 3,
-                    quickTests: [['\u1025', 0], ['\u1037', 1], ['\u1039', 2]]
+                    quickTests: [['\u1025', 0], ['\u1037', 1], ['\u1039', 2]],
+                    when: {
+                        preferU1037U103A: true
+                    }
+                },
+                {
+                    from: '\u1025\u1039\u1037',
+                    to: '\u1009\u103A\u1037',
+                    minLength: 3,
+                    quickTests: [['\u1025', 0], ['\u1039', 1], ['\u1037', 2]],
+                    skip: {
+                        preferU1037U103A: true
+                    }
                 },
 
                 // 'ဉ်'
@@ -1361,9 +1364,10 @@ export const zg2uniRules: TranslitRule = {
                 // 'ဝ' (သုည '၀' မှ ဝလုံး 'ဝ')
                 // ------------------------------------------------------------------------------------------
                 {
-                    description: "သုည '၀' + ' ီ  ု  ူ  ံ  ှ  ျ ...' မှ ဝလုံး 'ဝ' + ... သို့, Note \u102B ... \u103E are Unicode",
-                    from: '\u1040([\u102B\u102C\u102E\u102F\u1030\u1032\u1036\u1037\u1039\u103A\u103B\u103D\u103E])',
-                    to: '\u101D$1'
+                    from: '\u1040([\u102B\u102C\u102E\u102F\u1030\u1032\u1036\u1037\u1039\u103C\u103D])',
+                    to: '\u101D$1',
+                    minLength: 2,
+                    quickTests: [['\u1040', 0]]
                 },
                 {
                     description: "သုည '၀' + 'ိ' + [ုူှ ...] မှ ဝလုံး 'ဝ' + ... သို့, Note \u102E ... \u103E are Unicode",
