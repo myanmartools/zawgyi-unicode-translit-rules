@@ -259,7 +259,7 @@ export const zg2uniRules: TranslitRule = {
                 fixSpaceBetweenAccentedChars: false
             },
             tplVar: {
-                '#s': ' \u00A0\u1680\u2000-\u200D\u202F\u205F\u2060\u3000\uFEFF',
+                '#sp': ' \u00A0\u1680\u2000-\u200D\u202F\u205F\u2060\u3000\uFEFF',
                 '#ca31Or3b': '\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u1040\u106E\u106F\u1091\u1092\u1097',
                 '#cbs': '\u1000-\u1021\u1023-\u1027\u1029-\u1034\u1036\u1037\u1039-\u103A\u103C\u103D\u103F\u1040\u1060-\u107D\u1085\u108B-\u108D\u1091-\u1097',
                 '#ca': '\u102B-\u1030\u1032-\u1034\u1036-\u103A\u103C\u103D\u1064\u108B-\u108D'
@@ -280,33 +280,33 @@ export const zg2uniRules: TranslitRule = {
             postRulesDef: {
                 prs: [
                     {
-                        from: '[#s]+',
+                        from: '[#sp]+',
                         to: ''
                     }
                 ]
             },
             rules: [
                 {
-                    from: '\u1031[#s]+\u103B[#s]+([#ca31Or3b])',
+                    from: '\u1031[#sp]+\u103B[#sp]+([#ca31Or3b])',
                     to: '\u1031\u103B$1',
                     minLength: 5,
                     quickTests: [['\u1031', 0]]
                 },
                 {
-                    from: '\u1031[#s]+([#ca31Or3b\u103B])',
+                    from: '\u1031[#sp]+([#ca31Or3b\u103B])',
                     to: '\u1031$1',
                     minLength: 3,
                     quickTests: [['\u1031', 0]]
                 },
                 {
-                    from: '\u103B[#s]+([#ca31Or3b])',
+                    from: '\u103B[#sp]+([#ca31Or3b])',
                     to: '\u103B$1',
                     minLength: 3,
                     quickTests: [['\u103B', 0]]
                 },
 
                 {
-                    from: '([#cbs])[@sx]+([#ca])(([#s]+[#ca])*)',
+                    from: '([#cbs])[@sx]+([#ca])(([#sp]+[#ca])*)',
                     to: '$1@sx$2$3',
                     minLength: 3,
                     quickTests: [['@sx', 1]],
@@ -460,7 +460,7 @@ export const zg2uniRules: TranslitRule = {
             tplVar: {
                 '#zc': '\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u1040-\u1049',
                 '#zplc': '\u1060-\u1063\u1065-\u1069\u106C\u106D\u1070-\u107C\u1085\u1093',
-                '#zpc': '\u106E\u106F\u1091\u1092\u1097'
+                '#zpc': '\u106E\u106F\u1091\u1092\u1097',
             },
             tplSeq: {
                 '@kx': [
@@ -491,6 +491,13 @@ export const zg2uniRules: TranslitRule = {
                     ['\u1091', '\u100F\u1039\u100D', 1],
                     ['\u1092', '\u100B\u1039\u100C', 1],
                     ['\u1097', '\u100B\u1039\u100B', 1]
+                ],
+                '@oz2ux': [
+                    ['\u1039', '\u103A', 1],
+                    ['\u103A', '\u103B', 1],
+                    ['\u103B', '\u103C', 1],
+                    ['\u103C', '\u103D', 1],
+                    ['\u103D', '\u103E', 1]
                 ]
             },
             postRulesDef: {
@@ -1389,239 +1396,80 @@ export const zg2uniRules: TranslitRule = {
                     }
                 },
 
-                // 'ဝ' (သုည '၀' မှ ဝလုံး 'ဝ')
+                // 'ဝ'
                 // ------------------------------------------------------------------------------------------
                 {
-                    from: '\u1040([\u102B\u102C\u102E\u102F\u1030\u1032\u1036\u1037\u1039\u103C\u103D])',
-                    to: '\u101D$1',
+                    from: '\u1040',
+                    to: '\u101D',
                     minLength: 2,
-                    quickTests: [['\u1040', 0]]
+                    quickTests: [['\u1040', 0]],
+                    right: '[\u102B\u102C\u102E-\u1030\u1032\u1036\u1037\u1039\u103A\u103C\u103D\u104D]',
+                    skip: {
+                        fixU101d: false
+                    }
                 },
                 {
-                    description: "သုည '၀' + 'ိ' + [ုူှ ...] မှ ဝလုံး 'ဝ' + ... သို့, Note \u102E ... \u103E are Unicode",
-                    from: '\u1040(\u102D[\u102E\u102F\u1030\u1036\u1037\u1038\u1039\u103B\u103D\u103E])',
-                    to: '\u101D$1'
+                    from: '\u1040',
+                    to: '\u101D',
+                    minLength: 3,
+                    quickTests: [['\u1040', 0]],
+                    right: '\u102D[\u102B\u102C\u102F\u1030\u1032\u1036\u1037\u1038\u1039\u103A\u103C\u103D\u104D]',
+                    skip: {
+                        fixU101d: false
+                    }
                 },
                 {
-                    description: "သုည '၀' + 'ိ' + '၍' မှ ဝလုံး 'ဝ' + ... သို့, Note \u102D\u104D are Unicode",
-                    from: '\u1040(\u102D\u104D)',
-                    to: '\u101D$1'
+                    from: '\u1040',
+                    to: '\u101D',
+                    minLength: 2,
+                    quickTests: [['\u1040', 0]],
+                    hasLeft: false,
+                    right: '\u102D',
+                    skip: {
+                        fixU101d: false
+                    }
                 },
                 {
-                    description: "သုည '၀' + [က-အဥဿ] + '်'... မှ ဝလုံး 'ဝ' + ... သို့, Note [\u1000-\u1021\u1025\u103F] \u103A are Unicode",
-                    from: '\u1040([\u1000-\u1021\u1025\u103F]\u103A)',
-                    to: '\u101D$1'
+                    from: '\u1040',
+                    to: '\u101D',
+                    minLength: 2,
+                    quickTests: [['\u1040', 0]],
+                    left: '[^\u1040-\u1049]',
+                    right: '\u102D',
+                    skip: {
+                        fixU101d: false
+                    }
                 },
                 {
-                    description: "သုည '၀' + [က-အဥဿ] + 'း' + '်'... မှ ဝလုံး 'ဝ' + ... သို့, Note [\u1000-\u1021\u1025\u103F] \u1037\u103A are Unicode",
-                    from: '\u1040([\u1000-\u1021\u1025\u103F])(\u1037\u103A)',
-                    to: '\u101D$1$2'
+                    from: '\u1040',
+                    to: '\u101D',
+                    minLength: 2,
+                    quickTests: [['\u1040', 0]],
+                    hasLeft: false,
+                    right: '[\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u104A-\u104F]',
+                    skip: {
+                        fixU101d: false
+                    }
                 },
                 {
-                    description: "သုည '၀ပြောသာယာ' မှ ဝလုံး 'ဝပြောသာယာ' သို့, Note \u103C is Unicode",
-                    from: '\u1040(\u1031\u103C\u1015\u102C\u101E\u102C\u101A\u102C)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ရဇိန်' မှ ဝလုံး 'ဝရဇိန်' သို့, Note \u103A is Unicode",
-                    from: '\u1040(\u101B\u1007\u102D\u1014\u103A)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ရီး' မှ ဝလုံး 'ဝရီး' သို့",
-                    from: '\u1040(\u101B\u102E\u1038)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ရန်တာ' မှ ဝလုံး 'ဝရန်တာ' သို့, Note \u103A... is Unicode",
-                    from: '\u1040(\u101B\u1014\u103A\u1010\u102C)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ရုန်းသုန်းကား' မှ ဝလုံး 'ဝရုန်းသုန်းကား' သို့, Note \u102F\u103A... are Unicode",
-                    from: '\u1040(\u1090\u102F\u1014\u103A\u1038\u101E\u102F\u1014\u103A\u1038\u1000\u102C\u1038)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ရမ်းပြေး' မှ ဝလုံး 'ဝရမ်းပြေး' သို့, Note \u103A\u103C... are Unicode",
-                    from: '\u1040(\u101B\u1019\u103A\u1038\u1031\u103C\u1015\u1038)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀လုံးအက္ခရာ' မှ ဝလုံး 'ဝလုံးအက္ခရာ' သို့, Note \u1039\u1001... are Unicode",
-                    from: '\u1040(\u101C\u1036\u102F\u1038\u1021\u1000\u1039\u1001\u101B\u102C)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀လုံးအက္ခရာ' မှ ဝလုံး 'ဝလုံးအက္ခရာ' သို့, Note \u1039\u1001... are Unicode",
-                    from: '\u1040(\u101C\u102F\u1036\u1038\u1021\u1000\u1039\u1001\u101B\u102C)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ဝတုတ်တုတ်' မှ ဝလုံး 'ဝဝတုတ်တုတ်' သို့, Note \u103A... are Unicode",
-                    from: '\u1040\u1040(\u1010\u102F\u1010\u103A\u1010\u102F\u1010\u103A)',
-                    to: '\u101D\u101D$1'
-                },
-                {
-                    description: "သုည '၀သန်ကာလ' မှ ဝလုံး 'ဝသန်ကာလ' သို့, Note \u103A... are Unicode",
-                    from: '\u1040(\u101E\u1014\u103A\u1000\u102C\u101C)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀သန္တ' မှ ဝလုံး 'ဝသန္တ' သို့, Note\u1014\u1039\u1010... are Unicode",
-                    from: '\u1040(\u101E\u1014\u1039\u1010)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ဟည်းပင်' မှ ဝလုံး 'ဝဟည်းပင်' သို့, Note \u103A... are Unicode",
-                    from: '\u1040(\u101F\u100A\u103A\u1038\u1015\u1004\u103A)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ဆွဲ' မှ ဝလုံး 'ဝဆွဲ' သို့, Note \u103D... are Unicode",
-                    from: '\u1040(\u1006\u103D\u1032)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိဂြိုဟ်' မှ ဝလုံး 'ဝိြိုဟ်' သို့, Note \u103C\u102F\u103A are Unicode",
-                    from: '\u1040(\u102D\u103C\u1002\u102D\u102F\u101F\u103A)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိညာဉ်' မှ ဝလုံး 'ဝိညာဉ်' သို့, Note \u1009\u103A are Unicode",
-                    from: '\u1040(\u102D\u100A\u102C\u1009\u103A)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိဓူရ' မှ ဝလုံး 'ဝိဓူရ' သို့",
-                    from: '\u1040(\u102D\u1013\u1030\u101B)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိနည်း' မှ ဝလုံး 'ဝိနည်း' သို့, Note \u103A... are Unicode",
-                    from: '\u1040(\u102D\u1014\u100A\u103A\u1038)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိပါက်လိုက်' မှ ဝလုံး 'ဝိပါက်လိုက်' သို့, Note \u103A... are Unicode",
-                    from: '\u1040(\u102D\u1015\u102B\u1000\u103A\u101C\u102D\u102F\u1000\u103A)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိပဿနာ' မှ ဝလုံး 'ဝိပဿနာ' သို့, Note \u103F... are Unicode",
-                    from: '\u1040(\u102D\u1015\u103F\u1014\u102C)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိဘတ်' မှ ဝလုံး 'ဝိဘတ်' သို့, Note \u103A... are Unicode",
-                    from: '\u1040(\u102D\u1018\u1010\u103A)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိရောဓိ' မှ ဝလုံး 'ဝိရောဓိ' သို့",
-                    from: '\u1040(\u102D\u1031\u101B\u102C\u1013\u102D)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိသကြုံ' မှ ဝလုံး 'ဝိသကြုံ' သို့, Note \u103C\u102F... are Unicode",
-                    from: '\u1040(\u102D\u101E\u103C\u1000\u1036\u102F)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိသကြုံ' မှ ဝလုံး 'ဝိသကြုံ' သို့, Note \u103C\u102F... are Unicode",
-                    from: '\u1040(\u102D\u101E\u103C\u1000\u102F\u1036)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိသမ' မှ ဝလုံး 'ဝိသမ' သို့",
-                    from: '\u1040(\u102D\u101E\u1019)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိသာခါ' မှ ဝလုံး 'ဝိသာခါ' သို့",
-                    from: '\u1040(\u102D\u101E\u102C\u1001\u102B)',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "သုည '၀ိသဇ္ဇနီ' မှ ဝလုံး 'ဝိသဇ္ဇနီ' သို့, \u1039\u1007... are Unicode",
-                    from: '\u1040(\u102D\u101E\u1007\u1039\u1007\u1014\u102E)',
-                    to: '\u101D$1'
-                },
-
-                //
-                {
-                    description: 'ဂဏန်း thousand seperator နှင့် ဒသမ',
-                    from: '[\u1040-\u1049]{1,3}([\u002C\u066B\u066C\u2396][\u1040-\u1049]{3})+\u002E[\u1040-\u1049]+'
-                },
-                {
-                    description: "ဂဏန်း thousand seperator + 'ိ'",
-                    from: '[\u1040-\u1049]{1,3}([\u002C\u066B\u066C\u2396][\u1040-\u1049]{3})+\u102D'
-                },
-                {
-                    description: 'ဂဏန်း thousand seperator',
-                    from: '[\u1040-\u1049]{1,3}([\u002C\u066B\u066C\u2396][\u1040-\u1049]{3})+'
-                },
-                {
-                    description: 'ဂဏန်း နှင့် ဒသမ',
-                    from: '[\u1040-\u1049]+\u002E[\u1040-\u1049]+'
-                },
-                {
-                    description: "ဂဏန်း (2 or more) + 'ိ'",
-                    from: '[\u1041-\u1049]+[\u1040-\u1049]+\u102D'
-                },
-                {
-                    description: "သုည '၀' + 'ိ' မှ ဝလုံး 'ဝ' + 'ိ' သို့",
-                    from: '\u1040\u102D',
-                    to: '\u101D\u102D'
-                },
-                {
-                    description: "သုည '၀၀' မှ ဝလုံး 'ဝဝ' သို့",
-                    from: '([^\u1040-\u1049])\u1040\u1040([^\u1040-\u1049])',
-                    to: '$1\u101D\u101D$2'
-                },
-                {
-                    description: "သုည '၀၀' မှ ဝလုံး 'ဝဝ' သို့",
-                    from: '([^\u1040-\u1049])\u1040\u1040$',
-                    to: '$1\u101D\u101D'
-                },
-                {
-                    description: "သုည '၀၀' မှ ဝလုံး 'ဝဝ' သို့",
-                    from: '\u1040\u1040([^\u1040-\u1049])',
-                    to: '\u101D\u101D$1'
-                },
-                {
-                    description: "သုည '၀' + Non digit မှ ဝလုံး 'ဝ' + ... သို့",
-                    from: '\u1040([^\u1040-\u1049])',
-                    to: '\u101D$1'
-                },
-                {
-                    description: "Non digit + သုည '၀' မှ ... + ဝလုံး 'ဝ' သို့",
-                    from: '([^\u1040-\u1049])\u1040$',
-                    to: '$1\u101D'
+                    from: '\u1040',
+                    to: '\u101D',
+                    minLength: 2,
+                    quickTests: [['\u1040', 0]],
+                    left: '[^\u1040-\u1049]',
+                    right: '[\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u104A-\u104F]',
+                    skip: {
+                        fixU101d: false
+                    }
                 },
 
                 // Others
                 // // ------------------------------------------------------------------------------------------
                 {
-                    from: '\u1039',
-                    to: '\u103A'
-                },
-                {
-                    from: '\u103A',
-                    to: '\u103B'
-                },
-                {
-                    from: '\u103B',
-                    to: '\u103C'
-                },
-                {
-                    from: '\u103C',
-                    to: '\u103D'
-                },
-                {
-                    from: '\u103D',
-                    to: '\u103E'
-                },
+                    from: '@oz2ux',
+                    to: '@oz2ux',
+                    quickTests: [['@oz2ux', 0]]
+                }
             ]
         }
     ]
