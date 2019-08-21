@@ -7,8 +7,8 @@ import { TranslitModule, TranslitService } from '@dagonmetric/ng-translit';
 
 import { uni2zgRules } from '../src/uni2zg-rules';
 
-import { uniSpellingBookExpects } from './test-data/uni-spelling-book-expects';
-import { uniSpellingBookInputs } from './test-data/uni-spelling-book-inputs';
+import { uniSpellingBookExpects } from './test-data/uni-sb-expects';
+import { uniSpellingBookInputs } from './test-data/uni-sb-inputs';
 
 import { formatCodePoints, toFailOutput } from './shared.spec';
 
