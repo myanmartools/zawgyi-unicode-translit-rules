@@ -9,9 +9,6 @@
   ],
   "packageFiles": ["package.json"],
   "automerge": true,
-  "major": {
-    "automerge": false
-  },
   "rangeStrategy": "bump",
   "packageRules": [
     {
