@@ -1,6 +1,6 @@
 import { TranslitResult } from '@dagonmetric/ng-translit';
 
-function formatCodePoints(str?: string): string {
+export function formatCodePoints(str?: string): string {
     if (str == null) {
         return '';
     }
