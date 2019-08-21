@@ -6,13 +6,30 @@
 [![npm version](https://img.shields.io/npm/v/@myanmartools/zawgyi-unicode-translit-rules.svg)](https://www.npmjs.com/package/@myanmartools/zawgyi-unicode-translit-rules)
 [![Gitter](https://badges.gitter.im/myanmartools/community.svg)](https://gitter.im/myanmartools/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Zawgyi Unicode transliterate/convert regular expression rules in JSON and JavaScript formats.
+Zawgyi Unicode transliterate/convert regular expression rules in JSON and JavaScript formats using [@dagonmetric/ng-translit](https://www.npmjs.com/package/@dagonmetric/ng-translit) package.
 
-[WIP]
+## Features
 
-## Transliteration Library
+* High performance, reliable, accurate and perfect Zawgyi to Unicode and Unicode to Zawgyi conversion rules!
+* Fully tested with Myanmar Spelling Book (မြန်မာ စာလုံးပေါင်း သတ်ပုံကျမ်း)
+* 100% code coverage unit tested
+* Open source and MIT license!
 
-We use [@dagonmetric/ng-translit](https://www.npmjs.com/package/@dagonmetric/ng-translit) package for transliteration service.
+### Zawgyi-One to Unicode Rule Features
+
+* Perfect conversion with five rule phases
+* Overlapped characters normalization
+* Space between accented characters normalization
+* Order normalization
+* Specialized conversion on Pahsin (ပါဌ်ဆင့်) and Kinsi (ကင်းစီး)
+* Auto checking and converting between 'ဉ' (\u1009) and 'ဥ' (\u1025)
+* Auto checking and converting from 'ဦ' (\u1025\u102E) to 'ဦ' (\u1026)
+* Deep checking and converting between '၀' (သုည \u1040) and 'ဝ' (ဝလုံး \u101D)
+* Customizable on/off rule parsing with `when` and `skip` options
+
+### Unicode to Zawgyi-One Rule Features
+
+* Perfect and performance optimized conversion with only one phase!
 
 ## Getting Started
 
@@ -30,13 +47,11 @@ or yarn
 yarn add @myanmartools/zawgyi-unicode-translit-rules
 ```
 
-### Usage
+### Usage and Application
 
-[WIP]
+See [Zawgyi Unicode Converter Angular PWA](https://github.com/myanmartools/zawgyi-unicode-converter-angular-pwa)
 
-## Live Application
-
-* [Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org) - Angular Progress Web Application designed to detect & convert Myanmar font encodings between Zawgyi-One and Standard Myanmar Unicode
+[![Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org/assets/images/appicons/v1/ios/ios-appicon-180x180.png)](https://zawgyi-unicode-converter.myanmartools.org)
 
 ## Feedback and Contributing
 
