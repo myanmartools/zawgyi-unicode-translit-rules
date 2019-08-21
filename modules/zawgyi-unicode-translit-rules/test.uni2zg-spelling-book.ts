@@ -23,7 +23,7 @@ getTestBed().initTestEnvironment(
 
 // Then we find all the tests.
 // tslint:disable-next-line: no-unsafe-any
-const context = require.context('./', true, /uni2zg-spelling-book\.spec\.ts$/);
+const context = require.context('./', true, /uni2zg-sb\.spec\.ts$/);
 
 // And load the modules.
 // tslint:disable-next-line: no-unsafe-any
