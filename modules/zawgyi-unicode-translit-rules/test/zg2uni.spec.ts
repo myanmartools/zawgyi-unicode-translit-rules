@@ -1441,16 +1441,6 @@ describe('zg2uni-rules-individual', () => {
         });
     });
 
-    it(String.raw`\u1025([\u1000-\u1021\u103F])\u1039`, (done: DoneFn) => {
-        const input = '\u1025\u1086\u1039';
-        const expected = 'ဉဿ်';
-
-        translitService.translit(input, 'rule1', zg2uniRules).subscribe(result => {
-            expect(result.outputText).toBe(expected, toFailOutput(input, result));
-            done();
-        });
-    });
-
     // 'ဝ'
     // ------------------------------------------------------------------------------------------
     it(String.raw`\u1040 - (\u1040\u102B)`, (done: DoneFn) => {
@@ -1606,6 +1596,28 @@ describe('zg2uni-rules-individual', () => {
     it(String.raw`\u1040 - (\u1041\u1040\u1038\u1040)`, (done: DoneFn) => {
         const input = '\u1041\u1040\u1038\u1040';
         const expected = '၁၀း၀';
+
+        translitService.translit(input, 'rule1', zg2uniRules).subscribe(result => {
+            expect(result.outputText).toBe(expected, toFailOutput(input, result));
+            done();
+        });
+    });
+
+    // Order resorting
+    // ------------------------------------------------------------------------------------------
+    it(String.raw`([#zc])\u103A\u102C\u1039\u1038`, (done: DoneFn) => {
+        const input = '\u1031\u101A\u102C\u1000\u103A\u102C\u1039\u1038';
+        const expected = 'ယောက်ျား';
+
+        translitService.translit(input, 'rule1', zg2uniRules).subscribe(result => {
+            expect(result.outputText).toBe(expected, toFailOutput(input, result));
+            done();
+        });
+    });
+
+    it(String.raw`([#zc])\u103A\u102C\u1039`, (done: DoneFn) => {
+        const input = '\u1031\u101A\u102C\u1000\u103A\u102C\u1039';
+        const expected = 'ယောက်ျာ';
 
         translitService.translit(input, 'rule1', zg2uniRules).subscribe(result => {
             expect(result.outputText).toBe(expected, toFailOutput(input, result));
