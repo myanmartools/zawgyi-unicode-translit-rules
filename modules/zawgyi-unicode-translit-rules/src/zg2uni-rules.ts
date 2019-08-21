@@ -259,7 +259,7 @@ export const zg2uniRules: TranslitRule = {
                 fixSpaceBetweenAccentedChars: false
             },
             tplVar: {
-                '#sp': ' \u00A0\u1680\u2000-\u200D\u202F\u205F\u2060\u3000\uFEFF',
+                '#s': ' \u00A0\u1680\u2000-\u200D\u202F\u205F\u2060\u3000\uFEFF',
                 '#ca31Or3b': '\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u1040\u106E\u106F\u1091\u1092\u1097',
                 '#cbs': '\u1000-\u1021\u1023-\u1027\u1029-\u1034\u1036\u1037\u1039-\u103A\u103C\u103D\u103F\u1040\u1060-\u107D\u1085\u108B-\u108D\u1091-\u1097',
                 '#ca': '\u102B-\u1030\u1032-\u1034\u1036-\u103A\u103C\u103D\u1064\u108B-\u108D'
@@ -280,33 +280,33 @@ export const zg2uniRules: TranslitRule = {
             postRulesDef: {
                 prs: [
                     {
-                        from: '[#sp]+',
+                        from: '[#s]+',
                         to: ''
                     }
                 ]
             },
             rules: [
                 {
-                    from: '\u1031[#sp]+\u103B[#sp]+([#ca31Or3b])',
+                    from: '\u1031[#s]+\u103B[#s]+([#ca31Or3b])',
                     to: '\u1031\u103B$1',
                     minLength: 5,
                     quickTests: [['\u1031', 0]]
                 },
                 {
-                    from: '\u1031[#sp]+([#ca31Or3b\u103B])',
+                    from: '\u1031[#s]+([#ca31Or3b\u103B])',
                     to: '\u1031$1',
                     minLength: 3,
                     quickTests: [['\u1031', 0]]
                 },
                 {
-                    from: '\u103B[#sp]+([#ca31Or3b])',
+                    from: '\u103B[#s]+([#ca31Or3b])',
                     to: '\u103B$1',
                     minLength: 3,
                     quickTests: [['\u103B', 0]]
                 },
 
                 {
-                    from: '([#cbs])[@sx]+([#ca])(([#sp]+[#ca])*)',
+                    from: '([#cbs])[@sx]+([#ca])(([#s]+[#ca])*)',
                     to: '$1@sx$2$3',
                     minLength: 3,
                     quickTests: [['@sx', 1]],
@@ -441,7 +441,6 @@ export const zg2uniRules: TranslitRule = {
                 ]
             },
             rules: [
-                // Sort order
                 {
                     from: '@ox([#r]+)',
                     to: '@ox$1',
@@ -460,7 +459,7 @@ export const zg2uniRules: TranslitRule = {
             tplVar: {
                 '#zc': '\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u1040-\u1049',
                 '#zplc': '\u1060-\u1063\u1065-\u1069\u106C\u106D\u1070-\u107C\u1085\u1093',
-                '#zpc': '\u106E\u106F\u1091\u1092\u1097',
+                '#zpc': '\u106E\u106F\u1091\u1092\u1097'
             },
             tplSeq: {
                 '@kx': [
@@ -1421,6 +1420,28 @@ export const zg2uniRules: TranslitRule = {
                 {
                     from: '\u1040',
                     to: '\u101D',
+                    minLength: 3,
+                    quickTests: [['\u1040', 0]],
+                    hasLeft: false,
+                    right: '\u1038[^\u1040-\u1049]',
+                    skip: {
+                        fixU101d: false
+                    }
+                },
+                {
+                    from: '\u1040',
+                    to: '\u101D',
+                    minLength: 3,
+                    quickTests: [['\u1040', 0]],
+                    left: '[^\u1040-\u1049]',
+                    right: '\u1038[^\u1040-\u1049]',
+                    skip: {
+                        fixU101d: false
+                    }
+                },
+                {
+                    from: '\u1040',
+                    to: '\u101D',
                     minLength: 2,
                     quickTests: [['\u1040', 0]],
                     hasLeft: false,
@@ -1464,7 +1485,7 @@ export const zg2uniRules: TranslitRule = {
                 },
 
                 // Others
-                // // ------------------------------------------------------------------------------------------
+                // ------------------------------------------------------------------------------------------
                 {
                     from: '@oz2ux',
                     to: '@oz2ux',
