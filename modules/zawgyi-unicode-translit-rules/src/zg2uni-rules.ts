@@ -541,7 +541,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ေ' + 'ြ'
                 // ...............
                 //
-                // \u1096 (Pasin)
+                // \u1096 (ပါဌ်ဆင့်)
                 {
                     from: '\u1031\u103B([#zc])\u1096@kx',
                     to: '\u1004\u103A\u1039$1\u1039\u1010\u103C\u103D\u1031@kx',
@@ -551,7 +551,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // Pasin
+                // ပါဌ်ဆင့်
                 {
                     from: '\u1031\u103B([#zc])([#zplc])@kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u103C\u1031@kx',
@@ -561,7 +561,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // Pasin (Single)
+                // ပါဌ်ဆင့် (Single)
                 {
                     from: '\u1031\u103B([#zpc])@kx',
                     to: '\u1004\u103A\u1039$1\u103C\u1031@kx',
@@ -614,7 +614,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ေ'
                 // ...............
                 //
-                // \u1096 (Pasin)
+                // \u1096 (ပါဌ်ဆင့်)
                 {
                     from: '\u1031([#zc])\u1096@kx',
                     to: '\u1004\u103A\u1039$1\u1039\u1010\u103D\u1031@kx',
@@ -624,7 +624,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // 'ျ' (Pasin)
+                // 'ျ' (ပါဌ်ဆင့်)
                 {
                     from: '\u1031([#zc])([#zplc])\u103A@kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u103B\u1031@kx',
@@ -634,7 +634,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // 'ျ' (Pasin - Single)
+                // 'ျ' (ပါဌ်ဆင့် - Single)
                 {
                     from: '\u1031([#zpc])\u103A@kx',
                     to: '\u1004\u103A\u1039$1\u103B\u1031@kx',
@@ -644,7 +644,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // Pasin
+                // ပါဌ်ဆင့်
                 {
                     from: '\u1031([#zc])([#zplc])@kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u1031@kx',
@@ -654,7 +654,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // Pasin (Single)
+                // ပါဌ်ဆင့် (Single)
                 {
                     from: '\u1031([#zpc])@kx',
                     to: '\u1004\u103A\u1039$1\u1031@kx',
@@ -747,7 +747,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ြ'
                 // ...............
                 //
-                // \u1096 (Pasin)
+                // \u1096 (ပါဌ်ဆင့်)
                 {
                     from: '\u103B([#zc])\u1096@kx',
                     to: '\u1004\u103A\u1039$1\u1039\u1010\u103C\u103D@kx',
@@ -757,7 +757,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // Pasin
+                // ပါဌ်ဆင့်
                 {
                     from: '\u103B([#zc])([#zplc])@kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u103C@kx',
@@ -767,7 +767,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // Pasin (Single)
+                // ပါဌ်ဆင့် (Single)
                 {
                     from: '\u103B([#zpc])@kx',
                     to: '\u1004\u103A\u1039$1\u103C@kx',
@@ -870,7 +870,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3 }
                 },
 
-                // 'ွ' (Pasin \u1096)
+                // 'ွ' (ပါဌ်ဆင့် \u1096)
                 {
                     from: '([#zc])\u1096@kx',
                     to: '\u1004\u103A\u1039$1\u1039\u1010\u103D@kx',
@@ -893,7 +893,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ျ'
                 // ...............
                 //
-                // Pasin
+                // ပါဌ်ဆင့်
                 {
                     from: '([#zc])([#zplc])\u103A@kx',
                     to: '\u1004\u103A\u1039$1\u1039$2\u103B@kx',
@@ -903,7 +903,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // Pasin (Single)
+                // ပါဌ်ဆင့် (Single)
                 {
                     from: '([#zpc])\u103A@kx',
                     to: '\u1004\u103A\u1039$1\u103B@kx',
@@ -926,7 +926,7 @@ export const zg2uniRules: TranslitRule = {
                 // #
                 // ...............
                 //
-                // Pasin
+                // ပါဌ်ဆင့်
                 {
                     from: '([#zc])([#zplc])@kx',
                     to: '\u1004\u103A\u1039$1\u1039$2@kx',
@@ -936,7 +936,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 3, gpx: 5 }
                 },
 
-                // Pasin (Single)
+                // ပါဌ်ဆင့် (Single)
                 {
                     from: '([#zpc])@kx',
                     to: '\u1004\u103A\u1039$1@kx',
@@ -993,7 +993,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ွ'
                 // ...............
                 //
-                // Pasin (\u1096)
+                // ပါဌ်ဆင့် (\u1096)
                 {
                     from: '\u1031\u103B([#zc])\u1096',
                     to: '$1\u1039\u1010\u103C\u103D\u1031',
@@ -1016,7 +1016,7 @@ export const zg2uniRules: TranslitRule = {
                 // #
                 // ...............
                 //
-                // Pasin
+                // ပါဌ်ဆင့်
                 {
                     from: '\u1031\u103B([#zc])([#zplc])',
                     to: '$1\u1039$2\u103C\u1031',
@@ -1026,7 +1026,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 0, gpx: 2 }
                 },
 
-                // Pasin (Single)
+                // ပါဌ်ဆင့် (Single)
                 {
                     from: '\u1031\u103B([#zpc])',
                     to: '$1\u103C\u1031',
@@ -1111,7 +1111,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ွ'
                 // ...............
                 //
-                // Pasin (\u1096)
+                // ပါဌ်ဆင့် (\u1096)
                 {
                     from: '\u1031([#zc])\u1096',
                     to: '$1\u1039\u1010\u103D\u1031',
@@ -1134,7 +1134,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ျ'
                 // ...............
                 //
-                // Pasin
+                // ပါဌ်ဆင့်
                 {
                     from: '\u1031([#zc])([#zplc])\u103A',
                     to: '$1\u1039$2\u103B\u1031',
@@ -1144,7 +1144,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 0, gpx: 2 }
                 },
 
-                // Pasin (Single)
+                // ပါဌ်ဆင့် (Single)
                 {
                     from: '\u1031([#zpc])\u103A',
                     to: '$1\u103B\u1031',
@@ -1167,7 +1167,7 @@ export const zg2uniRules: TranslitRule = {
                 // #
                 // ...............
                 //
-                // Pasin
+                // ပါဌ်ဆင့်
                 {
                     from: '\u1031([#zc])([#zplc])',
                     to: '$1\u1039$2\u1031',
@@ -1177,7 +1177,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 0, gpx: 2 }
                 },
 
-                // Pasin (Single)
+                // ပါဌ်ဆင့် (Single)
                 {
                     from: '\u1031([#zpc])',
                     to: '$1\u1031',
@@ -1200,7 +1200,7 @@ export const zg2uniRules: TranslitRule = {
                 // 'ြ'
                 // ------------------------------------------------------------------------------------------
                 // #
-                // Pasin (\u1096)
+                // ပါဌ်ဆင့် (\u1096)
                 {
                     from: '\u103B([#zc])\u1096',
                     to: '$1\u1039\u1010\u103C\u103D',
@@ -1210,7 +1210,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 0 }
                 },
 
-                // Pasin
+                // ပါဌ်ဆင့်
                 {
                     from: '\u103B([#zc])([#zplc])',
                     to: '$1\u1039$2\u103C',
@@ -1220,7 +1220,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 0, gpx: 2 }
                 },
 
-                // Pasin (Single)
+                // ပါဌ်ဆင့် (Single)
                 {
                     from: '\u103B([#zpc])',
                     to: '$1\u103C',
@@ -1240,7 +1240,7 @@ export const zg2uniRules: TranslitRule = {
                     postRulesStart: { gc1: 0 }
                 },
 
-                // Pasin
+                // ပါဌ်ဆင့်
                 // ------------------------------------------------------------------------------------------
                 // ([#zc]) + \u1096
                 {
