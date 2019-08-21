@@ -34,10 +34,10 @@
           },
           "configurations": {
             "zg2uni": {
-              "main": "modules/zawgyi-unicode-translit-rules/test.zg2uni-only.ts"
+              "main": "modules/zawgyi-unicode-translit-rules/test.zg2uni.ts"
             },
             "uni2zg": {
-              "main": "modules/zawgyi-unicode-translit-rules/test.uni2zg-only.ts"
+              "main": "modules/zawgyi-unicode-translit-rules/test.uni2zg.ts"
             },
             "zg2uni-sb": {
               "main": "modules/zawgyi-unicode-translit-rules/test.zg2uni-sb.ts"
