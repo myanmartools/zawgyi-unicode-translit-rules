@@ -1485,8 +1485,8 @@ export const zg2uniRules: TranslitRule = {
 
                 // Order resorting
                 // ------------------------------------------------------------------------------------------
-                 // ' ျ' + 'ာ' + '် + 'း'
-                 {
+                // ' ျ' + 'ာ' + '် + 'း'
+                {
                     from: '([#zc])\u103A\u102C\u1039\u1038',
                     to: '$1\u103A\u103B\u102C\u1038',
                     minLength: 5,
@@ -1494,8 +1494,8 @@ export const zg2uniRules: TranslitRule = {
                     left: '[\u102B-\u102D\u102F\u103D\u103E]'
                 },
 
-                 // ' ျ' + 'ာ' + '်
-                 {
+                // ' ျ' + 'ာ' + '်
+                {
                     from: '([#zc])\u103A\u102C\u1039',
                     to: '$1\u103A\u103B\u102C',
                     minLength: 4,
