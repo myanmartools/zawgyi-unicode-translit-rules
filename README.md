@@ -11,7 +11,7 @@ Zawgyi Unicode transliterate/convert regular expression rules in JSON and JavaSc
 ## Features
 
 * High performance, reliable, accurate and perfect Zawgyi to Unicode and Unicode to Zawgyi conversion rules!
-* Fully tested with Myanmar Spelling Book (မြန်မာ စာလုံးပေါင်း သတ်ပုံကျမ်း)
+* Fully tested with Myanmar Spelling Book (မြန်မာ စာလုံးပေါင်း သတ်ပုံကျမ်း) data
 * 100% code coverage unit tested
 * Open source and MIT license!
 
