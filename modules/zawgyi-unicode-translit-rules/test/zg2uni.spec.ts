@@ -34,7 +34,7 @@ describe('zg2uni-rules-individual', () => {
 
         translitService.translit(input, 'rule1', zg2uniRules, {
             convertSingleForm: false,
-            fixSpaceBetweenAccentedChars: false,
+            fixExtraSpace: false,
             sortOrder: false,
             convertZg2Uni: false
         }).subscribe(result => {
@@ -50,7 +50,7 @@ describe('zg2uni-rules-individual', () => {
         const expected = '\u103B\u1014\u103A\u103C\u103D\u102E\u1030';
 
         translitService.translit(input, 'rule1', zg2uniRules, {
-            fixSpaceBetweenAccentedChars: false,
+            fixExtraSpace: false,
             sortOrder: false,
             convertZg2Uni: false
         }).subscribe(result => {
@@ -59,9 +59,9 @@ describe('zg2uni-rules-individual', () => {
         });
     });
 
-    // Space between accented characters normalization phase
+    // Fix extra space normalization phase
     // ------------------------------------------------------------------------------------------
-    it(String.raw`space between accented characters normalization phase - (with \u1031\u103B)`, (done: DoneFn) => {
+    it(String.raw`Fix extra space normalization - (with \u1031\u103B)`, (done: DoneFn) => {
         const input = '\u1031  \u103B \u1000';
         const expected = '\u1031\u103B\u1000';
 
@@ -74,7 +74,7 @@ describe('zg2uni-rules-individual', () => {
         });
     });
 
-    it(String.raw`space between accented characters normalization phase - (with \u1031)`, (done: DoneFn) => {
+    it(String.raw`Fix extra space normalization - (with \u1031)`, (done: DoneFn) => {
         const input = '\u1031  \u1000';
         const expected = '\u1031\u1000';
 
@@ -87,7 +87,7 @@ describe('zg2uni-rules-individual', () => {
         });
     });
 
-    it(String.raw`space between accented characters normalization phase - (with \u103B)`, (done: DoneFn) => {
+    it(String.raw`Fix extra space normalization - (with \u103B)`, (done: DoneFn) => {
         const input = '\u103B  \u1000';
         const expected = '\u103B\u1000';
 
@@ -100,7 +100,7 @@ describe('zg2uni-rules-individual', () => {
         });
     });
 
-    it(String.raw`space between accented characters normalization phase`, (done: DoneFn) => {
+    it(String.raw`Fix extra space normalization`, (done: DoneFn) => {
         const input = '\u1000   \u102D  \u1037';
         const expected = '\u1000\u102D\u1037';
 
