@@ -254,15 +254,14 @@ export const zg2uniRules: TranslitRule = {
             ]
         },
         {
-            description: 'Space between accented characters normalization phase',
+            description: 'Fix extra space normalization phase',
             skip: {
-                fixSpaceBetweenAccentedChars: false
+                fixExtraSpace: false
             },
             tplVar: {
                 '#s': ' \u00A0\u1680\u2000-\u200D\u202F\u205F\u2060\u3000\uFEFF',
-                '#ca31Or3b': '\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u1040\u106E\u106F\u1091\u1092\u1097',
-                '#cbs': '\u1000-\u1021\u1023-\u1027\u1029-\u1034\u1036\u1037\u1039-\u103A\u103C\u103D\u103F\u1040\u1060-\u107D\u1085\u108B-\u108D\u1091-\u1097',
-                '#ca': '\u102B-\u1030\u1032-\u1034\u1036-\u103A\u103C\u103D\u1064\u108B-\u108D'
+                '#c1': '\u1000-\u1021\u1023-\u1027\u1029\u102A\u103F\u1040\u1044\u106A\u106B\u106E\u106F\u1086\u108F-\u1092\u1097',
+                '#ac': '\u102B-\u1030\u1032-\u1034\u1036-\u103A\u103C\u103D\u105A\u1060-\u1069\u106C\u106D\u1070-\u107D\u1085\u1087-\u108E\u1093-\u1096'
             },
             tplSeq: {
                 '@sx': [
@@ -287,26 +286,39 @@ export const zg2uniRules: TranslitRule = {
             },
             rules: [
                 {
-                    from: '\u1031[#s]+\u103B[#s]+([#ca31Or3b])',
-                    to: '\u1031\u103B$1',
-                    minLength: 5,
-                    quickTests: [['\u1031', 0]]
+                    from: '\u1031[@sx]+\u103B[#s]*([#c1])[#s]*([#ac])*(([#s]*[#ac])*)',
+                    to: '\u1031@sx\u103B$1$2$3',
+                    minLength: 4,
+                    quickTests: [['\u1031', 0], ['@sx', 1]],
+                    postRulesRef: 'prs',
+                    postRulesStrategy: 'whileMatch'
                 },
                 {
-                    from: '\u1031[#s]+([#ca31Or3b\u103B])',
-                    to: '\u1031$1',
+                    from: '\u1031\u103B[@sx]+([#c1])[#s]*([#ac])*(([#s]*[#ac])*)',
+                    to: '\u1031\u103B@sx$1$2$3',
+                    minLength: 4,
+                    quickTests: [['\u1031', 0], ['\u103B', 1], ['@sx', 2]],
+                    postRulesRef: 'prs',
+                    postRulesStrategy: 'whileMatch'
+                },
+                 {
+                    from: '\u1031[@sx]+([#c1])[#s]*([#ac])*(([#s]*[#ac])*)',
+                    to: '\u1031@sx$1$2$3',
                     minLength: 3,
-                    quickTests: [['\u1031', 0]]
+                    quickTests: [['\u1031', 0], ['@sx', 1]],
+                    postRulesRef: 'prs',
+                    postRulesStrategy: 'whileMatch'
                 },
                 {
-                    from: '\u103B[#s]+([#ca31Or3b])',
-                    to: '\u103B$1',
+                    from: '\u103B[@sx]+([#c1])[#s]*([#ac])*(([#s]*[#ac])*)',
+                    to: '\u103B@sx$1$2$3',
                     minLength: 3,
-                    quickTests: [['\u103B', 0]]
+                    quickTests: [['\u103B', 0], ['@sx', 1]],
+                    postRulesRef: 'prs',
+                    postRulesStrategy: 'whileMatch'
                 },
-
                 {
-                    from: '([#cbs])[@sx]+([#ca])(([#s]+[#ca])*)',
+                    from: '([#c1])[@sx]+([#ac])(([#s]*[#ac])*)',
                     to: '$1@sx$2$3',
                     minLength: 3,
                     quickTests: [['@sx', 1]],
