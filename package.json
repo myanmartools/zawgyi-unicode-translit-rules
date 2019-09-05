@@ -23,7 +23,7 @@
     "@angular/common": "^8.2.5",
     "@angular/core": "^8.2.5",
     "@dagonmetric/ng-translit": "^14.2.0",
-    "rxjs": "^6.5.2",
+    "rxjs": "^6.5.3",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
