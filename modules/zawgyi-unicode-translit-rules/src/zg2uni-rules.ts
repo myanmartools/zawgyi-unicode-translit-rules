@@ -324,6 +324,46 @@ export const zg2uniRules: TranslitRule = {
                     quickTests: [['@sx', 1]],
                     postRulesRef: 'prs',
                     postRulesStrategy: 'whileMatch'
+                },
+                {
+                    from: '([#c1])([#ac])[@sx]+([#ac])(([#s]*[#ac])*)',
+                    to: '$1$2@sx$3$4',
+                    minLength: 4,
+                    quickTests: [['@sx', 2]],
+                    postRulesRef: 'prs',
+                    postRulesStrategy: 'whileMatch'
+                },
+                {
+                    from: '([#c1])([#ac])([#ac])[@sx]+([#ac])(([#s]*[#ac])*)',
+                    to: '$1$2$3@sx$4$5',
+                    minLength: 5,
+                    quickTests: [['@sx', 3]],
+                    postRulesRef: 'prs',
+                    postRulesStrategy: 'whileMatch'
+                },
+                {
+                    from: '([#c1])([#ac])([#ac])([#ac])[@sx]+([#ac])(([#s]*[#ac])*)',
+                    to: '$1$2$3$4@sx$5$6',
+                    minLength: 6,
+                    quickTests: [['@sx', 4]],
+                    postRulesRef: 'prs',
+                    postRulesStrategy: 'whileMatch'
+                },
+                {
+                    from: '([#c1])([#ac])([#ac])([#ac])([#ac])[@sx]+([#ac])(([#s]*[#ac])*)',
+                    to: '$1$2$3$4$5@sx$6$7',
+                    minLength: 7,
+                    quickTests: [['@sx', 5]],
+                    postRulesRef: 'prs',
+                    postRulesStrategy: 'whileMatch'
+                },
+                {
+                    from: '([#c1])([#ac])([#ac])([#ac])([#ac])([#ac])[@sx]+([#ac])(([#s]*[#ac])*)',
+                    to: '$1$2$3$4$5$6@sx$7$8',
+                    minLength: 8,
+                    quickTests: [['@sx', 6]],
+                    postRulesRef: 'prs',
+                    postRulesStrategy: 'whileMatch'
                 }
             ]
         },

@@ -35,4 +35,14 @@ describe('translit#zg2uni-misc', () => {
             done();
         });
     });
+
+    it(String.raw`\u101C\u102D\u102F \u1037`, (done: DoneFn) => {
+        const input = '\u101C\u102D\u102F \u1037';
+        const expected = '\u101C\u102D\u102F\u1037';
+
+        translitService.translit(input, 'zg2uni', zg2uniRules).subscribe(result => {
+            expect(result.outputText).toBe(expected, toFailOutput(input, result));
+            done();
+        });
+    });
 });
