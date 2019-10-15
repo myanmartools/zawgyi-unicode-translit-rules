@@ -1,7 +1,7 @@
 # Zawgyi Unicode Transliterate Rules
 
+[![Build Status](https://github.com/myanmartools/zawgyi-unicode-translit-rules/workflows/Build/badge.svg)](https://github.com/myanmartools/zawgyi-unicode-translit-rules/actions)
 [![Build Status](https://dev.azure.com/myanmartools/zawgyi-unicode-translit-rules/_apis/build/status/myanmartools.zawgyi-unicode-translit-rules?branchName=master)](https://dev.azure.com/myanmartools/zawgyi-unicode-translit-rules/_build/latest?definitionId=6&branchName=master)
-[![CircleCI](https://circleci.com/gh/myanmartools/zawgyi-unicode-translit-rules.svg?style=svg)](https://circleci.com/gh/myanmartools/zawgyi-unicode-translit-rules)
 [![codecov](https://codecov.io/gh/myanmartools/zawgyi-unicode-translit-rules/branch/master/graph/badge.svg)](https://codecov.io/gh/myanmartools/zawgyi-unicode-translit-rules)
 [![npm version](https://img.shields.io/npm/v/@myanmartools/zawgyi-unicode-translit-rules.svg)](https://www.npmjs.com/package/@myanmartools/zawgyi-unicode-translit-rules)
 [![Gitter](https://badges.gitter.im/myanmartools/community.svg)](https://gitter.im/myanmartools/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
