@@ -6,7 +6,7 @@
 [![npm version](https://img.shields.io/npm/v/@myanmartools/zawgyi-unicode-translit-rules.svg)](https://www.npmjs.com/package/@myanmartools/zawgyi-unicode-translit-rules)
 [![Gitter](https://badges.gitter.im/myanmartools/community.svg)](https://gitter.im/myanmartools/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Zawgyi Unicode transliterate / convert regular expression rules in JavaScript and JSON formats that can work with [@dagonmetric/ng-translit](https://www.npmjs.com/package/@dagonmetric/ng-translit) package.
+Zawgyi Unicode transliterate / convert regular expression rules in JavaScript and JSON formats that can work with [@dagonmetric/](https://www.npmjs.com/package/@dagonmetric/ng-translit) package.
 
 ## Features
 
