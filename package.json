@@ -19,7 +19,7 @@
     "test": "ng test"
   },
   "dependencies": {
-    "@dagonmetric/ng-translit": "^14.2.2",
+    "@dagonmetric/ng-translit": "^14.2.3",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
@@ -32,7 +32,7 @@
     "@angular/language-service": "^9.1.11",
     "@angular/platform-browser": "^9.1.11",
     "@angular/platform-browser-dynamic": "^9.1.11",
-    "@dagonmetric/angular-build": "^9.1.0",
+    "@dagonmetric/angular-build": "^9.1.1",
     "@types/jasmine": "^3.5.10",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "^13.13.5",
