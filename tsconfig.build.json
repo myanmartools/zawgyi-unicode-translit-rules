@@ -1,0 +1,17 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "target": "es2015",
+      "module": "es2015",        
+      "declaration": true,  
+      "sourceMap": false,
+      "types": [],
+      "baseUrl": ".",
+      "rootDir": ".",
+      "outDir": "dist/packages/zawgyi-unicode-translit-rules"
+    },
+    "files": [
+      "public_api.ts"
+    ]
+  }
+  
