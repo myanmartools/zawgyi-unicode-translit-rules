@@ -1,0 +1,42 @@
+{
+    "$schema": "./node_modules/lib-tools/schemas/schema.json",
+    "projects": {
+      "zawgyi-unicode-translit-rules": {
+        "root": ".",
+        "tasks": {
+          "build": {
+            "outputPath": "dist/packages/zawgyi-unicode-translit-rules",
+            "script": {
+              "compilations": "auto",
+              "umdId": "zawgyiUnicodeTranslitRules"
+            },
+            "packageJson": {
+              "scriptsField": false
+            }
+          },
+          "test": {
+            "testIndexFile": "test/index.ts",
+            "tsConfig": "tsconfig.test.json",
+            "envOverrides": {
+              "ci": {
+                "codeCoverageExclude": [
+                  "**/test.ts",
+                  "**/index.ts",
+                  "**/public_api.ts"
+                ],
+                "reporters": [
+                  "junit",
+                  "coverage-istanbul"
+                ],
+                "browsers": [
+                  "ChromeHeadlessCI"
+                ],
+                "singleRun": true
+              }
+            }
+          }
+        }
+      }      
+    }
+  }
+  
