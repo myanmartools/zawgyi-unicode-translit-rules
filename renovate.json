@@ -9,57 +9,6 @@
   ],
   "packageFiles": ["package.json"],
   "automerge": true,
-  "rangeStrategy": "bump",
-  "packageRules": [
-    {
-      "packagePatterns": [
-        "^@angular-devkit\/.*"
-      ],
-      "groupName": "angular-devkit"
-    },
-    {
-      "packagePatterns": [
-        "^@angular\/.*"
-      ],
-      "groupName": "angular"
-    },
-    {
-      "packagePatterns": [
-        "^@dagonmetric\/.*"
-      ],
-      "groupName": "dagonmetric"
-    },
-    {
-      "packagePatterns": [
-        "^@myanmartools\/.*"
-      ],
-      "groupName": "myanmartools"
-    },
-    {
-      "packagePatterns": [
-        "^@types\/.*"
-      ],
-      "groupName": "types"
-    },
-    {
-      "packagePatterns": ["^jasmine.*"],
-      "groupName": "jasmine"
-    },
-    {
-      "packagePatterns": ["^karma.*"],
-      "groupName": "karma"
-    },
-    {
-      "packagePatterns": ["^protractor.*"],
-      "groupName": "protractor"
-    },
-    {
-      "packageNames": ["typescript"],
-      "automerge": false
-    },
-    {
-      "packageNames": ["tsickle"],
-      "automerge": false
-    }
-  ]
+  "rangeStrategy": "bump",    
+  "suppressNotifications": ["prIgnoreNotification", "prEditNotification", "onboardingClose"]
 }
