@@ -1,6 +1,7 @@
 {
-  "name": "zawgyi-unicode-translit-rules",
+  "name": "@myanmartools/zawgyi-unicode-translit-rules",
   "version": "1.1.3",
+  "description": "Zawgyi Unicode transliterate/convert regular expression rules in JSON and JavaScript formats using @dagonmetric/ng-translit package.",
   "author": "DagonMetric",
   "license": "MIT",
   "repository": {
@@ -11,6 +12,27 @@
     "url": "https://github.com/myanmartools/zawgyi-unicode-translit-rules/issues"
   },
   "homepage": "https://github.com/myanmartools/zawgyi-unicode-translit-rules",
+  "keywords": [
+    "zawgyi-unicode-translit-rules",
+    "zawgyi-unicode-convert-rules",
+    "zawgyi-unicode-converter",
+    "zawgyi-to-unicode",
+    "unicode-to-zawgyi",
+    "transliterate-rules",
+    "transliterate-myanmar",
+    "transliteration",
+    "transliterate",
+    "transliterator",
+    "translit-rules",
+    "transliterate-regular-expressions",
+    "unicode-tools",
+    "script-tools",
+    "language-tools",
+    "myanmar-tools",
+    "zawgyi-tools",
+    "zawgyi",
+    "ng-translit"
+  ],
   "scripts": {
     "lint": "eslint -c .eslintrc.json --ext .js,.ts .",
     "build": "lib build --env.prod=true && node ./scripts/gen-json.js",
