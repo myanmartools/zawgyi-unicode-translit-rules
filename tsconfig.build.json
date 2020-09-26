@@ -11,7 +11,7 @@
       "outDir": "dist/packages/zawgyi-unicode-translit-rules"
     },
     "files": [
-      "public_api.ts"
+      "index.ts"
     ]
   }
   
