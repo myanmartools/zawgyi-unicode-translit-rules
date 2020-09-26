@@ -7,8 +7,14 @@
           "build": {
             "outputPath": "dist/packages/zawgyi-unicode-translit-rules",
             "script": {
-              "compilations": "auto",
-              "umdId": "zawgyiUnicodeTranslitRules"
+              "compilations": [
+                {
+                  "declaration": true,
+                  "target": "ES2015"
+                }              
+              ],
+              "tsConfig": "tsconfig.build.json",
+              "entry": "public_api.ts"                  
             },
             "packageJson": {
               "scriptsField": false
