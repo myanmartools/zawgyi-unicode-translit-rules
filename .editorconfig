@@ -9,7 +9,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 # Typescript, javascript and client-side files
-[*.{ts,tsx,js,jsx,html,css,scss,less}]
+[*.{ts,tsx,js,jsx,html}]
 indent_size = 4
 
 [*.md]
