@@ -7,9 +7,6 @@
       "node"
     ]
   },
-  "files": [
-    "test/index.ts"
-  ],
   "include": [
     "test/**/*.spec.ts",
     "test/**/*.d.ts"
