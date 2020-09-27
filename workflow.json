@@ -23,6 +23,7 @@
             "tsConfig": "tsconfig.test.json",
             "envOverrides": {
               "ci": {
+                "testIndexFile": "test/index.ts",
                 "codeCoverageExclude": [
                   "**/test.ts",
                   "**/index.ts",
@@ -32,6 +33,20 @@
                   "junit",
                   "coverage-istanbul"
                 ],
+                "browsers": [
+                  "ChromeHeadlessCI"
+                ],
+                "singleRun": true
+              },
+              "sbzg2uni": {
+                "testIndexFile": "test/test-sb-zg2uni.ts",
+                "browsers": [
+                  "ChromeHeadlessCI"
+                ],
+                "singleRun": true
+              },
+              "sbuni2zg": {
+                "testIndexFile": "test/test-sb-uni2zg.ts",
                 "browsers": [
                   "ChromeHeadlessCI"
                 ],
