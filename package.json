@@ -36,7 +36,9 @@
   "scripts": {
     "lint": "eslint -c .eslintrc.json --ext .js,.ts .",
     "build": "lib build --env.prod=true",
-    "test": "lib test --env.ci=true"
+    "test": "lib test --env.ci=true",
+    "test:sbzg2uni": "lib test --env.sbzg2uni=true",
+    "test:sbuni2zg": "lib test --env.sbuni2zg=true"
   },
   "devDependencies": {
     "@dagonmetric/translit-js": "^1.0.0",
