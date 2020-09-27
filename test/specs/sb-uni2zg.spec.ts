@@ -7,17 +7,13 @@ import { uniSpellingBookExpects } from './test-data/uni-sb-expects';
 import { uniSpellingBookInputs } from './test-data/uni-sb-inputs';
 
 describe('uni2zg-spelling-book', () => {
-    let i = 0;
-    do {
-        const start = i;
-        i += 3000;
-
-        const inputText = uniSpellingBookInputs.slice(start, i).join('\n');
-        const expectedText = uniSpellingBookExpects.slice(start, i).join('\n');
+    for (let i = 0; i < uniSpellingBookInputs.length; i++) {
+        const inputText = uniSpellingBookInputs[i];
+        const expectedText = uniSpellingBookExpects[i];
 
         it(String.raw`${inputText}`, () => {
             const result = translit(inputText, uni2zgRules);
             void expect(result.outputText).toBe(expectedText, toFailOutput(inputText, result));
         });
-    } while (i < uniSpellingBookInputs.length);
+    }
 });
