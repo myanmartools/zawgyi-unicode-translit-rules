@@ -1,5 +1,3 @@
-// tslint:disable: max-line-length
-
 export const uniSpellingBookExpects = [
     '\u104c',
     '\u104d',
