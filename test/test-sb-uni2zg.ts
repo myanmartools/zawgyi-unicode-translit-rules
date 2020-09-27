@@ -3,6 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-const context = (require as any).context('.', true, /(uni2zg|zg2uni).*\.spec\.ts$/);
+const sbUni2ZgContext = (require as any).context('.', true, /sb-uni2zg\.spec\.ts$/);
 
-context.keys().forEach(context);
+sbUni2ZgContext.keys().forEach(sbUni2ZgContext);
