@@ -10,7 +10,7 @@ import { toFailOutput } from './shared.spec';
 describe('zg2uni-spelling-book', () => {
     for (let i = 0; i < uniSpellingBookInputs.length; i++) {
         const inputText = uniSpellingBookInputs[i];
-        const expectedText = uniSpellingBookExpects[i];
+        const expectedText = uniSpellingBookExpects[i].replace(/\u1037\u103A/g, '\u103A\u1037');
 
         it(String.raw`${inputText}`, () => {
             const result = translit(inputText, zg2uniRules);
