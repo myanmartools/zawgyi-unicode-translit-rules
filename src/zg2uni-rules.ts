@@ -281,7 +281,7 @@ export const zg2uniRules: TranslitRule = {
                 {
                     from: '\u105A',
                     to: '\u102B\u1039',
-                    minLength: 2,
+                    minLength: 1,
                     quickTests: [['\u105A', 0]]
                 }
             ]
