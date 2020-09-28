@@ -39,18 +39,10 @@
                 "singleRun": true
               },
               "sbzg2uni": {
-                "testIndexFile": "test/test-sb-zg2uni.ts",
-                "browsers": [
-                  "ChromeHeadlessCI"
-                ],
-                "singleRun": true
+                "testIndexFile": "test/test-sb-zg2uni.ts"                
               },
               "sbuni2zg": {
-                "testIndexFile": "test/test-sb-uni2zg.ts",
-                "browsers": [
-                  "ChromeHeadlessCI"
-                ],
-                "singleRun": true
+                "testIndexFile": "test/test-sb-uni2zg.ts"                
               }
             }
           }
