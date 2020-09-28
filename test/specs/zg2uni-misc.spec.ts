@@ -20,4 +20,12 @@ describe('translit#zg2uni-misc', () => {
         const result = translit(input, zg2uniRules);
         void expect(result.outputText).toBe(expected, toFailOutput(input, result));
     });
+
+    it(String.raw`\u1031\u1001\u105a`, () => {
+        const input = '\u1031\u1001\u105a';
+        const expected = '\u1001\u1031\u102b\u103a';
+
+        const result = translit(input, zg2uniRules);
+        void expect(result.outputText).toBe(expected, toFailOutput(input, result));
+    });
 });
