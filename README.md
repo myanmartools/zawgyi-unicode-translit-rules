@@ -55,6 +55,12 @@ See [Zawgyi Unicode Converter Angular PWA](https://github.com/myanmartools/zawgy
 
 [Zawgyi Unicode Converter](https://zawgyi-unicode-converter.myanmartools.org)
 
+## Build & Test Tools
+
+We use [lib-tools](https://github.com/lib-tools/lib-tools) for bundling, testing and packaging our library projects.
+
+[![Lib Tools](https://repository-images.githubusercontent.com/273890506/28038a00-dcea-11ea-8b4a-7d655158ccf2)](https://github.com/lib-tools/lib-tools)
+
 ## Feedback and Contributing
 
 Check out the [Contributing](https://github.com/myanmartools/zawgyi-unicode-translit-rules/blob/master/CONTRIBUTING.md) page to see the best places to log issues and start discussions.
