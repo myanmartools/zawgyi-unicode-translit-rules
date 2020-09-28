@@ -13,7 +13,7 @@ describe('zg2uni-spelling-book', () => {
         const expectedText = uniSpellingBookExpects[i].replace(/\u1037\u103A/g, '\u103A\u1037');
 
         it(String.raw`${inputText}`, () => {
-            const result = translit(inputText, zg2uniRules);
+            const result = translit(inputText, zg2uniRules, undefined, true);
             void expect(result.outputText).toBe(expectedText, toFailOutput(inputText, result));
         });
     }

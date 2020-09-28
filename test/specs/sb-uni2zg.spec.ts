@@ -12,7 +12,7 @@ describe('uni2zg-spelling-book', () => {
         const expectedText = uniSpellingBookExpects[i];
 
         it(String.raw`${inputText}`, () => {
-            const result = translit(inputText, uni2zgRules);
+            const result = translit(inputText, uni2zgRules, undefined, true);
             void expect(result.outputText).toBe(expectedText, toFailOutput(inputText, result));
         });
     }
