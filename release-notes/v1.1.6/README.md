@@ -1,6 +1,6 @@
 ## Changes
 
-* Fix bugs on zg2uni rule for `\u105a`
+* Update package dependencies
 
 npm packages are available on:
 
