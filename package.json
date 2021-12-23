@@ -44,7 +44,7 @@
     "@dagonmetric/translit-js": "^1.0.2",
     "@types/jasmine": "^3.10.2",
     "@types/jasminewd2": "^2.0.10",
-    "@types/node": "^16.11.15",
+    "@types/node": "^16.11.17",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^8.5.0",
