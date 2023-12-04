@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@dagonmetric/translit-js": "^1.0.2",
-    "@types/jasmine": "^4.3.5",
+    "@types/jasmine": "^4.6.4",
     "@types/jasminewd2": "^2.0.13",
     "@types/node": "^18.19.2",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
