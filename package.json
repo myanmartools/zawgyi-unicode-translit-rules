@@ -54,6 +54,6 @@
     "jasmine-core": "^5.1.2",
     "lib-tools": "^2.0.4",
     "prettier": "^2.2.1",
-    "typescript": "~5.4.2"
+    "typescript": "~5.4.3"
   }
 }
