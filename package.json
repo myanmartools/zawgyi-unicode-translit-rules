@@ -50,7 +50,7 @@
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-jsdoc": "^43.0.7",
-    "eslint-plugin-prettier": "^5.5.3",
+    "eslint-plugin-prettier": "^5.5.4",
     "jasmine-core": "^5.9.0",
     "lib-tools": "^2.0.4",
     "prettier": "^2.2.1",
