@@ -53,7 +53,7 @@
     "eslint-plugin-prettier": "^5.5.5",
     "jasmine-core": "^6.0.1",
     "lib-tools": "^2.0.4",
-    "prettier": "^2.2.1",
+    "prettier": "^2.8.8",
     "typescript": "~5.9.3"
   }
 }
